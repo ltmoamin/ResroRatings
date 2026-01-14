@@ -1,0 +1,177 @@
+@import "base/variable.scss";
+
+
+@media (min-width: 2560px) {
+}
+@media (max-width: 1440px) {
+}
+@media (max-width: 1366px) {
+}
+@media (max-width: 1199px) {
+}
+@media (max-width: 991px) {
+  .row-eq-rs-height{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center ;
+  }
+  .button-center{
+    .consultis-button{
+      text-align: center;
+    }
+  }
+  .image{
+    img{
+      width: 100%;
+    }
+  }
+  .img-content {
+    width: 70px;
+    height: 65px;
+  }
+  .footer-link {
+    margin-bottom: 50px;
+  }
+  .getquote-text h3 {
+    margin-bottom: 35px;
+  }
+  .bottom-30{
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .sidebar-content {
+    padding-left: 0;
+    margin-top: 50px;
+  }
+  .singel-comment{
+    padding-left: 0px;
+  }
+  .comment-text .date-year{
+    float: none;
+  }
+  .angel-bottom-right:before,
+  .angel-bottom-left:before {
+    display: none;
+  }
+  .carousel-indicators {
+    left: 32%;
+    width: 100%;
+  }
+  #quote-carousel .carousel-indicators{
+    bottom: -40px;
+  }
+  .contact-form {
+    padding: 50px 120px;
+  }
+  .partner-img {
+    text-align: left;
+    padding: 50px 15px 0px;
+  }
+  .slider-bottom-area {
+    position: relative;
+    bottom: -50px;
+  }
+  .slider-bottom  {
+    .content{
+      margin-bottom: 30px;
+      &:before{
+        background: transparent;
+      }
+    }
+  }
+  .slider-bottom{
+    box-shadow: none;
+  }
+  .service-sectiom {
+    padding-top: 220PX;
+  }
+  .top-address{
+    text-align: center;
+  }
+  .top-social {
+    text-align: center;
+  }
+  .service-five-content{
+    position: relative;
+    h4{
+      font-size: 14px;
+    }
+  }
+  .call-banner{
+    max-width: 100% !important;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    text-align: center;
+    padding: 120px;
+  }
+  .contact-form {
+    padding: 80px 95px 72px 100px;
+  }
+}
+@media (max-width: 767px) {
+  .top-margin{
+    margin-top: 30px;
+  }
+  .service-five-content{
+    h4{
+      font-size: 14px;
+    }
+  }
+  .contact-form{
+    padding: 80px 15px;
+  }
+  .call-section .image img {
+    padding-bottom: 250px;
+  }
+}
+@media (max-width: 480px) {
+  .col-xs-6{
+    width: 100%;
+  }
+
+  .comming-soon {
+    padding: 100px 30px;
+  }
+  .slider-bottom{
+    padding: 0px;
+  }
+  .home-tow-service{
+    position: relative;
+  }
+  .call-banner {
+    padding: 0 15px;
+  }
+
+}
+@media (max-width: 375px) {
+  h2{
+    font-size: 24px !important;
+  }
+  h3{
+    font-size: 18px;
+  }
+  h4{
+    font-size:16px;
+  }
+  .banner-area,
+  .footer,
+  .section-padding {
+    padding: 50px 0px;
+  }
+  #counter {
+    padding: 50px 0px;
+  }
+  .home-tow-service{
+    margin-bottom: -45px;
+    .content{
+      position: relative;
+      left: 0;
+    }
+  }
+}
+@media (max-width: 320px) {
+
+}

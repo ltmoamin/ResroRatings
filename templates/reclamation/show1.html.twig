@@ -1,0 +1,44 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block body %}
+<div class="fils" style="padding-left: 300px;">
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idrec</th>
+                <td>{{ reclamation.idrec }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ reclamation.description }}
+                 {% if form_errors(form.description) is not empty %}
+            <div class="alert alert-danger">{{ form_errors(form.description) }}</div>
+        {% endif %}
+        </td>
+            </tr>
+            <tr>
+                <th>Typerec</th>
+                <td>{{ reclamation.typerec }}</td>
+            </tr>
+            <tr>
+                <th>Etatrec</th>
+                <td>{{ reclamation.etatrec }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+
+    <a href="{{ path('app_reclamation_edit', {'idrec': reclamation.idrec}) }}">edit</a>
+
+    {{ include('reclamation/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

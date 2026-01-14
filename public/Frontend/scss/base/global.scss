@@ -1,0 +1,403 @@
+@import "variable.scss"; // variable.less
+
+/*      All Global css
+----------------------------*/
+body{
+    font-family: $open;
+    font-size: 14px;
+    font-weight: normal;
+    color: $gray;
+    background: $white;
+}
+p{
+    line-height: 24px;
+    font-weight: 400;
+}
+
+ul{
+    margin: 0px;
+    padding: 0px;
+    li{
+        list-style: none;
+    }
+}
+a{
+    -webkit-transition:all 0.3s ease 0s;
+    -moz-transition:all 0.3s ease 0s;
+    -o-transition:all 0.3s ease 0s;
+    -ms-transition:all 0.3s ease 0s;
+    transition:all 0.3s ease 0s;
+    font-weight: 400;
+    font-family: $open;
+    color: $black;
+    &:hover,&:focus,&.active{
+        text-decoration: none;
+
+    }
+}
+input,textarea{
+    -webkit-transition:all 0.3s ease 0s;
+    -moz-transition:all 0.3s ease 0s;
+    -o-transition:all 0.3s ease 0s;
+    -ms-transition:all 0.3s ease 0s;
+    transition:all 0.3s ease 0s;
+}
+input:focus:invalid, textarea:focus:invalid, select:focus:invalid {
+
+}
+button{
+    &:focus{
+        outline: 0;
+    }
+}
+label {
+	font-weight: normal;
+}
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="url"],
+input[type="search"],
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="time"],
+.form-control,textarea,textarea.form-control{
+    height: 50px;
+    border:1px solid $round;
+    border-radius: 0;
+    box-shadow: none;
+    padding-left: 20px;
+    color: $gray;
+    &:focus{
+        box-shadow: none;
+        border-color: $round;
+        outline: 0;
+    }
+}
+textarea,textarea.form-control{
+    height: auto;
+    padding-top: 15px;
+    min-height: 110px;
+    width: 100%;
+    &:focus{
+        outline: 0;
+    }
+}
+.form-group{
+    margin-bottom: 20px;
+}
+/*  Heading Tag
+-------------------*/
+h1,h2,h3,h4,h5,h6{
+    color:$black;
+    font-weight: 700;
+    a{
+        color: inherit;
+        font-weight: inherit;
+    }
+}
+h1{
+    font-size: 60px;
+    line-height: 72px;
+}
+h2{
+    font-size: 30px;
+    color: $navy-blue;
+    margin-top: 0px;
+}
+h3{
+    font-size: 24px;
+    line-height:24px;
+    margin-top: 0px;
+}
+
+h4{
+    font-size: 18px;
+    line-height: 25px;
+}
+h5{
+    font-size: 17px;
+}
+img{
+    max-width: 100%;
+}
+ul{
+    margin-bottom: 0
+}
+.no-margin{
+	margin:0 !important;
+}
+.no-padding{
+	padding:0 !important;
+}
+.no-border{
+    border:0 !important;
+}
+.fix{
+    overflow: hidden;
+}
+.pr{
+    position: relative;
+}
+.color-black{
+    color: $black !important;
+}
+.shadow{
+    box-shadow: 0px 0px 0px 20px rgba(8, 26, 43, 0.15)
+}
+.section-padding{
+    padding: 75px 0px;
+}
+.section-head{
+    .title-text{
+        font-weight: 300;
+    }
+}
+.white-text{
+    color: $white;
+}
+.bg-white{
+    background: $white;
+}
+.bg-deep-light{
+    background: $deep-light;
+}
+.round{
+    border: 1px solid $round;
+}
+.about-line,
+.title-line-left,
+.title-line{
+   position: relative;
+    &:before{
+        position: absolute;
+        left:0;
+        right: 0;
+        width: 60px;
+        height: 4px;
+        content: '';
+        background: $green;
+    }
+}
+.about-line{
+    &:before{
+        bottom: -12px;
+    }
+}
+.title-line-left,
+.title-line{
+    &:before{
+        bottom: -25px;
+    }
+}
+.title-line{
+    &:before{
+        margin:  0 auto;
+    }
+}
+
+.bg-deep{
+    background: $deep;
+}
+.bg-navyblue{
+    background: $navy-blue;
+}
+.clear{
+    clear: both;
+}
+.height-zero{
+    height: 0px;
+}
+.color-green{
+    color: $green;
+}
+.max-width-100 {
+    max-width: 100%;
+    padding-right: 0;
+}
+.consultis-success-button,
+.consultis-button,.form-submit input[type="submit"]{
+    min-width: 150px;
+    font-family: $open;
+    color: $white;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    border-radius: 100px;
+    padding:12px 30px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    transition:all 0.3s ease 0s;
+    border: none;
+    &:hover,&:focus{
+        color: $white;
+        background: $green;
+        transition:all 0.3s ease 0s;
+    }
+}
+.consultis-button{
+    background: $navy-blue;
+}
+.consultis-success-button{
+    background: $green;
+    transition:all 0.3s ease 0s;
+    &:hover{
+        background: $navy-blue;
+        transition:all 0.3s ease 0s;
+    }
+}
+.mt30{
+    margin-top: 30px;
+}
+.mt15{
+    margin-top: 15px;
+}
+.mb0{
+    margin-bottom: 0px;
+}
+.mb10{
+    margin-bottom: 10px;
+}
+.mt20{
+    margin-top: 20px;
+}
+.mb30{
+    margin-bottom: 30px;
+}
+.mb55{
+    margin-bottom: 55px;
+}
+.mb74{
+    margin-bottom: 74px;
+}
+.mb85{
+    margin-bottom: 85px;
+}
+.mb80{
+    margin-bottom: 80px;
+}
+.mb115{
+    margin-bottom: 115px;
+}
+.mt45{
+    margin-top: 45px !important;
+}
+.mt25{
+    margin-top: 25px;
+}
+.mt65{
+    margin-top: 65px;
+}
+.mb45{
+    margin-bottom: 45px;
+}
+.mb25{
+    margin-bottom: 25px;
+}
+.pl5{
+    padding-left: 5px;
+}
+.pt80{
+    padding-top: 80px;
+}
+.mb20{
+    margin-bottom: 20px;
+}
+.mr20{
+    margin-right: 20px;
+}
+.mt0{
+    margin-top: 0px !important;
+}
+.mt60{
+    margin-top: 60px;
+}
+.mb65{
+    margin-bottom: 65px;
+}
+.mr15{
+    margin-right: 15px;
+}
+.pr-zero{
+    padding-right: 0px;
+}
+@font-face { font-family: 'MyriadPro-Regular'; src: url('/fonts/webfont/MyriadPro-Regular.eot') format('embedded-opentype'); font-weight: normal; font-style: normal; } @font-face { font-family: 'MyriadPro-Regular'; src: url('/fonts/webfont/MyriadPro-Regular.otf') format('opentype'),
+ url('/fonts/webfont/MyriadPro-Regular.ttf') format('truetype'), url('/fonts/webfont/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg'); font-weight: normal; font-style: normal; }
+
+
+ .fa-briefcase:before{
+     content: '\f0b1';
+     font-family: FontAwesome;
+     color: $green;
+     padding-right: 10px;
+ }
+.fa-briefcase:after{
+    content: '+';
+    color: $white;
+}
+ .fa-user:before{
+     content: '\f007';
+     font-family: FontAwesome;
+     color: $green;
+     padding-right: 10px;
+ }
+.fa-thumbs-up:before{
+     content: '\f164';
+     font-family: FontAwesome;
+     color: $green;
+    padding-right: 10px;
+}
+.fa-thumbs-up:after{
+    content: '%';
+    color: $white;
+}
+.fa-trophy:before{
+     content: '\f091';
+     font-family: FontAwesome;
+     color: $green;
+    padding-right: 10px;
+ }
+.fa-search-plus{
+    content: '\f00e';
+    font-family: FontAwesome;
+    color: $white;
+}
+
+
+@font-face {
+    font-family: 'flaticon';
+    src:  url('../fonts/flaticon.eot?ct8qt1');
+    src:  url('../fonts/flaticon.eot?ct8qt1#iefix') format('embedded-opentype'),
+    url('../fonts/flaticon.ttf?ct8qt1') format('truetype'),
+    url('../fonts/flaticon.woff?ct8qt1') format('woff'),
+    url('../fonts/flaticon.svg?ct8qt1#flaticon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-money"], [class*=" icon-money"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'flaticon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-moneyshare:before {
+    content: "\e900";
+    color: $green;
+    font-weight: 700;
+}
+.icon-moneythumb-up:before {
+    content: "\e901";
+
+}

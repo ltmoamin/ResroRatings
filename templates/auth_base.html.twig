@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RestoRatings Auth{% endblock %}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('Frontend/assets/css/bootstrap.min.css') }}">
+    
+    <!-- Design System -->
+    <link rel="stylesheet" href="{{ asset('assets/css/design_system.css') }}">
+    
+    <style>
+        body {
+            background-color: var(--pure-white);
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .auth-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        .auth-visual {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2E8B57 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-visual::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -100px;
+            left: -100px;
+        }
+        .auth-visual::after {
+            content: "";
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            bottom: -50px;
+            right: -50px;
+        }
+        .visual-content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+        }
+        .auth-form-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: var(--background-light);
+        }
+        .auth-card-custom {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 40px;
+            border-radius: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+        .auth-logo {
+            width: 180px;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 991px) {
+            .auth-visual { display: none; }
+            .auth-form-side { padding: 20px; }
+            .auth-card-custom { padding: 30px; border-radius: 30px; }
+        }
+    </style>
+    
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <div class="auth-wrapper">
+        <div class="auth-visual">
+            <div class="visual-content text-center">
+                <h1 class="display-4 fw-800 mb-4">Discover the Best <span style="color: #FFD700;">Dining</span> Experiences</h1>
+                <p class="lead opacity-75 mb-5">Join thousands of food lovers sharing their honest ratings and discovering hidden gems in the city.</p>
+                <div class="social-proof-badges d-flex gap-3 justify-content-center">
+                    <div class="badge bg-white text-dark p-3 rounded-pill d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-users text-primary-green"></i> 10k+ Utilisateurs
+                    </div>
+                    <div class="badge bg-white text-dark p-3 rounded-pill d-flex align-items-center gap-2">
+                         <i class="fa-solid fa-star text-warning"></i> 4.9 Note Moyenne
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="auth-form-side">
+            <div class="auth-card-custom">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('Frontend/assets/js/jquery-2.1.0.min.js') }}"></script>
+    <script src="{{ asset('Frontend/assets/js/bootstrap.min.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

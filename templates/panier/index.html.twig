@@ -1,0 +1,196 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Panier - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Panier</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-basket-shopping text-figma-green me-3"></i>
+            Votre Panier
+        </h1>
+        <p class="page-subtitle">Gérez vos articles et passez votre commande</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        {% if achats is not empty %}
+            <!-- Success Alert -->
+            {% if app.session.flashbag.has('success') %}
+                <div class="alert-premium alert-success-premium" role="alert">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <div>
+                        {% for message in app.session.flashbag.get('success') %}
+                            {{ message }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="row g-4">
+                <!-- Cart Items -->
+                <div class="col-lg-8">
+                    <div class="panel-premium">
+                        <div class="panel-header">
+                            <h3 class="panel-title">
+                                <i class="fa-solid fa-utensils text-figma-green me-2"></i>
+                                Articles ({{ achats|length }})
+                            </h3>
+                        </div>
+                        
+                        <table class="table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Produit</th>
+                                    <th>Quantité</th>
+                                    <th>Prix</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for achat in achats %}
+                                <tr>
+                                    <td>
+                                        <div class="product-cell">
+                                            <img src="{{ asset('/platimage/' ~ achat.plat.image) }}" 
+                                                 alt="{{ achat.plat.nom }}" 
+                                                 class="product-img">
+                                            <div>
+                                                <strong>{{ achat.plat.nom }}</strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        {% if app.request.get('editMode') and app.request.get('achatId') == achat.idachat %}
+                                            <form method="post" action="{{ path('app_update_quantite', {'achatId': achat.idachat}) }}" class="d-flex align-items-center gap-2">
+                                                <input type="number" name="newQuantite" value="{{ achat.quantite }}" min="1" 
+                                                       class="form-control-premium" style="width: 80px;" required>
+                                                <button type="submit" class="btn-premium btn-sm-premium">
+                                                    <i class="fa-solid fa-check"></i>
+                                                </button>
+                                            </form>
+                                        {% else %}
+                                            <span class="badge-premium badge-info">{{ achat.quantite }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold text-figma-green">{{ achat.plat.prix }} DT</span>
+                                    </td>
+                                    <td>
+                                        {% if achat.type == 'surplace' %}
+                                            <span class="badge-premium badge-success">
+                                                <i class="fa-solid fa-chair"></i> Sur place
+                                            </span>
+                                        {% else %}
+                                            <span class="badge-premium badge-warning">
+                                                <i class="fa-solid fa-truck"></i> Livraison
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            {% if not app.request.get('editMode') or app.request.get('achatId') != achat.idachat %}
+                                                <a href="{{ path('app_view_panier', {'editMode': true, 'achatId': achat.idachat}) }}" 
+                                                   class="btn-warning-premium btn-sm-premium" title="Modifier">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </a>
+                                            {% endif %}
+                                            <a href="{{ path('app_remove_from_panier', {'achatId': achat.idachat}) }}" 
+                                               class="btn-danger-premium btn-sm-premium" title="Supprimer">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="col-lg-4">
+                    <div class="order-summary">
+                        <h4 class="fw-bold mb-4">
+                            <i class="fa-solid fa-receipt text-figma-green me-2"></i>
+                            Résumé
+                        </h4>
+                        
+                        {% set allSurPlace = true %}
+                        {% set totalMontant = 0 %}
+                        {% set fraisLivraisonAdded = false %}
+                        
+                        {% for achat in achats %}
+                            {% set totalMontant = totalMontant + achat.calculateTotalAmount() %}
+                            {% if achat.type != 'surplace' %}
+                                {% set allSurPlace = false %}
+                            {% endif %}
+                            {% if achat.type == 'livraison' %}
+                                {% set fraisLivraisonAdded = true %}
+                            {% endif %}
+                        {% endfor %}
+                        
+                        <div class="order-summary-row">
+                            <span class="text-muted">Sous-total</span>
+                            <span class="fw-semibold">{{ totalMontant }} DT</span>
+                        </div>
+                        
+                        {% if fraisLivraisonAdded %}
+                        <div class="order-summary-row">
+                            <span class="text-muted">
+                                <i class="fa-solid fa-truck me-1"></i> Livraison
+                            </span>
+                            <span class="fw-semibold">2.50 DT</span>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="order-summary-total d-flex justify-content-between">
+                            <span>Total</span>
+                            {% if allSurPlace %}
+                                <span class="text-figma-green">{{ totalMontant }} DT</span>
+                            {% else %}
+                                {% set fraisLivraison = fraisLivraisonAdded ? 2.5 : 0 %}
+                                <span class="text-figma-green">{{ totalMontant + fraisLivraison }} DT</span>
+                            {% endif %}
+                        </div>
+                        
+                        <a href="{{ path('app_generate_panier_pdf') }}" class="btn-premium w-100 mt-4">
+                            <i class="fa-solid fa-check-circle me-2"></i>
+                            Valider La Commande
+                        </a>
+                        
+                        <a href="{{ path('home_Front') }}#menu" class="btn-outline-premium w-100 mt-3 text-center d-block">
+                            <i class="fa-solid fa-arrow-left me-2"></i>
+                            Continuer vos achats
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <!-- Empty State -->
+            <div class="panel-premium">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                    </div>
+                    <h3 class="empty-state-title">Votre panier est vide</h3>
+                    <p class="empty-state-text">
+                        Découvrez nos délicieux plats et ajoutez-les à votre panier pour passer commande.
+                    </p>
+                    <a href="{{ path('home_Front') }}#menu" class="btn-premium">
+                        <i class="fa-solid fa-utensils me-2"></i>
+                        Parcourir le menu
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

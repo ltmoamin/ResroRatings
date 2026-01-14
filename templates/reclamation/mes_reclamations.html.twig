@@ -1,0 +1,129 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Mes Réclamations - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Réclamations</span>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-circle-exclamation text-figma-green me-3"></i>
+                    Mes Réclamations
+                </h1>
+                <p class="page-subtitle">Suivez l'état de vos demandes de support</p>
+            </div>
+            <a href="{{ path('app_reclamation_new1') }}" class="btn-premium">
+                <i class="fa-solid fa-plus me-2"></i>
+                Nouvelle Réclamation
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        {% if pagination|length > 0 %}
+            <div class="panel-premium">
+                <div class="panel-header">
+                    <h3 class="panel-title">Historique des demandes</h3>
+                </div>
+                
+                <table class="table-premium">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Type</th>
+                            <th>État</th>
+                            <th>Dernière Réponse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reclamation in pagination %}
+                            <tr>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ reclamation.description|slice(0, 50) }}{% if reclamation.description|length > 50 %}...{% endif %}</div>
+                                    <small class="text-muted">{{ reclamation.user.username }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge-premium badge-info">{{ reclamation.typerec }}</span>
+                                </td>
+                                <td>
+                                    {% if reclamation.etatrec == 'Traité' %}
+                                        <span class="badge-premium badge-success">
+                                            <i class="fa-solid fa-check-circle me-1"></i> Traité
+                                        </span>
+                                    {% elseif reclamation.etatrec == 'En cours' %}
+                                        <span class="badge-premium badge-warning">
+                                            <i class="fa-solid fa-clock me-1"></i> En cours
+                                        </span>
+                                    {% else %}
+                                        <span class="badge-premium badge-danger">{{ reclamation.etatrec }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if reclamation.reponses|length > 0 %}
+                                        <div class="text-secondary small italic">
+                                            "{{ reclamation.reponses[0].contenue|slice(0, 60) }}..."
+                                        </div>
+                                    {% else %}
+                                        <span class="text-muted small">En attente de réponse</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="mt-4 d-flex justify-content-center">
+                    <div class="pagination-premium">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="panel-premium">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                    </div>
+                    <h3 class="empty-state-title">Aucune réclamation</h3>
+                    <p class="empty-state-text">Vous n'avez pas encore soumis de réclamation. Si vous rencontrez un problème, n'hésitez pas à nous le signaler.</p>
+                    <a href="{{ path('app_reclamation_new1') }}" class="btn-premium">
+                        <i class="fa-solid fa-plus me-2"></i>
+                        Créer une réclamation
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+.pagination-premium .pagination {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 0;
+}
+.pagination-premium .page-item .page-link {
+    border-radius: var(--radius-md);
+    border: 1px solid var(--gray-200);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    transition: all var(--transition-fast);
+}
+.pagination-premium .page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+.pagination-premium .page-item .page-link:hover {
+    background-color: var(--primary-light);
+    color: var(--primary);
+}
+</style>
+{% endblock %}

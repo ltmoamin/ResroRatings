@@ -1,0 +1,168 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Event Management{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <script>var searchUrl = "{{ path('app_evennement_search_ajax') }}";</script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('assets/js/Evennementsearch.js') }}"></script>
+
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-calendar-days mr-3"></i>Event Management
+                    </h1>
+                    <p class="text-muted mt-2">Planifiez et gérez vos événements, conférences et ateliers.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_evennement_new') }}" class="btn btn-premium-p">
+                        <i class="fa-solid fa-plus mr-2"></i>Nouvel Événement
+                    </a>
+                    <a href="{{ path('excels') }}" class="btn btn-outline-success ml-2 shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-file-excel mr-2"></i>Excel
+                    </a>
+                    <a href="{{ path('stats') }}" class="btn btn-outline-info ml-2 shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-chart-line mr-2"></i>Stats
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <!-- Search & Filters -->
+            <div class="card card-premium-admin mb-5">
+                <div class="card-header border-0 bg-transparent">
+                    <h3 class="card-title text-sm"><i class="fa-solid fa-magnifying-glass mr-2"></i>Filtres & Recherche AJAX</h3>
+                </div>
+                <div class="card-body">
+                    <form method="get" action="{{ path('app_evennement_search_ajax') }}" id="searchEvennementForm">
+                        <div class="input-group input-group-premium">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+                            </div>
+                            <input type="text" class="form-control form-control-premium" name="q" id="evennementSearchInput" placeholder="Chercher par titre, lieu, thématique..." value="{{ app.request.query.get('q') }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-premium-p px-4">Lancer la recherche</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Events Table -->
+            <div class="card card-premium-admin shadow-lg">
+                <div class="card-header border-0 bg-transparent d-flex justify-content-between align-items-center">
+                    <h3 class="card-title font-weight-bold">Liste des Événements Catalogués</h3>
+                    {% if app.request.query.get('q') is not empty %}
+                        <a href="{{ path('app_evennement_index') }}" class="btn btn-sm btn-outline-secondary" style="border-radius: 8px;">
+                            <i class="fa-solid fa-rotate mr-1"></i>Réinitialiser
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium" id="evennementsTable">
+                            <thead>
+                                <tr>
+                                    <th>Événement & Identité</th>
+                                    <th>Calendrier</th>
+                                    <th>Localisation</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for evennement in evennements %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3 position-relative">
+                                                    <img src="{{ asset('eventimages/' ~ evennement.img) }}" alt="{{ evennement.titre }}" class="img-fluid rounded shadow-sm" style="width: 70px; height: 45px; object-fit: cover; border: 2px solid var(--white);">
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold text-dark">{{ evennement.titre }}</div>
+                                                    <div class="small text-muted font-weight-bold">ID: #{{ evennement.idevent }}</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <span class="text-dark font-weight-bold"><i class="fa-regular fa-calendar-check text-primary-p mr-2"></i> {{ evennement.date ? evennement.date|date('d M Y') : 'À définir' }}</span>
+                                                <span class="small text-muted ml-4">Heure standard</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-column">
+                                                <span class="text-dark"><i class="fa-solid fa-map-location-dot text-danger mr-2 opacity-75"></i> {{ evennement.lieu }}</span>
+                                                <span class="small text-muted ml-4 italic truncate-text">{{ evennement.adresse }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_evennement_show', {'idevent': evennement.idevent}) }}" class="btn btn-white btn-sm px-3" title="Détails complets">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_evennement_edit', {'idevent': evennement.idevent}) }}" class="btn btn-white btn-sm px-3" title="Modifier">
+                                                    <i class="fa-solid fa-pen text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('evennement/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-calendar-xmark fa-3x mb-3 opacity-20"></i>
+                                                <p>Aucun événement ne correspond à vos critères.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AJAX Results Container (Styled) -->
+            <div id="searchResultsContainer" style="display: none;" class="mt-5">
+                <div class="card card-premium-admin border-info">
+                    <div class="card-header bg-info-soft border-0">
+                        <h3 class="card-title text-info font-weight-bold"><i class="fa-solid fa-bolt mr-2"></i>Résultats de recherche instantanée</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table-premium" id="searchResultsTable">
+                                <thead>
+                                    <tr><th>ID</th><th>Titre de l'événement</th><th>Date prévue</th><th>Emplacement</th></tr>
+                                </thead>
+                                <tbody id="searchResultsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.truncate-text {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.bg-info-soft {
+    background: rgba(23, 162, 184, 0.1);
+}
+</style>
+{% endblock %}

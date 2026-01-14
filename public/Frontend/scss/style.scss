@@ -1,0 +1,49 @@
+
+/*------------------------------------------------------------------
+    Template Name:	Consultis
+    Template URI: http://enroutedigitallab.com/html/consultis
+    Description :: Bussiness Template
+    Author: enroutedigitallab
+    Author URI: http://enroutedigitallab.com/
+    License: GPL V2 or Later
+    License URI: http://www.gnu.org/licenses/gpl-2.0.html
+    Version: 1.0
+*/
+
+    /*
+    ========================================================================
+    Index
+    ------------------------------------------------------------------------
+
+    # -  1.0 - Global css
+    # -  2.0 - Menu Area
+    # -  3.0 - Mobile Menu
+    # -  4.0 - Slider
+    # -  5.0 - Service
+    # -  6.0 - Success Section
+    # -  7.0 - Help to success
+    # -  8.0 - lets start project
+    # -  9.0 - Testimonail
+    # -  10.0 - News Section
+    # -  11.0 - Footer
+    # -  12.0 - Banner
+    # -  13.0 - Succress Progress
+    # -  14.0 - Team Member
+    # -  15.0 - Blog Page
+    # -  16.0 - Sidebar
+    # -  17.0 - Service Detail
+    */
+
+
+
+@import "base/global.scss"; // Global Classes scss
+@import "modules/home.scss"; // button Classes scss
+@import "modules/services.scss"; // button Classes scss
+@import "modules/project.scss"; // button Classes scss
+@import "modules/news.scss"; // button Classes scss
+@import "modules/team.scss"; // Global Classes scss
+@import "modules/banner.scss"; // Global Classes scss
+@import "modules/about-us.scss"; // Global Classes scss
+@import "modules/footer.scss"; // button Classes scss
+@import "responsive.scss"; // button Classes scss
+

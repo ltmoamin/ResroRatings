@@ -1,0 +1,44 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Modifier Restaurant{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-pen-to-square mr-3"></i>Modifier Restaurant
+                    </h1>
+                    <p class="text-muted mt-2">Mise à jour des informations pour #{{ restaurant.idRestau }} - {{ restaurant.nom }}.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_restaurant_index') }}" class="btn btn-outline-secondary shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="card card-premium-admin shadow-lg" style="max-width: 900px; margin: 0 auto;">
+                <div class="card-header">
+                    <h3 class="card-title">Éditer Détails</h3>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    {{ include('restaurant/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+                </div>
+                <div class="card-footer bg-light px-4 py-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="small text-muted font-weight-bold">ID Restaurant: #{{ restaurant.idRestau }}</span>
+                        {{ include('restaurant/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

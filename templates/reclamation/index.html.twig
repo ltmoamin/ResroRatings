@@ -1,0 +1,118 @@
+{% extends 'back.html.twig' %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-circle-exclamation mr-3"></i>Complaint Management
+                    </h1>
+                    <p class="text-muted mt-2">Suivi et résolution des réclamations clients pour une excellence de service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="card card-premium-admin shadow-lg">
+                <div class="card-header border-0 bg-transparent">
+                    <h3 class="card-title font-weight-bold">Base des Réclamations</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Référence</th>
+                                    <th>Date d'émission</th>
+                                    <th>Nature & Description</th>
+                                    <th>Catégorie</th>
+                                    <th>État de traitement</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for reclamation in pagination %}
+                                    <tr>
+                                        <td>
+                                            <span class="font-weight-bold text-dark">#{{ reclamation.idrec }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="text-muted"><i class="fa-regular fa-calendar-alt mr-2"></i> {{ reclamation.date ? reclamation.date|date('d M Y') : '-' }}</div>
+                                        </td>
+                                        <td>
+                                            <div class="small text-dark font-weight-bold" style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                {{ reclamation.description }}
+                                            </div>
+                                            <div class="small text-muted italic">Soumission initiale</div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light border-0 shadow-sm px-3 py-2 text-primary-p" style="border-radius: 8px;">
+                                                <i class="fa-solid fa-tag mr-2 opacity-50"></i>{{ reclamation.typerec }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {% if reclamation.etatrec == 'resolue' %}
+                                                <span class="badge bg-success-soft text-success px-3 py-2" style="border-radius: 20px; font-weight: bold;">
+                                                    <i class="fa-solid fa-check-circle mr-1"></i>Résolue
+                                                </span>
+                                            {% elseif reclamation.etatrec == 'en_attente' %}
+                                                <span class="badge bg-warning-soft text-warning px-3 py-2" style="border-radius: 20px; font-weight: bold;">
+                                                    <i class="fa-solid fa-hourglass-half mr-1"></i>En attente
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-secondary-soft text-secondary px-3 py-2" style="border-radius: 20px; font-weight: bold;">
+                                                    {{ reclamation.etatrec }}
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_reclamation_export_excel', {'idrec': reclamation.idrec}) }}" class="btn btn-white btn-sm px-3" title="Exporter Excel">
+                                                    <i class="fa-solid fa-file-excel text-success"></i>
+                                                </a>
+                                                <a href="{{ path('app_reclamation_show', {'idrec': reclamation.idrec}) }}" class="btn btn-white btn-sm px-3" title="Voir l'historique">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_reclamation_answer', {'idrec': reclamation.idrec}) }}" class="btn btn-white btn-sm px-3" title="Formuler une réponse">
+                                                    <i class="fa-solid fa-reply text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('reclamation/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-box-open fa-3x mb-3 opacity-20"></i>
+                                                <p>Aucune réclamation enregistrée à ce jour.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 py-4">
+                    <div class="d-flex justify-content-center pagination-premium">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.bg-success-soft { background: rgba(0, 242, 96, 0.1); }
+.bg-warning-soft { background: rgba(255, 193, 7, 0.1); }
+.bg-secondary-soft { background: rgba(108, 117, 125, 0.1); }
+</style>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends 'back.html.twig' %}
+
+
+
+	{% block title %}Reservation{% endblock %}
+
+
+
+{% block body %}
+	<div class="fils" style="padding-left: 300px;">
+		<h1>Reservation</h1>
+		<div class="page-wrapper my-5">
+			<div class="container-fluid" id="container-wrapper">
+				<div class="card p-3">
+					<div class="row">
+						<h5 class="col-7 text-gray-800 pl-3">Statistiques des Reservation par jour </h5>					
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="table-responsive p-3">
+								<div id="geniustable_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+									
+									<div class="row">
+									   <div class="col-2"></div>
+										<div class="col-6">											
+                                                 <canvas id="reservationChart"></canvas>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+<script>
+        var ctx = document.getElementById('reservationChart').getContext('2d');
+        var data = {{ statsData | json_encode | raw }};
+
+        var labels = data.map(entry => entry.datereser.date.split(' ')[0]); // Formatage de la date
+
+        var values = data.map(entry => entry.reservationsCount);
+
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre de réservations par jour',
+                    data: values,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'category', // Utiliser un type de catégorie pour l'axe des x
+                        labels: labels, // Utiliser les étiquettes formatées
+                        beginAtZero: true
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

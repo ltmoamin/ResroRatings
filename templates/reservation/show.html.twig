@@ -1,0 +1,122 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails de la Réservation{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-calendar-day mr-3"></i>Détails Réservation
+                    </h1>
+                    <p class="text-muted mt-2">Récapitulatif complet des paramètres de la réservation #{{ reservation.idRes }}.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_reservation_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_reservation_edit', {'idRes': reservation.idRes}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <!-- Main Details Card -->
+                <div class="col-md-8">
+                    <div class="card card-premium-admin shadow-lg border-0">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">Informations de Planification</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row mb-4">
+                                <div class="col-sm-6 mb-4 mb-sm-0">
+                                    <div class="p-4 rounded shadow-sm bg-white border h-100">
+                                        <label class="small text-muted d-block text-uppercase letter-spacing-1 mb-2">Date de l'événement</label>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa-solid fa-calendar-check fa-2x text-primary-p mr-3 opacity-20"></i>
+                                            <span class="h4 font-weight-bold text-dark mb-0">{{ reservation.datereser ? reservation.datereser|date('d F Y') : '-' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="p-4 rounded shadow-sm bg-white border h-100">
+                                        <label class="small text-muted d-block text-uppercase letter-spacing-1 mb-2">Heure prévue</label>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa-solid fa-clock fa-2x text-primary-p mr-3 opacity-20"></i>
+                                            <span class="h4 font-weight-bold text-dark mb-0">{{ reservation.timereser ? reservation.timereser|date('H:i') : '-' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info-soft p-4" style="border-radius: 15px;">
+                                <div class="d-flex">
+                                    <i class="fa-solid fa-circle-info mt-1 mr-3"></i>
+                                    <div>
+                                        <h6 class="font-weight-bold mb-1">Status de Disponibilité</h6>
+                                        <p class="mb-0 small text-muted">Cette réservation est actuellement confirmée dans le système. Le client a été notifié par email et SMS (si configuré) concernant ces horaires.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Info / Actions -->
+                <div class="col-md-4">
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">Gestion des clients</h3>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <div class="avatar-lg-premium bg-primary-light mx-auto mb-3">
+                                {{ reservation.user.username|first|upper }}
+                            </div>
+                            <h5 class="font-weight-bold text-dark">{{ reservation.user.username }}</h5>
+                            <p class="text-muted small">ID Client: #USR-{{ reservation.user.iduser }}</p>
+                            
+                            <hr class="my-4 opacity-5">
+                            
+                            <div class="text-left mb-4">
+                                <label class="small text-muted d-block mb-1">Référence Réservation</label>
+                                <div class="p-2 bg-light rounded text-center font-weight-bold" style="letter-spacing: 2px;">
+                                    RES-{{ reservation.idRes }}
+                                </div>
+                            </div>
+
+                            <div class="mt-auto">
+                                {{ include('reservation/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.bg-info-soft { background: rgba(0, 123, 255, 0.05); color: #007bff; }
+.avatar-lg-premium {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    box-shadow: 0 10px 20px rgba(0, 242, 96, 0.15);
+}
+.bg-primary-light { background: rgba(0, 242, 96, 0.1); }
+.letter-spacing-1 { letter-spacing: 1px; }
+</style>
+{% endblock %}

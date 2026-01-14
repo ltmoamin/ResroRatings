@@ -1,0 +1,43 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Nouvelle Réclamation - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <a href="{{ path('app_mes_reclamations') }}">Réclamations</a> / <span>Nouvelle</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-headset text-figma-green me-3"></i>
+            Déposer une Réclamation
+        </h1>
+        <p class="page-subtitle">Nous sommes là pour vous aider à résoudre tout problème</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-premium">
+                    <div class="mb-4">
+                        <h3 class="fw-bold h4">Détails de votre demande</h3>
+                        <p class="text-muted small">Expliquez-nous en détail le problème rencontré.</p>
+                    </div>
+
+                    {{ include('reclamation/_form.html.twig') }}
+
+                    <div class="mt-4 text-center">
+                        <a href="{{ path('app_mes_reclamations') }}" class="text-muted text-decoration-none small">
+                            <i class="fa-solid fa-arrow-left me-1"></i>
+                            Retour à mes réclamations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

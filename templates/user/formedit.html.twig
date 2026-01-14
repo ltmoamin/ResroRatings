@@ -1,0 +1,91 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="mb-4">
+            {{ form_label(form.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'small font-weight-bold ml-1 mb-2'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                {{ form_widget(form.username, {'attr': {'class': 'form-control form-control-premium' ~ (form.username.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Username'}}) }}
+            </div>
+            {% if form.username.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block mt-2 ml-1">
+                    {{ form_errors(form.username)|join(', ')|raw }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.email, 'Email Professional', {'label_attr': {'class': 'small font-weight-bold ml-1 mb-2'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-premium' ~ (form.email.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Email'}}) }}
+            </div>
+            {% if form.email.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block mt-2 ml-1">
+                    {{ form_errors(form.email)|join(', ')|raw }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.firstname, 'Prénom', {'label_attr': {'class': 'small font-weight-bold ml-1 mb-2'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control form-control-premium' ~ (form.firstname.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Firstname'}}) }}
+            </div>
+            {% if form.firstname.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block mt-2 ml-1">
+                    {{ form_errors(form.firstname)|join(', ')|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="mb-4">
+            {{ form_label(form.lastname, 'Nom', {'label_attr': {'class': 'small font-weight-bold ml-1 mb-2'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-id-card"></i></span>
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control form-control-premium' ~ (form.lastname.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Lastname'}}) }}
+            </div>
+            {% if form.lastname.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block mt-2 ml-1">
+                    {{ form_errors(form.lastname)|join(', ')|raw }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.tel, 'Téléphone', {'label_attr': {'class': 'small font-weight-bold ml-1 mb-2'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                {{ form_widget(form.tel, {'attr': {'class': 'form-control form-control-premium' ~ (form.tel.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Tel'}}) }}
+            </div>
+            {% if form.tel.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block mt-2 ml-1">
+                    {{ form_errors(form.tel)|join(', ')|raw }}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.address, 'Adresse', {'label_attr': {'class': 'small font-weight-bold ml-1 mb-2'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+                {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-premium' ~ (form.address.vars.errors|length > 0 ? ' is-invalid' : ''), 'placeholder': 'Address'}}) }}
+            </div>
+            {% if form.address.vars.errors|length > 0 %}
+                <div class="invalid-feedback d-block mt-2 ml-1">
+                    {{ form_errors(form.address)|join(', ')|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <button type="submit" class="btn btn-premium-p w-100 py-3 shadow-lg">
+        <i class="fa-solid fa-save mr-2"></i>{{ button_label|default('Mettre à jour le profil') }}
+    </button>
+</div>
+{{ form_end(form) }}

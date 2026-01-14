@@ -1,0 +1,191 @@
+{% block body %}
+<div class="fils">
+    {% include 'avis/flash_messages.html.twig' %}
+
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-star-half-stroke mr-3"></i>Reviews Management
+                    </h1>
+                    <p class="text-muted mt-2">Analysez les retours clients et gérez la réputation de vos établissements.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('download_excel_avis') }}" class="btn btn-outline-success shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-file-excel mr-2"></i>Exporter Excel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <!-- Filter Card -->
+            <div class="card card-premium-admin mb-5">
+                <div class="card-header border-0 bg-transparent">
+                    <h3 class="card-title text-sm"><i class="fa-solid fa-filter mr-2"></i>Filtres de recherche dynamiques</h3>
+                </div>
+                <div class="card-body">
+                    <form method="get" action="{{ path('app_avis_index') }}">
+                        <div class="row align-items-end">
+                            <div class="col-md-3">
+                                <div class="form-group mb-3 mb-md-0">
+                                    <label class="small font-weight-bold ml-1 mb-2">Restaurant</label>
+                                    <div class="input-group input-group-premium">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-utensils"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-premium" name="restaurant" placeholder="Nom du resto..." id="searchRestaurant">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-3 mb-md-0">
+                                    <label class="small font-weight-bold ml-1 mb-2">Utilisateur</label>
+                                    <div class="input-group input-group-premium">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-premium" name="username" placeholder="Pseudo client..." id="searchUsername">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group mb-3 mb-md-0">
+                                    <label class="small font-weight-bold ml-1 mb-2">Date d'avis</label>
+                                    <div class="input-group input-group-premium">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                                        </div>
+                                        <input type="date" class="form-control form-control-premium" name="date" id="searchDate">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-premium-p w-100 py-2">
+                                    <i class="fa-solid fa-magnifying-glass mr-2"></i>Filtrer
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="card card-premium-admin shadow-lg">
+                <div class="card-header border-0 bg-transparent d-flex justify-content-between align-items-center">
+                    <h3 class="card-title font-weight-bold">Tous les avis collectés</h3>
+                    <div class="card-tools">
+                        <a href="{{ path('app_avis_index', {'sort': 'restaurant'}) }}" class="btn btn-sm btn-outline-info" style="border-radius: 8px;">
+                            <i class="fa-solid fa-sort mr-1"></i>Trier par Restaurant
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium" id="avisTable">
+                            <thead>
+                                <tr>
+                                    <th>Client & Profil</th>
+                                    <th>Restaurant</th>
+                                    <th>Titre de l'avis</th>
+                                    <th>Extrait du message</th>
+                                    <th>Publication</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                {% for avi in av %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sx mr-3 bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                                    <i class="fa-solid fa-user-circle text-muted fa-lg"></i>
+                                                </div>
+                                                <div class="font-weight-bold text-dark">{{ avi.user.username }}</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-premium-outline px-3 py-2" style="font-size: 0.85rem;">{{ avi.restaurant.nom }}</span>
+                                        </td>
+                                        <td class="font-weight-bold text-dark">{{ avi.titreavis }}</td>
+                                        <td>
+                                            <div class="small text-muted" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                <i class="fa-solid fa-quote-left mr-1 opacity-50"></i>{{ avi.pubavis }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="text-muted"><i class="fa-regular fa-clock mr-1"></i> {{ avi.dateavis ? avi.dateavis|date('d M Y') : '-' }}</div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_avis_show', {'id': avi.id}) }}" class="btn btn-white btn-sm px-3" title="Voir les détails">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('avis/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-comment-slash fa-3x mb-3 opacity-20"></i>
+                                                <p>Aucun retour client n'a été trouvé.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 py-4">
+                    <div class="d-flex justify-content-center pagination-premium">
+                        {{ knp_pagination_render(av) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#searchRestaurant, #searchUsername, #searchDate").on("keyup change", function() {
+                var restaurant = $("#searchRestaurant").val().toLowerCase();
+                var username = $("#searchUsername").val().toLowerCase();
+                var date = $("#searchDate").val().toLowerCase();
+
+                $("#tbody tr").each(function() {
+                    var rowUsername = $(this).find('td:eq(0)').text().toLowerCase();
+                    var rowRestaurant = $(this).find('td:eq(1)').text().toLowerCase();
+                    var rowDate = $(this).find('td:eq(4)').text().toLowerCase();
+
+                    $(this).toggle(
+                        (restaurant === '' || rowRestaurant.includes(restaurant)) &&
+                        (username === '' || rowUsername.includes(username)) &&
+                        (date === '' || rowDate.includes(date))
+                    );
+                });
+            });
+        });
+    </script>
+</div>
+
+<style>
+.badge-premium-outline {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    border-radius: 8px;
+}
+.pagination-premium .pagination {
+    margin-bottom: 0;
+}
+</style>
+{% endblock %}

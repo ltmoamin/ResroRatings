@@ -1,0 +1,96 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Badges des Participants - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Badges</span>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-id-badge text-figma-green me-3"></i>
+                    Badges & Récompenses
+                </h1>
+                <p class="page-subtitle">Consultez les badges attribués aux restaurants et aux participants</p>
+            </div>
+            <a href="{{ path('app_badge_new66') }}" class="btn-premium">
+                <i class="fa-solid fa-plus me-2"></i>
+                Ajouter un Badge
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="panel-premium">
+            <div class="panel-header">
+                <h3 class="panel-title">Liste des Badges</h3>
+            </div>
+
+            <table class="table-premium">
+                <thead>
+                    <tr>
+                        <th>Restaurant</th>
+                        <th>Commentaire</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th class="text-center">Votes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for badge in badges %}
+                    <tr>
+                        <td class="fw-bold">{{ badge.restaurant.nom }}</td>
+                        <td>
+                            <span class="text-muted small">{{ badge.commantaire|slice(0, 50) }}{% if badge.commantaire|length > 50 %}...{% endif %}</span>
+                        </td>
+                        <td>
+                            <span class="text-muted small">{{ badge.datebadge ? badge.datebadge|date('d/m/Y') : '' }}</span>
+                        </td>
+                        <td>
+                            <span class="badge-premium badge-info">{{ badge.typebadge }}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ path('app_badge_like', {'id': badge.id}) }}" class="btn-outline-premium btn-sm-premium py-1 px-2" title="Like">
+                                    <i class="fa-solid fa-thumbs-up me-1"></i> {{ badge.likes }}
+                                </a>
+                                <a href="{{ path('app_badge_dislike', {'id': badge.id}) }}" class="btn-outline-premium btn-sm-premium py-1 px-2 border-danger text-danger" title="Dislike">
+                                    <i class="fa-solid fa-thumbs-down me-1"></i> {{ badge.dislikes }}
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <a href="{{ path('app_badge_show66', {'id': badge.id}) }}" class="btn-outline-premium btn-sm-premium" title="Voir">
+                                    <i class="fa-solid fa-eye"></i>
+                                </a>
+                                {% if app.user and app.user.iduser == badge.user.getIduser() %}
+                                    <a href="{{ path('app_badge_editFront', {'id': badge.id}) }}" class="btn-warning-premium btn-sm-premium" title="Modifier">
+                                        <i class="fa-solid fa-edit"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state py-4 text-center">
+                                <p class="text-muted mb-0">Aucun badge trouvé.</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'premium-form'}}) }}
+<div class="row">
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Montant Total (DT)</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-money-bill-wave"></i></span>
+            </div>
+            {{ form_widget(form.montanttotal, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: 15.50'}}) }}
+        </div>
+        {% if form_errors(form.montanttotal) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">{{ form_errors(form.montanttotal) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Quantité d'articles</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-boxes-stacked"></i></span>
+            </div>
+            {{ form_widget(form.quantite, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: 1'}}) }}
+        </div>
+        {% if form_errors(form.quantite) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">{{ form_errors(form.quantite) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Date de l'opération</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-clock"></i></span>
+            </div>
+            {{ form_widget(form.date, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Type de service</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-truck-fast"></i></span>
+            </div>
+            {{ form_widget(form.type, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+
+        <label class="small font-weight-bold ml-1 mb-2">Sélectionner le Client</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+            </div>
+            {{ form_widget(form.user, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+
+        <label class="small font-weight-bold ml-1 mb-2">Produit / Plat associé</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-bowl-food"></i></span>
+            </div>
+            {{ form_widget(form.plat, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end align-items-center mt-4">
+    <button type="submit" class="btn btn-premium-p px-5">
+        <i class="fa-solid fa-check-circle mr-2"></i>{{ button_label|default('Enregistrer la Transaction') }}
+    </button>
+</div>
+{{ form_end(form) }}

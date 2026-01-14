@@ -1,0 +1,6 @@
+<form method="post" action="{{ path('app_badge_deleteFront', {'id': badge.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce badge ?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ badge.id) }}">
+    <button type="submit" class="btn-danger-premium btn-sm-premium" title="Supprimer">
+        <i class="fa-solid fa-trash"></i> 
+    </button>
+</form>

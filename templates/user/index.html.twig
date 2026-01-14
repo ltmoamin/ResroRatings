@@ -1,0 +1,212 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <script>var searchUrl = "{{ path('app_user_search_ajax') }}";</script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('assets/js/user_search.js') }}"></script>
+
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-users mr-3"></i>User Management
+                    </h1>
+                    <p class="text-muted mt-2">Manage system access, roles, and user accounts.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_user_new') }}" class="btn btn-premium-p">
+                        <i class="fa-solid fa-user-plus mr-2"></i>Ajouter Utilisateur
+                    </a>
+                    <a href="{{ path('excel') }}" class="btn btn-outline-success ml-2">
+                        <i class="fa-solid fa-file-excel mr-2"></i>Exporter Excel
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <!-- Search & Stats Card -->
+            <div class="card card-premium-admin mb-5">
+                <div class="card-header">
+                    <h3 class="card-title text-sm"><i class="fa-solid fa-magnifying-glass mr-2"></i>Filtres & Actions</h3>
+                    <div class="card-tools">
+                        <a href="{{ path('app_user_chart') }}" class="btn btn-tool text-info">
+                            <i class="fa-solid fa-chart-pie mr-2"></i>Statistiques
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="get" action="{{ path('app_user_search_ajax') }}" id="searchUserForm">
+                        <div class="row align-items-end">
+                            <div class="col-md-8">
+                                <div class="form-group mb-0">
+                                    <label class="small font-weight-bold ml-1 mb-2">Recherche globale</label>
+                                    <div class="input-group input-group-premium">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-search"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control form-control-premium" name="q" placeholder="Nom, email, téléphone..." value="{{ app.request.query.get('q') }}">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-premium-p px-4">Chercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="btn-group w-100">
+                                    <a href="{{ path('app_user_count') }}" class="btn btn-outline-info">Nombre Total</a>
+                                    <a href="{{ path('app_reclamations_search') }}" class="btn btn-outline-secondary">Reclamations</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="mt-4 pt-4 border-top">
+                        <span class="small font-weight-bold text-muted mr-3">Trier par:</span>
+                        <div class="d-inline-flex flex-wrap" style="gap: 8px;">
+                            {% for criteria in ['iduser', 'username', 'email', 'firstname', 'lastname', 'tel', 'address', 'role'] %}
+                                <a href="{{ path('app_user_tri', {'criteria': criteria}) }}" class="badge badge-light border-0 px-3 py-2 text-capitalize" style="border-radius: 8px; background: rgba(0,0,0,0.03);">
+                                    {{ criteria|replace({'iduser': 'ID'}) }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table Card -->
+            <div class="card card-premium-admin">
+                <div class="card-header border-0">
+                    <h3 class="card-title">Base de données utilisateurs</h3>
+                    <div class="card-tools">
+                        {% if app.request.query.get('q') is not empty or app.request.attributes.get('_route') == 'app_user_tri' %}
+                            <a href="{{ path('app_user_index') }}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fa-solid fa-rotate mr-1"></i>Réinitialiser
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium" id="usersTable">
+                            <thead>
+                                <tr>
+                                    <th>Info</th>
+                                    <th>Contact</th>
+                                    <th>Localisation</th>
+                                    <th>Role</th>
+                                    <th>Statut</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sm rounded-circle bg-primary-light d-flex align-items-center justify-content-center mr-3 shadow-sm" style="width: 45px; height: 45px; border: 2px solid var(--white);">
+                                                    <i class="fa-solid fa-user text-primary-p"></i>
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold text-dark">{{ user.firstname }} {{ user.lastname }}</div>
+                                                    <div class="small text-muted">@{{ user.username }} <span class="ml-1 text-xs opacity-50">#{{ user.iduser }}</span></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="small text-dark font-weight-bold">{{ user.email }}</div>
+                                            <div class="small text-muted"><i class="fa-solid fa-phone mr-1 opacity-50"></i>{{ user.tel }}</div>
+                                        </td>
+                                        <td class="small">{{ user.address }}</td>
+                                        <td>
+                                            <span class="badge badge-light border-0 px-2 py-1" style="background: rgba(0,0,0,0.05);">{{ user.role|join(', ') }}</span>
+                                        </td>
+                                        <td>
+                                            {% if user.isBlocked %}
+                                                <span class="badge bg-danger rounded-pill px-3 py-1">Bloqué</span>
+                                            {% else %}
+                                                <span class="badge bg-success rounded-pill px-3 py-1 badge-premium-pulse">Actif</span>
+                                            {% endif %}
+                                            <div class="small text-muted mt-1">{{ user.etat }}</div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 12px; overflow: hidden;">
+                                                <a href="{{ path('app_user_change_status', {'id': user.iduser}) }}" class="btn btn-white btn-sm px-3" title="Notifier">
+                                                    <i class="fa-solid fa-bell text-primary"></i>
+                                                </a>
+                                                {% if user.isBlocked %}
+                                                    <a href="{{ path('app_user_unblock', {'iduser': user.iduser}) }}" class="btn btn-white btn-sm px-3" title="Débloquer">
+                                                        <i class="fa-solid fa-lock-open text-success"></i>
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ path('app_user_block', {'iduser': user.iduser}) }}" class="btn btn-white btn-sm px-3" title="Bloquer">
+                                                        <i class="fa-solid fa-lock text-danger"></i>
+                                                    </a>
+                                                {% endif %}
+                                                <a href="{{ path('load_user_content', {'iduser': user.iduser}) }}" class="btn btn-white btn-sm px-3" title="Voir">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}" class="btn btn-white btn-sm px-3" title="Modifier">
+                                                    <i class="fa-solid fa-pen text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('user/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr><td colspan="6" class="text-center py-5 text-muted">Aucun utilisateur trouvé</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0 py-4">
+                    <div class="d-flex justify-content-center pagination-premium">
+                        {{ knp_pagination_render(users) }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden Search Results Table (JS Populated) -->
+            <div id="searchResultsContainer" style="display: none;" class="mt-5">
+                <div class="card card-premium-admin">
+                    <div class="card-header bg-primary-p text-white">
+                        <h3 class="card-title">Résultats de recherche dynamique</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table-premium" id="searchResultsTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Nom Complet</th>
+                                        <th>Tel</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="searchResultsTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.pagination-premium .pagination { gap: 8px; }
+.pagination-premium .page-link { border-radius: 10px !important; border: 1px solid var(--gray-100); color: var(--text-secondary); padding: 8px 16px; }
+.pagination-premium .page-item.active .page-link { background: var(--primary); border-color: var(--primary); color: white; box-shadow: var(--shadow-primary); }
+</style>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Plat Management{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-bowl-food mr-3"></i>Plat Management
+                    </h1>
+                    <p class="text-muted mt-2">Gérez votre carte de plats, prix et catégories culinaires.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_plat_new') }}" class="btn btn-premium-p">
+                        <i class="fa-solid fa-plus mr-2"></i>Nouveau Plat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="card card-premium-admin">
+                <div class="card-header border-0">
+                    <h3 class="card-title">Catalogue Gastronomique</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium">
+                            <thead>
+                                <tr>
+                                    <th># ID</th>
+                                    <th>Aperçu & Nom</th>
+                                    <th>Description</th>
+                                    <th>Tarification</th>
+                                    <th>Catégorie</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for plat in plats %}
+                                    <tr>
+                                        <td class="text-muted font-weight-bold">#{{ plat.idplat }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-3 position-relative">
+                                                    <img src="{{ asset('platimage/' ~ plat.image) }}" alt="{{ plat.nom }}" class="img-fluid rounded-circle shadow-sm" style="width: 50px; height: 50px; object-fit: cover; border: 2px solid var(--white);">
+                                                    <div class="status-indicator bg-success" style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--white);"></div>
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold text-dark">{{ plat.nom }}</div>
+                                                    <div class="small text-muted">Gastronomie Fine</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="small text-muted" style="max-width: 250px;">
+                                            <div class="text-truncate" title="{{ plat.description }}">{{ plat.description }}</div>
+                                        </td>
+                                        <td>
+                                            <span class="text-primary-p font-weight-bold" style="font-size: 1.1rem;">{{ plat.prix }} <small>DT</small></span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light border-0 shadow-sm px-3 py-2 text-primary-p" style="border-radius: 8px; font-weight: 600;">
+                                                <i class="fa-solid fa-tag mr-2 opacity-50"></i>{{ plat.categorie }}
+                                            </span>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_plat_show', {'idplat': plat.idplat}) }}" class="btn btn-white btn-sm px-3" title="Voir détails">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_plat_edit', {'idplat': plat.idplat}) }}" class="btn btn-white btn-sm px-3" title="Modifier">
+                                                    <i class="fa-solid fa-pen text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('plat/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-bowl-food fa-3x mb-3 opacity-20"></i>
+                                                <p>Votre catalogue est actuellement vide.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

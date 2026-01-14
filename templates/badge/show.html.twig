@@ -1,0 +1,110 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Badge{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-id-card mr-3"></i>Documentation du Badge
+                    </h1>
+                    <p class="text-muted mt-2">Détails techniques et statut d'accréditation du membre.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_badge_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_badge_edit', {'id': badge.id}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-5">
+                    <!-- Premium ID Card View -->
+                    <div class="card card-premium-admin shadow-lg border-0 h-100 overflow-hidden">
+                        <div class="badge-header-gradient p-4 text-center">
+                            <div class="badge-icon-wrapper mb-3">
+                                {% if badge.typebadge == 'Diamant' %}
+                                    <i class="fa-solid fa-gem fa-4x text-purple-glow"></i>
+                                {% elseif badge.typebadge == 'VIP' %}
+                                    <i class="fa-solid fa-crown fa-4x text-warning-glow"></i>
+                                {% else %}
+                                    <i class="fa-solid fa-medal fa-4x text-silver-glow"></i>
+                                {% endif %}
+                            </div>
+                            <h2 class="font-weight-bold text-dark mb-0">{{ badge.typebadge|upper }}</h2>
+                            <span class="text-muted small letter-spacing-2">STATUT OFFICIEL</span>
+                        </div>
+                        <div class="card-body p-4 text-center">
+                            <div class="qr-placeholder mb-4 p-3 bg-white d-inline-block shadow-sm" style="border-radius: 15px;">
+                                <i class="fa-solid fa-qrcode fa-5x opacity-10"></i>
+                                <p class="small text-muted mb-0 mt-2">QR Code de Sécurité</p>
+                            </div>
+                            <div class="d-flex justify-content-between text-left border-top pt-4">
+                                <div>
+                                    <label class="small text-muted d-block mb-0">Date d'émission</label>
+                                    <span class="font-weight-bold text-dark">{{ badge.datebadge ? badge.datebadge|date('d M Y') : '-' }}</span>
+                                </div>
+                                <div class="text-right">
+                                    <label class="small text-muted d-block mb-0">ID Badge</label>
+                                    <span class="font-weight-bold text-dark">#BDG-{{ badge.id }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <!-- Technical Details & Notes -->
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">
+                                <i class="fa-solid fa-sticky-note mr-2"></i>Notes Administratives
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="note-box p-4 rounded mb-4" style="background: rgba(0, 242, 96, 0.03); border-left: 5px solid var(--primary);">
+                                <h5 class="font-weight-bold small text-uppercase text-primary mb-3">Commentaire Interne</h5>
+                                <p class="lead text-dark italic mb-0">"{{ badge.commantaire }}"</p>
+                            </div>
+
+                            <div class="alert alert-secondary-soft p-4 mb-5" style="border-radius: 15px;">
+                                <h6 class="font-weight-bold mb-2">Historique du Badge</h6>
+                                <p class="mb-0 small text-muted">Ce badge a été généré automatiquement lors de la validation du profil client. Il donne accès aux zones exclusives et services prioritaires correspondants au niveau <strong>{{ badge.typebadge }}</strong>.</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <a href="{{ path('app_badge_generate_qr', {'id': badge.id}) }}" class="btn btn-primary-p px-4">
+                                    <i class="fa-solid fa-qrcode mr-2"></i>Regénérer QR Code
+                                </a>
+                                {{ include('badge/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.badge-header-gradient {
+    background: linear-gradient(135deg, rgba(0, 242, 96, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.text-purple-glow { color: #6f42c1; text-shadow: 0 0 15px rgba(111, 66, 193, 0.3); }
+.text-warning-glow { color: #ffc107; text-shadow: 0 0 15px rgba(255, 193, 7, 0.3); }
+.text-silver-glow { color: #6c757d; text-shadow: 0 0 15px rgba(108, 117, 125, 0.3); }
+.letter-spacing-2 { letter-spacing: 2px; }
+.bg-secondary-soft { background: rgba(108, 117, 125, 0.05); }
+</style>
+{% endblock %}

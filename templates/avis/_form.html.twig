@@ -1,0 +1,40 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="row g-4">
+    <div class="col-12">
+        <div class="mb-4">
+            {{ form_label(form.titreavis, 'Titre de votre avis', {'label_attr': {'class': 'form-label-premium'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-heading"></i></span>
+                {{ form_widget(form.titreavis, {'attr': {'class': 'form-control', 'placeholder': 'Ex: "Expérience incroyable", "Plats délicieux"...'}}) }}
+            </div>
+            <div class="text-danger small mt-1">{{ form_errors(form.titreavis) }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="mb-4">
+            {{ form_label(form.restaurant, 'Restaurant concerné', {'label_attr': {'class': 'form-label-premium'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-store"></i></span>
+                {{ form_widget(form.restaurant, {'attr': {'class': 'form-control form-select-premium'}}) }}
+            </div>
+            <div class="text-danger small mt-1">{{ form_errors(form.restaurant) }}</div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="mb-4">
+            {{ form_label(form.pubavis, 'Votre témoignage', {'label_attr': {'class': 'form-label-premium'}}) }}
+            {{ form_widget(form.pubavis, {'attr': {'class': 'form-control-premium', 'placeholder': 'Dites-nous ce que vous avez aimé (ou moins aimé)...', 'rows': '6'}}) }}
+            <div class="text-danger small mt-1">{{ form_errors(form.pubavis) }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <button type="submit" class="btn-premium w-100 py-3">
+        <i class="fa-solid fa-paper-plane me-2"></i>
+        Publier mon avis
+    </button>
+</div>
+{{ form_end(form) }}

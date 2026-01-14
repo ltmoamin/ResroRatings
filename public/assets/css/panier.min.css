@@ -1,0 +1,62 @@
+.button {
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+    border-radius: 25px; /* Réduire le rayon du bord */
+    font-family: inherit;
+    display: inline-block;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.button .default-btn,
+.button .hover-btn {
+    background-color: hsl(8deg 80% 60%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+
+.button .hover-btn {
+    background-color: hsl(8deg 80% 60%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    position: absolute;
+    inset: 0;
+    transform: translate(0%, 100%);
+}
+
+
+.button .default-btn span,
+.button .hover-btn span {
+    white-space: nowrap; /* Empêcher le texte de se répartir sur plusieurs lignes */
+}
+
+.button .default-btn span {
+    color: hsl(0, 0%, 100%);
+}
+
+.button .hover-btn span {
+    color: hsl(50deg 100% 50%);
+}
+
+.button:hover .default-btn {
+    transform: translate(0%, -100%);
+}
+
+.button:hover .hover-btn {
+    transform: translate(0%, 0%);
+}

@@ -1,0 +1,62 @@
+{# templates/user/search_results.html.twig #}
+
+{% extends 'back.html.twig' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block body %}
+    <h1>Search Results</h1>
+
+    {% if users|length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Iduser</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Tel</th>
+                    <th>Address</th>
+                    <th>Role</th>
+                    <th>Show</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.iduser }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.password }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.tel }}</td>
+                        <td>{{ user.address }}</td>
+                        <td>{{ user.role|join(', ') }}</td>
+                        <td>
+                            <button class="btn btn-secondary" onclick="window.location.href='{{ path('app_user_show', {'iduser': user.iduser}) }}'">
+                                Show
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn btn-warning" onclick="window.location.href='{{ path('app_user_edit', {'iduser': user.iduser}) }}'">
+                                Edit
+                            </button>
+                        </td>
+                        <td>
+                            {{ include('user/_delete_form.html.twig') }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <tr>
+            <td colspan="12">No records found</td>
+        </tr>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}User Count{% endblock %}
+
+{% block body %}
+    <div class="fils" style="padding-left: 300px;">
+        <h2>User Count</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th>Number of users of RESTORATINGS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ userCount }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <a href="{{ path('app_user_index') }}" class="btn btn-primary">Back to Users</a>
+    </div>
+{% endblock %}

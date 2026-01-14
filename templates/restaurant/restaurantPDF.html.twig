@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Page Title</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		header,
+		nav,
+		section,
+		aside,
+		footer {
+			margin-bottom: 20px;
+			border: 1px solid #ddd;
+			padding: 10px;
+		}
+
+		h1,
+		h2 {
+			color: #333;
+		}
+
+		nav ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		nav li {
+			display: inline;
+			margin-right: 10px;
+		}
+
+		a {
+			text-decoration: none;
+			color: #007BFF;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 10px;
+		}
+
+		th,
+		td {
+			border: 1px solid #ddd;
+			padding: 8px;
+			text-align: left;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+
+		footer {
+			text-align: center;
+			color: #777;
+			font-size: 0.8em;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<header>
+				<h1>Restaurant informations</h1>
+			</header>
+
+
+			<section>
+				<h2>About
+				</h2>
+				<table>
+
+					<tr>
+						<th>Id Restaurant
+						</th>
+						<td>{{ restaurant.idRestau }}</td>
+					</tr>
+					<tr>
+						<th>Nom Restaurant
+						</th>
+						<td>{{ restaurant.nom }}</td>
+					</tr>
+					<tr>
+						<th>Location</th>
+						<td>{{ restaurant.location }}</td>
+					</tr>
+					<!-- Ajoutez autant de lignes que nécessaire avec vos données -->
+
+				</table>
+			</section>
+
+
+			<footer>
+				<p>&copy; 2023 Pidev</p>
+			</footer>
+		</div>
+	</body>
+</html>

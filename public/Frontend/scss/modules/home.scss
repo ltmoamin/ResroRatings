@@ -1,0 +1,329 @@
+@import "../base/variable.scss"; // variable.less
+
+/*
+---------------------------------------
+  Slider Bottom Area
+---------------------------------------
+*/
+.consultis-layer {
+  p{
+    width: 445px;
+    margin:  0 auto;
+  }
+}
+.home-line{
+  position: relative;
+}
+.home-line:before {
+  position: absolute;
+  right: 0;
+  width: 170px;
+  height: 1px;
+  background: white;
+  z-index: 1;
+  content: '';
+  margin: 0 auto;
+  top: 14px;
+  left: 200px;
+  padding: 0px;
+}
+.home-line::after{
+  position: absolute;
+  right: 0;
+  width: 170px;
+  height: 1px;
+  background: white;
+  z-index: 1;
+  content: '';
+  margin: 0 auto;
+  top: 14px;
+  right: 200px;
+  padding: 0px;
+}
+.home-slider-five .defaultimg:after{
+  content: "";
+  position: absolute;
+  z-index: 8;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  background: rgba(4, 17, 31, 0.80);
+  transition: all .45s;
+}
+.slider-section .defaultimg:after {
+  content: "";
+  position: absolute;
+  z-index: 8;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 150%;
+  background: rgba(0, 0, 0, 0.60);
+  transition: all .45s;
+}
+.slider-bottom-area {
+  position: absolute;
+  width: 100%;
+  bottom: -174px;
+}
+.slider-bottom{
+  background: $white;
+  box-shadow: 0 0 35px rgba(95, 95, 95, 0.25);
+  padding: 30px;
+  border-radius: 5px;
+  .content{
+    text-align: center;
+    padding: 0px 15px;
+    &:before{
+      position: absolute;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      content: '';
+      top: 0;
+      background: $border;
+    }
+    a{
+      position: relative;
+      &:before{
+        content: '\f058';
+        position: absolute;
+        left: -20px;
+        font-family: FontAwesome;
+        top: 1px;
+        color: $green;
+      }
+    }
+    p{
+      color: $black-light;
+    }
+
+  }
+}
+
+/*
+---------------------------------------
+  Brand Section
+---------------------------------------
+*/
+
+.brand-logo  {
+  .logo-item{
+    margin: 40px 0px;
+  }
+}
+
+.owl-carousel .owl-item img{
+  width: auto !important;
+  margin: 0 auto;
+}
+
+
+/*
+---------------------------------------
+  Home Two Carousel
+---------------------------------------
+*/
+
+#quote-carousel {
+  padding: 0 10px 30px 10px;
+  margin-top: 30px;
+  /* Control buttons  */
+  /* Previous button  */
+  /* Next button  */
+  /* Changes the position of the indicators */
+  /* Changes the color of the indicators */
+}
+#quote-carousel .carousel-control {
+  background: none;
+  color: #CACACA;
+  font-size: 2.3em;
+  text-shadow: none;
+  margin-top: 30px;
+}
+#quote-carousel .carousel-control.left {
+  left: -60px;
+}
+#quote-carousel .carousel-control.right {
+  right: -60px;
+}
+#quote-carousel .carousel-indicators {
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+#quote-carousel .carousel-indicators li {
+  width: 70px;
+  height: 70px;
+  margin: 0px;
+  cursor: pointer;
+  opacity: 0.4;
+  overflow: hidden;
+  transition: all 0.4s;
+  border: none;
+}
+#quote-carousel .carousel-indicators .active {
+  width: 70px;
+  height: 70px;
+  opacity: 1;
+  overflow: hidden;
+  background: transparent;
+}
+.carousel-inner {
+  min-height: 230px;
+}
+.carousel-inner .client-text{
+  padding: 33px 33px 5px;
+}
+.angel-bottom-right,
+.angel-bottom-left{
+  &:before{
+    position: absolute;
+    bottom: 29px;
+    font-size: 48px;
+    color: #013c74;
+    z-index: 999;
+  }
+}
+.carousel-arrow{
+  .angel-bottom-right,
+  .angel-bottom-left{
+    &:before{
+
+      color: #fff;
+
+    }
+  }
+}
+.angel-bottom-left{
+  &:before{
+    left: 35%;
+  }
+}
+.angel-bottom-right{
+  &:before{
+    right: 36%;
+  }
+}
+
+
+/*
+---------------------------------------
+  Home Four Page
+---------------------------------------
+*/
+.topbar-transparent {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  z-index: 99;
+  left: 0;
+  right: 0;
+}
+.topbar{
+  min-height: 50px;
+  line-height: 50px;
+  color: $white;
+}
+.top-link{
+  li{
+    a{
+      color: $white !important;
+      padding: 5px !important;
+      span{
+        color: $white !important;
+      }
+    }
+  }
+}
+.top-social{
+  li{
+    display: inline-block;
+    padding-right: 15px;
+    select{
+      background: transparent;
+      border: transparent;
+      cursor: pointer;
+      text-transform: capitalize;
+      font-family: Myriad Pro;
+      padding: 0px;
+      margin: 0px;
+    }
+    a{
+      padding: 10px;
+    }
+    .consultis-success-button{
+      border-radius: 0px;
+      color: $white;
+      padding: 0px;
+    }
+    &:last-child{
+      padding-right: 0px;
+    }
+  }
+  .line{
+    position: relative;
+    &:before{
+      position: absolute;
+      right: 0;
+      text-align: center;
+      width: 1px;
+      height: 15px;
+      background: #e1e1e1;
+      content: '';
+      top: 17px;
+    }
+    select{
+      option{
+        color: $gray;
+      }
+    }
+  }
+}
+.top-header{
+  li{
+    color: $gray;
+  }
+}
+.top-address{
+  .icon{
+    color: $white;
+  }
+  li{
+    display: inline-block;
+    padding-right: 30px;
+    span{
+      padding-right: 3px;
+      color: $green;
+    }
+    &:last-child{
+      padding-right: 0px;
+    }
+  }
+}
+.top-social{
+  li{
+    a{
+      color: $gray;
+    }
+  }
+}
+
+
+
+.home-service-four {
+  background: $white;
+  position: relative;
+  width: 100%;
+  display: block;
+  padding: 40px 30px 25px;
+  transition:all 0.3s ease 0s;
+  margin-top: 50px;
+  margin-bottom: 35px;
+  &:hover{
+    box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.3);
+    transition:all 0.3s ease 0s;
+  }
+}

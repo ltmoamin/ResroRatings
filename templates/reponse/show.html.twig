@@ -1,0 +1,67 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Réponse{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-message mr-3"></i>Détails de la Réponse
+                    </h1>
+                    <p class="text-muted mt-2">Consultation de la réponse officielle émise par le service client.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_reponse_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_reponse_edit', {'idrep': reponse.idrep}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="card card-premium-admin shadow-lg border-0 overflow-hidden">
+                <div class="card-header border-0 bg-transparent px-4 pt-4">
+                    <h3 class="card-title text-primary-p font-weight-bold">Contenu du message SAV</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="response-box p-4 rounded mb-4 shadow-inner" style="background: var(--white); border: 1px solid rgba(0,0,0,0.05); min-height: 180px; font-size: 1.15rem; color: #444; line-height: 1.7; position: relative;">
+                         <i class="fa-solid fa-reply-all position-absolute opacity-10" style="top: 20px; right: 20px; font-size: 3rem;"></i>
+                        {{ reponse.contenue }}
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-md-6">
+                            <div class="info-card p-3 rounded" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03);">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1 mb-2">Référence Système</label>
+                                <span class="font-weight-bold text-dark">#REP-{{ reponse.idrep }}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="info-card p-3 rounded" style="background: rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.03);">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1 mb-2">Horodatage d'envoi</label>
+                                <span class="font-weight-bold text-dark"><i class="fa-regular fa-calendar-check mr-2 text-primary-p"></i> {{ reponse.daterep ? reponse.daterep|date('d F Y à H:i') : 'Non renseigné' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-top-0 d-flex justify-content-end px-4 py-3">
+                    {{ include('reponse/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.shadow-inner { box-shadow: inset 0 2px 4px rgba(0,0,0,0.025); }
+.letter-spacing-1 { letter-spacing: 1px; }
+</style>
+{% endblock %}

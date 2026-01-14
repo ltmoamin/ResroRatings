@@ -1,0 +1,102 @@
+{% extends 'auth_base.html.twig' %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block body %}
+<div class="register-container">
+    <div class="text-center mb-4">
+        <a href="{{ path('home_Front') }}">
+             <img src="{{ asset('assets/img/restoratings_logo_premium_1768296588087.png') }}" alt="RestoRatings Logo" class="auth-logo">
+        </a>
+    </div>
+
+    <div class="text-center mb-5">
+        <h2 class="fw-800">Create Account</h2>
+        <p class="text-muted">Start your culinary journey with us today</p>
+    </div>
+
+    {{ form_start(form, {attr: {class: 'row g-3', novalidate: 'novalidate'}}) }}
+        <div class="col-md-6 mb-2">
+            <label class="form-label fw-600 small mb-1">Username</label>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                {{ form_widget(form.username, {'attr': {'class': 'form-control', 'placeholder': 'johndoe'}}) }}
+            </div>
+            {{ form_errors(form.username) }}
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <label class="form-label fw-600 small mb-1">Email Address</label>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'john@example.com'}}) }}
+            </div>
+            {{ form_errors(form.email) }}
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <label class="form-label fw-600 small mb-1">Password</label>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'placeholder': '••••••••'}}) }}
+            </div>
+            {{ form_errors(form.password.first) }}
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <label class="form-label fw-600 small mb-1">Confirm Password</label>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-shield-halved"></i></span>
+                {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'placeholder': '••••••••'}}) }}
+            </div>
+            {{ form_errors(form.password.second) }}
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <label class="form-label fw-600 small mb-1">Firstname</label>
+            <div class="input-group-premium">
+                {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder': 'John'}}) }}
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-2">
+            <label class="form-label fw-600 small mb-1">Lastname</label>
+            <div class="input-group-premium">
+                {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder': 'Doe'}}) }}
+            </div>
+        </div>
+
+        <div class="col-md-12 mb-3">
+            <label class="form-label fw-600 small mb-1">Telephone</label>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                {{ form_widget(form.tel, {'attr': {'class': 'form-control', 'placeholder': '90 000 000'}}) }}
+            </div>
+        </div>
+
+        <div class="col-12 mb-4">
+            <div class="form-check custom-checkbox">
+                <input class="form-check-input" type="checkbox" id="terms" required checked>
+                <label class="form-check-label small text-muted" for="terms">
+                    I agree to the <a href="#" class="text-primary-green fw-600">Terms & Conditions</a>
+                </label>
+            </div>
+        </div>
+
+        <div class="col-12 text-center">
+            <button class="btn-premium w-100 py-3 mb-4" type="submit">Create Account</button>
+            <p class="small text-muted">Already have an account? <a href="{{ path('app_login') }}" class="text-primary-green fw-bold text-decoration-none">Login here</a></p>
+        </div>
+    {{ form_end(form) }}
+</div>
+
+<style>
+.input-group-premium { display: flex; align-items: center; background: #F3F4F6; border-radius: 12px; padding: 0px 12px; border: 1px solid transparent; transition: all 0.3s; }
+.input-group-premium:focus-within { background: white; border-color: var(--primary-green); box-shadow: 0 0 0 4px rgba(57, 219, 74, 0.1); }
+.input-group-premium .input-group-text { background: transparent; border: none; padding-right: 8px; color: #9CA3AF; }
+.input-group-premium .form-control { background: transparent; border: none; padding: 10px 0; font-size: 0.95rem; font-weight: 500; }
+.input-group-premium .form-control:focus { box-shadow: none; }
+.fw-800 { font-weight: 800; }
+</style>
+{% endblock %}
+

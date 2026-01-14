@@ -1,0 +1,75 @@
+{% extends 'back.html.twig' %}
+
+{% block body %}
+    <head>
+        <title>Statistiques des Badges</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            /* Définition des styles pour le canvas */
+            #badgeChart {
+                width: 400px !important;
+                height: 400px !important;
+            }
+            #car {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="fils" style="padding-left: 300px;">
+            <div id="car">
+                <div class="container mt-4">
+                    <div class="card "> <!-- Utilisation de la classe text-center pour centrer le contenu -->
+                        <div class="card-header">
+                            Statistiques des Badges
+                        </div>
+                        <div class="card-body">
+                            <canvas id="badgeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<a href="{{ path('app_badge_index') }}" class="btn btn-outline-dark">Return</a>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const badgeStats = {{ badgeStats|raw }}; // Récupérer les statistiques JSON
+                    
+                    const labels = badgeStats.map(stat => stat.type);
+                    const data = badgeStats.map(stat => stat.count);
+                    
+                    const ctx = document.getElementById('badgeChart').getContext('2d');
+                    const badgeChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Statistiques des Badges',
+                                data: data,
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    // ... Ajoutez plus de couleurs si nécessaire
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    // ... Ajoutez plus de couleurs si nécessaire
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            // Ajoutez des options supplémentaires si nécessaire
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </body>
+   
+{% endblock %}

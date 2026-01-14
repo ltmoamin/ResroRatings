@@ -1,0 +1,115 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Profil de Participation{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-id-badge mr-3"></i>Détails Participation
+                    </h1>
+                    <p class="text-muted mt-2">Fiche d'inscription détaillée du participant pour l'événement sélectionné.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_participant_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_participant_edit', {'idparticipant': participant.idparticipant}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <!-- Participant Info Card -->
+                <div class="col-md-5">
+                    <div class="card card-premium-admin shadow-lg border-0 h-100 overflow-hidden">
+                        <div class="p-5 text-center bg-primary-light">
+                            <div class="avatar-lg-premium mx-auto mb-4 bg-white shadow-sm">
+                                {{ participant.User.username|first|upper }}
+                            </div>
+                            <h3 class="font-weight-bold text-dark mb-1">{{ participant.User.username }}</h3>
+                            <span class="badge badge-primary px-3 py-2 rounded-pill">Participant Officiel</span>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="info-group mb-3 border-bottom pb-3">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1 mb-1">Numéro de Contact</label>
+                                <div class="h5 font-weight-bold text-dark mb-0">
+                                    <i class="fa-solid fa-phone-alt mr-2 text-primary-p small"></i>{{ participant.numero }}
+                                </div>
+                            </div>
+                            <div class="info-group">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1 mb-1">Inscrit depuis le</label>
+                                <div class="text-dark">
+                                    <i class="fa-regular fa-calendar-alt mr-2 text-muted"></i>{{ participant.datepar ? participant.datepar|date('d M Y') : '-' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Details Card -->
+                <div class="col-md-7">
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">Détails de l'Événement</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="event-hero-small p-4 rounded mb-4 shadow-sm" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-left: 5px solid var(--purple);">
+                                <h4 class="font-weight-bold text-dark mb-2">{{ participant.event.titre }}</h4>
+                                <p class="mb-0 text-muted"><i class="fa-solid fa-location-dot mr-2"></i> Siège Principal / Site de l'événement</p>
+                            </div>
+
+                            <div class="row mb-5">
+                                <div class="col-sm-6">
+                                    <div class="p-3 bg-light rounded text-center">
+                                        <label class="small text-muted d-block mb-1">ID Inscription</label>
+                                        <span class="font-weight-bold text-primary-p">#PAR-{{ participant.idparticipant }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="p-3 bg-light rounded text-center">
+                                        <label class="small text-muted d-block mb-1">ID Événement</label>
+                                        <span class="font-weight-bold text-purple">#EVT-{{ participant.event.id }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-4 border-top">
+                                <div class="text-muted small">
+                                    <i class="fa-solid fa-shield-halved mr-2"></i> Inscription sécurisée RestoRatings
+                                </div>
+                                {{ include('participant/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.bg-primary-light { background: rgba(0, 242, 96, 0.05); }
+.avatar-lg-premium {
+    width: 100px;
+    height: 100px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+.letter-spacing-1 { letter-spacing: 1px; }
+.text-purple { color: #6f42c1; }
+</style>
+{% endblock %}

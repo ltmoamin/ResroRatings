@@ -1,0 +1,824 @@
+
+* {
+  box-sizing: border-box;
+  /* box-sizing est appliqué à tous les éléments */
+}
+/*       MEDIA QUERIES        */
+
+@media all and (max-width: 768px) {
+  header {
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 220px;
+    flex-wrap: wrap;
+  }
+  .booki_titre {
+    height: 50px !important;
+    width: 100% !important;
+    margin: auto !important;
+    justify-content: center;
+  }
+  nav ul {
+    justify-content: center;
+  }
+  .nav_header_1:hover {
+    color: #0065fc;
+    border-bottom: 2px solid #0065fc;
+    border-top: none !important;
+  }
+  .nav_header_2:hover {
+    color: #0065fc;
+    border-bottom: 2px solid #0065fc;
+    border-top: none !important;
+  }
+
+  .nav_box {
+    width: 100%;
+  }
+  .nav_header_1 {
+    width: 50% !important;
+  }
+  .nav_header_2 {
+    width: 50% !important;
+  }
+
+  .desktop_search_box {
+    display: none;
+  }
+  .bloc_recherche {
+    justify-content: center;
+  }
+  #submit {
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 10px 10px 10px 10px !important;
+  }
+  #recherche {
+    width: 100% !important;
+  }
+  .mobile_search_icone {
+    display: flex !important;
+  }
+  .loupe_search {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+  }
+  .block_1 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .block_2 {
+    width: 339px;
+  }
+  .card {
+    width: 80% !important;
+    height: 200px !important;
+    min-width: 70% !important;
+    max-width: 80%;
+  }
+  .card-image {
+    height: 65% !important;
+  }
+  .card_2 {
+    width: 80% !important;
+    height: 150px !important;
+    min-width: 70% !important;
+    max-width: 80% !important;
+  }
+  .card_2 img {
+    min-width: 175px;
+    max-width: 175px;
+  }
+  .card_activite1 {
+    width: 80% !important;
+    height: 200px !important;
+    min-width: 0% !important;
+    min-height: 0% !important;
+    margin: auto auto 10px 25px !important;
+  }
+
+  .card_activite2 {
+    width: 80% !important;
+    height: 200px !important;
+    min-height: 0% !important;
+    min-width: 0% !important;
+    margin: auto auto 10px 25px !important;
+  }
+
+  .card_activite3 {
+    width: 80% !important;
+    height: 200px !important;
+    margin: auto auto 10px 25px !important;
+  }
+
+  .card_activite4 {
+    width: 80% !important;
+    height: 200px !important;
+    min-height: 0% !important;
+    min-width: 0% !important;
+    margin: auto auto 10px 25px !important;
+  }
+
+  .card_activite5 {
+    width: 80% !important;
+    height: 200px !important;
+    margin: auto auto 10px 25px !important;
+  }
+
+  .card-image_vieuxport {
+    height: 70% !important;
+  }
+  .card-image_fort {
+    height: 70% !important;
+  }
+  .card-image_frioul {
+    height: 70% !important;
+  }
+  .card-image_calanques {
+    height: 70% !important;
+  }
+  .card-image_lagarde {
+    height: 70% !important;
+  }
+  .card-image_longchamp {
+    height: 70% !important;
+  }
+  .box_activite1 {
+    width: 100% !important;
+    height: auto !important;
+    margin: auto;
+  }
+  .box_activite2 {
+    width: 100% !important;
+    height: auto !important;
+    margin: auto;
+  }
+  .container_1 {
+    display: flex;
+    width: 100% !important;
+    height: auto !important;
+    margin: auto;
+    order: 2;
+    background-color: white !important;
+  }
+
+  .container_2 {
+    display: flex;
+    width: 100% !important;
+    height: auto !important;
+    margin: 10px auto;
+    border-radius: 0px !important;
+  }
+
+  .container_3 {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto !important;
+    width: 100% !important;
+    margin: auto;
+  }
+  .filtres_box {
+    display: flex;
+    margin: auto;
+    width: 100% !important;
+  }
+  .filtres_container {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .filtres_main_titre {
+    display: none;
+  }
+  .footer_block {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    min-width: 220px;
+  }
+  .footer_box_1 {
+    margin: 10px 10px 10px 10px !important;
+    min-width: 0% !important;
+    padding: 0px !important;
+  }
+  .footer_box_2 {
+    margin: 10px 10px 10px 10px !important;
+    min-width: 0% !important;
+    padding: 0px !important;
+  }
+  .footer_box_3 {
+    margin: 10px 10px 10px 10px !important;
+    min-width: 0% !important;
+    padding: 0px !important;
+  }
+}
+
+@media all and (min-width: 769px) and (max-width: 992px) {
+  .block_1 {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .container_1 {
+    display: flex;
+    width: 330px;
+    height: auto !important;
+    max-width: 339px;
+    margin: auto;
+  }
+  .container_2 {
+    display: flex;
+    width: 310px;
+    max-width: 310px;
+    margin: auto;
+  }
+  .container_3 {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto !important;
+    width: 100% !important;
+    margin: auto;
+  }
+  .box_activite1 {
+    width: 100% !important;
+    height: auto !important;
+    margin: auto;
+  }
+  .box_activite2 {
+    width: 100% !important;
+    height: auto !important;
+    margin: auto;
+  }
+  .card_activite1 {
+    width: 40% !important;
+    height: 200px !important;
+    min-width: 0% !important;
+    min-height: 0% !important;
+    margin: auto auto 10px 25px !important;
+    order: 1;
+  }
+
+  .card_activite2 {
+    width: 40% !important;
+    height: 200px !important;
+    min-height: 0% !important;
+    min-width: 0% !important;
+    margin: auto auto 10px 25px !important;
+    order: 2;
+  }
+
+  .card_activite3 {
+    width: 40% !important;
+    height: 200px !important;
+    margin: auto auto 10px 25px !important;
+    order: 3;
+  }
+
+  .card_activite4 {
+    width: 40% !important;
+    height: 200px !important;
+    min-height: 0% !important;
+    min-width: 0% !important;
+    margin: auto auto 10px 25px !important;
+    order: 4;
+  }
+
+  .card_activite5 {
+    width: 40% !important;
+    height: 200px !important;
+    margin: auto auto 10px 25px !important;
+    order: 5;
+  }
+
+  .filtres_box {
+    flex-wrap: wrap;
+  }
+  .filtres_main_titre {
+    display: none !important;
+  }
+}
+
+/*           POLICE           */
+
+@font-face {
+  font-family: "Raleway", sans-serif;
+  src: url(./Raleway/Raleway-VariableFont_wght.ttf);
+  src: url(./Raleway/Raleway-Italic-VariableFont_wght.ttf);
+}
+
+
+
+/* BOUTON */
+#recherche {
+  width: 50%;
+  height: 40px;
+  border: none;
+  border-top: 2px solid #f2f2f2;
+  border-bottom: 2px solid #f2f2f2;
+}
+#submit {
+  color: white;
+  background-color: #0065fc;
+  border: none;
+  width: 50%;
+  height: 40px;
+  border-radius: 0px 10px 10px 0px;
+}
+.research-form {
+  display: flex;
+}
+
+/* Header*/
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.nav_box {
+  display: flex;
+}
+.nav_header_1 {
+  width: 220px;
+  height: 90px;
+  padding: 25px 0px 0px 0px;
+}
+.nav_header_2 {
+  width: 160px;
+  height: 90px;
+  padding: 25px 0px 0px 0px;
+}
+.nav_header_1:hover {
+  color: #0065fc;
+  border-top: 2px solid #0065fc;
+}
+
+.nav_header_2:hover {
+  color: #0065fc;
+  border-top: 2px solid #0065fc;
+}
+a nav_header {
+  display: flex;
+  justify-content: center;
+}
+.filtres_card:hover {
+  background-color: #deebff;
+  border-radius: 50px;
+  transition-property: filter width;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  width: 100%;
+  height: 100%;
+}
+/* Navigation */
+
+
+/*        CONTAINER     ET      BOX         */
+
+.main {
+  max-width: 992px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.booki_titre {
+  display: flex;
+  height: 50px;
+  width: 100px;
+  margin: 20px 0px 20px 0px;
+}
+
+.filtres_box {
+  display: flex;
+  width: 50%;
+}
+.filtres_container {
+  display: flex;
+  width: 100%;
+  margin: 15px auto;
+}
+
+.filtres_card {
+  display: flex;
+  border-radius: 50px;
+  background-color: white;
+  border: 2px solid;
+  border-color: #f2f2f2;
+  text-align: center;
+  font-size: small;
+  height: 50px;
+  width: 230px;
+  max-height: 50px;
+  margin: 0px 3px 0px 3px;
+  align-items: center;
+}
+.filtres_titres {
+  display: flex;
+  padding: 1em;
+  font-weight: bold;
+}
+.filtres_main_titre {
+  display: flex;
+  font-weight: bold;
+  padding: 10px;
+}
+.bloc_recherche {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.border_recherche {
+  border: 2px solid;
+  border-color: #f2f2f2;
+  border-radius: 10px 10px 10px 10px;
+  height: 60px;
+  width: 349px;
+}
+.mobile_search_icone {
+  display: none;
+}
+.half_box_icon {
+  display: flex;
+  background-color: #f2f2f2;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.block_1 {
+  display: flex;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin: 0px 0px 10px 0px;
+}
+
+.block_2 {
+  display: flex;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+  flex-direction: column;
+  margin: 20px 20px 20px 20px;
+}
+
+.container_1 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  margin: auto;
+  height: 480px;
+  width: 620px;
+  min-width: 310px;
+}
+
+.container_2 {
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  width: 310px;
+  min-width: 310px;
+  background-color: #f2f2f2;
+  border-radius: 20px;
+}
+
+.container_3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  min-width: 220px;
+}
+.box_activite1 {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  height: 340px;
+  width: 300px;
+}
+
+.box_activite2 {
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  height: 340px;
+  width: 300px;
+}
+
+.round_box_icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fb5849;
+  border-radius: 50px;
+  width: 50px;
+  min-width: 50px;
+  height: 50px;
+  min-height: 50px;
+}
+.box_afficher_plus {
+  display: flex;
+  width: 100%;
+}
+.populaires_titres {
+  display: flex;
+  margin: 10px 10px 0px 20px;
+}
+.icone_populaire {
+  display: flex;
+  margin: 23px 5px 0px 50px;
+}
+.icone_info {
+  display: flex;
+  border: solid #f2f2f2;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50px;
+  margin: 0px 5px 0px 0px;
+}
+.info_box {
+  display: flex;
+  align-items: center;
+  font-size: small;
+  margin: 0px 0px 10px 0px;
+}
+.star_box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: 3px 0px 0px 0px;
+  justify-content: left;
+}
+.titre_hebergement {
+  display: flex;
+  width: 100%;
+  margin: 10px 0px 0px 20px;
+}
+.activite_marseille {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 10px 0px 10px;
+  width: 100%;
+}
+
+.footer_block {
+  display: flex;
+  background-color: #f2f2f2;
+  overflow: scroll;
+}
+.footer_box_1 {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  min-width: 307.64px;
+  padding: 20px;
+}
+.footer_box_2 {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  min-width: 224.8px;
+}
+.footer_box_3 {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  min-width: 162.7px;
+}
+
+/* Les CARD (Carte) */
+
+.card {
+  width: 30%;
+  height: 30%;
+  min-width: 170px;
+  margin: 5px auto;
+  align-items: center;
+  padding: 3px;
+  background-color: white;
+  box-shadow: 0px 5px 20px #999;
+  border-radius: 20px;
+}
+
+.card_2 {
+  display: flex;
+  width: 80%;
+  height: 24%;
+  min-width: 200px;
+  margin: 5px auto;
+  padding: 3px;
+  background-color: white;
+  box-shadow: 0px 5px 20px #999;
+  border-radius: 20px;
+}
+.card_body {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  padding: 8px 9px;
+  font-size: small;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.card_body2 {
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  font-size: small;
+  height: 100%;
+  width: 50%;
+  padding: 8px 10px;
+  overflow: hidden;
+  box-sizing: content-box;
+}
+.card_titre {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  font-weight: bold;
+}
+.card_excerpt {
+  font-size: x-small;
+  height: 50%;
+}
+
+.card_titre_populaire {
+  font-weight: bold;
+  margin: 2px 0px 2px 0px;
+}
+
+.card_excerpt_populaire {
+  font-size: x-small;
+}
+
+.card_activite1 {
+  width: 200px;
+  height: 340px;
+  min-height: 340px;
+  min-width: 200px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0px 5px 5px #999;
+  border-radius: 20px;
+}
+
+.card_activite2 {
+  width: 200px;
+  height: 200px;
+  min-height: 200px;
+  min-width: 200px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0px 5px 5px #999;
+  border-radius: 20px;
+}
+
+.card_activite3 {
+  width: 200px;
+  height: 100px;
+  min-height: 100px;
+  min-width: 200px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0px 5px 5px #999;
+  border-radius: 20px;
+}
+
+.card_activite4 {
+  width: 200px;
+  height: 340px;
+  min-height: 340px;
+  min-width: 200px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0px 5px 5px #999;
+  border-radius: 20px;
+}
+
+.card_activite5 {
+  width: 200px;
+  height: 150px;
+  min-height: 150px;
+  min-width: 200px;
+  margin: auto;
+  background-color: white;
+  box-shadow: 0px 5px 5px #999;
+  border-radius: 20px;
+}
+
+.card-image {
+  height: 50%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image2 {
+  height: 100%;
+  width: 40%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 0px 0px 20px;
+}
+.card-image_vieuxport {
+  height: 85%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image_fort {
+  height: 80%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image_frioul {
+  height: 70%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image_calanques {
+  height: 85%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image_lagarde {
+  height: 75%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image_longchamp {
+  height: 75%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px 20px 0px 0px;
+}
+.card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.card-image2 img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  min-width: 96.8px;
+}
+.card-image_vieuxport img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.card-image_fort img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.card-image_frioul img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.card-image_calanques img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.card-image_lagarde img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.card-image_longchamp img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}

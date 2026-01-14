@@ -1,0 +1,189 @@
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-receipt mr-3"></i>Journal des Achats
+                    </h1>
+                    <p class="text-muted mt-2">Gestion et suivi des transactions financières et commandes clients.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_achat_new') }}" class="btn btn-premium-p shadow-sm">
+                        <i class="fa-solid fa-plus-circle mr-2"></i>Nouvel Achat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} alert-dismissible animate__animated animate__fadeInDown">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <i class="icon fas fa-{% if type == 'success' %}check{% else %}info{% endif %} mr-2"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            <!-- Advanced Filter Card -->
+            <div class="card card-premium-admin shadow-sm mb-4">
+                <div class="card-header border-0 bg-transparent">
+                    <h3 class="card-title font-weight-bold text-dark"><i class="fa-solid fa-magnifying-glass mr-2"></i>Filtres Avancés</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <form method="get" action="{{ path('app_achat_index_type') }}">
+                                <div class="form-group mb-0">
+                                    <label class="small font-weight-bold ml-1 mb-2">Filtrer par type de service</label>
+                                    <div class="input-group input-group-premium">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-truck-fast"></i></span>
+                                        </div>
+                                        <select name="type" class="form-control form-control-premium">
+                                            <option value="" disabled hidden {% if not app.request.query.get('type') %}selected{% endif %}>Choisir un type...</option>
+                                            <option value="livraison" {% if app.request.query.get('type') == 'livraison' %}selected{% endif %}>Services de Livraison</option>
+                                            <option value="surplace" {% if app.request.query.get('type') == 'surplace' %}selected{% endif %}>Consommation sur Place</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary-p px-4">Filtrer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form method="get" action="{{ path('app_achat_index_date') }}">
+                                <div class="form-group mb-0">
+                                    <label class="small font-weight-bold ml-1 mb-2">Rechercher par calendrier</label>
+                                    <div class="input-group input-group-premium">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                                        </div>
+                                        <input type="date" name="date" class="form-control form-control-premium" value="{{ app.request.query.get('date') }}" />
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary-p px-4">Chercher</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Table -->
+            <div class="card card-premium-admin shadow-lg">
+                <div class="card-header border-0 bg-transparent d-flex justify-content-between align-items-center">
+                    <h3 class="card-title font-weight-bold text-dark">Récapitulatif des Transactions</h3>
+                    <a href="{{ path('app_achat_index') }}" class="btn btn-sm btn-outline-secondary px-3" style="border-radius: 8px;">
+                        <i class="fa-solid fa-rotate-right mr-1"></i>Réinitialiser
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Référence</th>
+                                    <th>Identité Client</th>
+                                    <th>Total TTC</th>
+                                    <th>Qté</th>
+                                    <th>Date d'émission</th>
+                                    <th>Mode de service</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for achat in achats %}
+                                    <tr>
+                                        <td>
+                                            <span class="font-weight-bold text-muted">#ACH-{{ achat.idachat }}</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sm-premium bg-primary-light mr-3">
+                                                    {{ achat.user.username|first|upper }}
+                                                </div>
+                                                <div>
+                                                    <div class="font-weight-bold text-dark">{{ achat.user.username }}</div>
+                                                    <div class="small text-muted">Client premium</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <span class="text-primary-p font-weight-bold" style="font-size: 1.1rem;">{{ achat.montanttotal|number_format(2, ',', ' ') }} DT</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-light px-2" style="border-radius: 6px;">{{ achat.quantite }} art.</span>
+                                        </td>
+                                        <td>
+                                            <div class="text-muted"><i class="fa-regular fa-calendar-alt mr-2"></i> {{ achat.date ? achat.date|date('d M Y') : '-' }}</div>
+                                        </td>
+                                        <td>
+                                            {% if achat.type == 'livraison' %}
+                                                <span class="badge bg-info-soft text-info px-3 py-2" style="border-radius: 20px;">
+                                                    <i class="fa-solid fa-truck-fast mr-1"></i> Livraison
+                                                </span>
+                                            {% else %}
+                                                <span class="badge bg-purple-soft text-purple px-3 py-2" style="border-radius: 20px;">
+                                                    <i class="fa-solid fa-utensils mr-1"></i> Sur Place
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_achat_show', {'idachat': achat.idachat}) }}" class="btn btn-white btn-sm px-3" title="Détails">
+                                                    <i class="fa-solid fa-file-invoice text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_achat_edit', {'idachat': achat.idachat}) }}" class="btn btn-white btn-sm px-3" title="Modifier">
+                                                    <i class="fa-solid fa-pen-to-square text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('achat/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-receipt fa-3x mb-3 opacity-20"></i>
+                                                <p>Aucune transaction enregistrée dans le journal.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.bg-info-soft { background: rgba(23, 162, 184, 0.1); }
+.bg-purple-soft { background: rgba(111, 66, 193, 0.1); }
+.text-purple { color: #6f42c1; }
+.avatar-sm-premium {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: var(--primary);
+}
+.bg-primary-light { background: rgba(0, 242, 96, 0.1); }
+</style>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Achat{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-file-invoice-dollar mr-3"></i>Détails de la Transaction
+                    </h1>
+                    <p class="text-muted mt-2">Consultation de la facture et des détails logistiques de la commande.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_achat_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_achat_edit', {'idachat': achat.idachat}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-5">
+                    <!-- Premium Summary Card -->
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-dark font-weight-bold">Résumé Financier</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="text-center mb-5">
+                                <div class="invoice-icon-circle mx-auto mb-3">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </div>
+                                <h4 class="text-muted small text-uppercase letter-spacing-2 mb-1">Montant Total Réglé</h4>
+                                <div class="display-4 font-weight-bold text-primary-p">{{ achat.montanttotal|number_format(2, ',', ' ') }} <small>DT</small></div>
+                            </div>
+                            
+                            <div class="info-list">
+                                <div class="info-item-premium d-flex justify-content-between py-3 border-bottom">
+                                    <span class="text-muted">Référence Facture</span>
+                                    <span class="font-weight-bold">#ORD-{{ achat.idachat }}</span>
+                                </div>
+                                <div class="info-item-premium d-flex justify-content-between py-3 border-bottom">
+                                    <span class="text-muted">Nombre d'articles</span>
+                                    <span class="font-weight-bold text-dark">{{ achat.quantite }} unités</span>
+                                </div>
+                                <div class="info-item-premium d-flex justify-content-between py-3 border-bottom">
+                                    <span class="text-muted">Date & Heure</span>
+                                    <span class="font-weight-bold text-dark">{{ achat.date ? achat.date|date('d/m/Y H:i') : '-' }}</span>
+                                </div>
+                                <div class="info-item-premium d-flex justify-content-between py-3">
+                                    <span class="text-muted">Mode de distribution</span>
+                                    {% if achat.type == 'livraison' %}
+                                        <span class="badge bg-info-soft text-info px-3 py-1" style="border-radius: 12px;"> LIVRAISON </span>
+                                    {% else %}
+                                        <span class="badge bg-purple-soft text-purple px-3 py-1" style="border-radius: 12px;"> SUR PLACE </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <!-- Client & System Info -->
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">
+                                <i class="fa-solid fa-user-tie mr-2"></i>Informations Client
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="client-profile-box p-4 rounded mb-4 d-flex align-items-center" style="background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05);">
+                                <div class="avatar-large bg-primary-p text-white mr-4 shadow-sm">
+                                    {{ achat.user.username|first|upper }}
+                                </div>
+                                <div>
+                                    <h4 class="font-weight-bold mb-1">{{ achat.user.username }}</h4>
+                                    <p class="text-muted mb-0"><i class="fa-solid fa-envelope mr-1 opacity-50"></i> {{ achat.user.email|default('Email non renseigné') }}</p>
+                                    <span class="badge badge-primary-light text-primary-p mt-2">Client Historique</span>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-secondary-soft p-4" style="border-radius: 15px;">
+                                <h5 class="font-weight-bold mb-3 small text-uppercase opacity-70"><i class="fa-solid fa-circle-info mr-2"></i>Note Interne Administrateur</h5>
+                                <p class="mb-0 text-muted italic">Cette transaction a été validée via le système de paiement sécurisé. Les fonds ont été crédités sur le compte principal.</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                                <div class="small text-muted">Achat #{{ achat.idachat }} - Logs système OK</div>
+                                {{ include('achat/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.invoice-icon-circle {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 242, 96, 0.1);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+}
+.avatar-large {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+}
+.letter-spacing-2 { letter-spacing: 2px; }
+.bg-info-soft { background: rgba(23, 162, 184, 0.1); }
+.bg-purple-soft { background: rgba(111, 66, 193, 0.1); }
+.bg-secondary-soft { background: rgba(108, 117, 125, 0.05); }
+.badge-primary-light { background: rgba(0, 242, 96, 0.1); color: #008a44; }
+.text-purple { color: #6f42c1; }
+</style>
+{% endblock %}

@@ -1,0 +1,41 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'premium-form'}}) }}
+<div class="row">
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Nom du Restaurant</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-store"></i></span>
+            </div>
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: La Gazelle d\'Or'}}) }}
+        </div>
+        {% if form_errors(form.nom) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">
+                {{ form_errors(form.nom) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Emplacement / Adresse</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+            </div>
+            {{ form_widget(form.location, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: Carthage, Tunis'}}) }}
+        </div>
+        {% if form_errors(form.location) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">
+                {{ form_errors(form.location) }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="my-4 opacity-5">
+
+<div class="d-flex justify-content-end align-items-center mt-4">
+    <button type="submit" class="btn btn-premium-p px-5">
+        <i class="fa-solid fa-check-circle mr-2"></i>{{ button_label|default('Enregistrer') }}
+    </button>
+</div>
+{{ form_end(form) }}

@@ -1,0 +1,172 @@
+{# <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Silver Badge</title>
+        
+		
+	</head>
+	<body>
+		<header>
+			<h1>Silver Badge</h1>
+		</header>
+
+		<div>
+			<img src="{{ imagePath }}" alt="Event Image">
+		</div>
+
+		<div class="card-container">
+			{% for badge in badges %}
+				<div class="card">
+					<div class="card-body" style="text-align: center;">
+						<ul class="list-group"  >
+						
+                            <li class="list-group-item">
+								<strong>Restaurant:</strong>
+								{{ badge.restaurant.nom }}
+							</li>
+							<li class="list-group-item">
+								<strong>Username:</strong>
+								{{ badge.user.username }}
+							</li>
+                            <li class="list-group-item">
+								<strong>Date:</strong>
+								{{ badge.datebadge ? badge.datebadge|date('Y-m-d') : '' }}
+							</li>
+						</ul>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</body>
+</html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: 'Arial', sans-serif;
+				text-align: center;
+				background-color: #f8f9fa; /* Light background color */
+				color: #495057; /* Text color */
+			}
+
+			header {
+				background-color: #808080;
+				color: white;
+				text-align: center;
+				padding: 20px;
+				margin-bottom: 20px;
+			}
+
+			img {
+				max-width: 100px;
+				border-radius: 50%;
+				margin-top: -50px; /* Adjust the margin-top to align with the header */
+			}
+
+			.card-container {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 20px;
+				padding: 20px;
+			}
+
+			.card {
+				width: 45%; /* Adjust width for two cards in a row */
+				border: 2px solid #808080; /* Green border */
+				border-radius: 10px;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+				transition: transform 0.3s ease-in-out;
+			}
+
+			.card:hover {
+				transform: scale(1.05); /* Enlarge on hover */
+			}
+
+			.card-body {
+				padding: 20px;
+			}
+
+			.list-group-item {
+				list-style: none;
+				margin: 10px 0;
+				padding: 8px;
+				border-radius: 5px;
+				background-color:  #808080; /* Light gray background for list items */
+			}
+
+			.list-group-item strong {
+				margin-right: 10px;
+			}
+		</style> #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Silver Badge</title>
+    <style>
+        /* Custom styles */
+        .silver-header {
+            background-color: silver;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+       
+        .event-image {
+            display: block;
+            margin: 0 auto; /* Center the image horizontally */
+            max-width: 200px;
+        }
+
+        .silver-card {
+            border: 2px solid silver;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center; /* Center the text within the card */
+        }
+
+        .card-title {
+            color: black;
+        }
+
+        .card-text {
+            font-family: 'Elegant Font', sans-serif; /* Use an elegant font */
+        }
+    </style>
+</head>
+<body>
+ {% for badge in badges %}
+<div class="container mt-4">
+    <div class="card silver-card">
+        <div class="card-body">
+            <div class="silver-header">
+                <h1 class="card-title">Silver Badge</h1>
+                <img class="event-image" src="{{ imagePath }}" alt="Event Image">
+            </div>
+           
+          
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <p class="card-text"><strong>Restaurant:</strong> {{ badge.restaurant.nom }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="card-text"><strong>Username:</strong> {{ badge.user.username }}</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="card-text"><strong>Date:</strong> 	{{ badge.datebadge ? badge.datebadge|date('Y-m-d') : '' }}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endfor %}
+</body>
+</html>

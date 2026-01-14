@@ -1,0 +1,152 @@
+@import "../base/variable.scss"; // variable.less
+
+/*
+---------------------------------------
+  Team Section
+---------------------------------------
+*/
+
+.social {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 60%;
+  transform: translateY(-50%);
+}
+
+.project-item,
+.team-box{
+  margin-bottom: 30px;
+  .content{
+    text-align: center;
+    padding:15px 15px 5px;
+    h4{
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+  }
+}
+
+
+.project-item-box,
+.project-item,
+.team-box{
+  .image{
+    position: relative;
+    &:before{
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      content: '';
+      opacity: 0;
+      transition:all 0.3s ease 0s;
+    }
+  }
+  &:hover{
+    box-shadow: 0px 0px 35px rgba(0, 0, 0, .30);
+    transition:all 0.3s ease 0s;
+    .image{
+      &:before{
+        opacity: 1;
+        transition:all 0.3s ease 0s;
+      }
+    }
+  }
+}
+
+.project-item,
+.team-box{
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, .10);
+  transition:all 0.3s ease 0s;
+  .image{
+    &:before{
+      background: rgba(92, 195, 92, .80);
+    }
+  }
+}
+
+.project-item-box{
+  .image{
+    &:before{
+      background: rgba(0, 0, 0, .30);
+    }
+  }
+}
+
+.owl-theme .owl-dots .owl-dot.active span,
+.owl-theme .owl-dots .owl-dot:hover span{
+  background: $green;
+}
+
+.skype,
+.facebook,
+.linkedin{
+  width: 35px;
+  height: 35px;
+  border-radius: 100px;
+  margin: 3px;
+  text-align: center;
+  line-height: 35px;
+  color: $white;
+  font-size: 16px;
+  display: inline-block;
+  background: rgba(255, 255, 255, .5);
+  transition:all 0.3s ease 0s;
+  &:hover{
+    background: $white;
+    color: $green;
+    transition:all 0.3s ease 0s;
+  }
+}
+.team-box:hover .linkedin{
+  bottom: 50%;
+  opacity: 1;
+}
+.linkedin {
+  position: absolute;
+  bottom: calc(50% - 30px);
+  left: calc(50% - 58px);
+  transition:all 0.3s ease 0s;
+  opacity: 0;
+}
+
+.team-box:hover .facebook {
+  bottom: calc(50% - 0px);
+  opacity: 1;
+}
+.facebook {
+  position: absolute;
+  bottom: calc(50% - 74px);
+  left: calc(50% - 15px);
+  transition:all 0.6s ease 0s;
+  opacity: 0;
+}
+
+.team-box:hover .skype {
+  bottom: calc(50% - 0px);
+  opacity: 1;
+}
+.skype {
+  position: absolute;
+  bottom: calc(50% - 74px);
+  left: calc(50% - -30px);
+  transition: all 0.9s ease 0s;
+  opacity: 0;
+}
+
+
+.team-inner-item{
+  .team-box{
+    overflow: hidden;
+    background: $deep;
+    box-shadow: none;
+    &:hover{
+      box-shadow: 0px 0px 35px rgba(51, 61, 76, .3);
+    }
+  }
+}

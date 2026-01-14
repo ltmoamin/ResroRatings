@@ -1,0 +1,92 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Restaurant
+{% endblock %}
+
+{% block body %}
+	<div class="fils" style="padding-left: 300px;">
+		<h1>Restaurant index</h1>
+		<div class="page-wrapper my-5">
+			<div class="container-fluid" id="container-wrapper">
+				{# <div class="card p-3"> #}
+					<div class="row">
+						<h5 class="col-7 text-gray-800 pl-3">
+							Rechercher un Restaurant
+						</h5>
+
+
+					</div>
+				{# </div> #}
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row  align-items-center">
+							<div>
+								<h2>
+									<center>Search</center>
+								</h2>
+								<div class="input-group custom-search-form">
+									<input type="text" id="search" class="form-control" placeholder="Search for a product ...">
+								</div>
+								<br>
+								<ul class="list-group" id="side-menu">
+									<h6>Result:
+										<span></span>
+									</h6>
+									<ul style="display: block;" class="nav nav-second-level" id="entitiesNav"></ul>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery is necessary -->
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function () {
+var searchRequest = null;
+$("#search").keyup(function () {
+var minlength = 1;
+var that = this;
+var value = $(this).val();
+var entitySelector = $("#entitiesNav").html('');
+if (value.length >= minlength) {
+if (searchRequest != null) 
+searchRequest.abort();
+
+
+
+searchRequest = $.ajax({
+type: "GET",
+url: "{{ path('ajax_searcha') }}",
+data: {
+'q': value
+},
+dataType: "text",
+
+success: function (msg) { // we need to check if the value is the same
+
+if (value == $(that).val()) {
+var result = JSON.parse(msg);
+$.each(result, function (key, arr) {
+$.each(arr, function (id, value) {
+if (key == 'charity_demands') {
+if (id != 'error') {
+entitySelector.append('<li class="list-group-item"><h5><a href="/restaurant/' + id + '">' + value + '</a></h5></li>');
+} else {
+entitySelector.append('<li class="errorLi">' + value + '</li>');
+}
+}
+});
+});
+}
+}
+});
+}
+});
+});
+	</script>
+{% endblock %}

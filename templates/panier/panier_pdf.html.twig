@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .pdf-container {
+            border: 2px solid #ccc;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            position: relative;
+        }
+        .header {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .custom-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .custom-table th, .custom-table td {
+            border: 2px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .custom-table th {
+            background-color: #f2f2f2;
+        }
+        .total-amount {
+            text-align: right;
+            margin-top: 20px;
+            font-weight: bold;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+        .img-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .img-right {
+            float: right;
+        }
+        .date {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+        .username {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+     
+    </style>
+</head>
+<body>
+
+    <div class="pdf-container">
+
+        <div class="title">
+            Resto Ratings
+        </div>
+
+        <div class="img-container">
+            <img src="{{ absolute_url(asset('platimage/logo-restaurant.jpg')) }}" width="100" height="100" class="img-fluid __img" />
+        </div>
+
+        {% if achats is not empty %}
+            {% set username = achats[0].user.username %}
+            <div class="header">
+                Facture
+                <div class="username">
+                    Nom Client(e): {{ username }}
+                </div>
+            </div>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Image</th>
+                        <th>Quantité</th>
+                        <th>Prix</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for achat in achats %}
+                        <tr>
+                            <td>{{ achat.plat.nom }}</td>
+                            <td>
+                                <img src="{{ absolute_url(asset('platimage/' ~ achat.plat.image)) }}" width="50" height="50" class="img-fluid __img" />
+                            </td>
+                            <td>{{ achat.quantite }}</td>
+                            <td>{{ achat.plat.prix }} DT</td>
+                            <td>{{ achat.type }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="total-amount">
+                {% set allSurPlace = true %}
+                {% set totalMontant = 0 %}
+                {% set fraisLivraisonAdded = false %}
+                {% for achat in achats %}
+                    {% set totalMontant = totalMontant + achat.montanttotal %}
+                    {% if achat.type != 'surplace' %}
+                        {% set allSurPlace = false %}
+                    {% endif %}
+                    {% if achat.type == 'livraison' and not fraisLivraisonAdded %}
+                        {% set fraisLivraisonAdded = true %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if allSurPlace %}
+                    Total : {{ totalMontant }} DT
+                {% else %}
+                    Total : {{ totalMontant }} DT{% if fraisLivraisonAdded %} (frais de livraison : 2.5 DT){% endif %}
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Votre panier est vide.</p>
+        {% endif %}
+
+        <div class="img-container img-right">
+            <img src="{{ absolute_url(asset('platimage/cachet.jpg')) }}" width="100" height="100" class="img-fluid __img" />
+        </div>
+
+        {% if achats|length > 0 %}
+            <div class="date">
+                {{ achats[0].date|date("d/m/Y") }}
+            </div>
+        {% endif %}
+
+    </div>
+<br>
+<br>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <div >
+    {{ codeBarre | raw }}
+</div>
+
+</body>
+</html>

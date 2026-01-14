@@ -1,0 +1,102 @@
+{% extends 'back.html.twig' %}
+{% block title %}Statistiques des Réclamations{% endblock %}
+
+{% block body %}
+   
+<div class="fils" style="padding-left: 300px;">
+</br></br>
+</br>
+    <h1>Statistiques des Réclamations</h1>
+
+    <canvas  class="rap"id="reclamationChart" ></canvas>
+    
+   <button id="toggleChartType" class="red-button">Changer le type de graphique</button>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('reclamationChart').getContext('2d');
+        var chartType = 'bar'; // Par défaut, le type de graphique est bar
+
+        var myChart = new Chart(ctx, {
+            type: chartType, // Utilisation de la variable chartType pour définir le type initial
+            data: {
+                labels: ['Total', 'En attente', 'Résolues', 'Réponses'],
+                datasets: [{
+                    label: 'Statistiques des Réclamations',
+                    data: [{{ count }}, {{ counttt }}, {{ countttt }}, {{ countt }}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.5)',
+                        'rgba(54, 162, 235, 0.5)',
+                        'rgba(255, 206, 86, 0.5)',
+                        'rgba(75, 192, 192, 0.5)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // Options du graphique
+            }
+        });
+
+        // Ajout d'un gestionnaire d'événement pour le clic sur le bouton de conversion
+        document.getElementById('toggleChartType').addEventListener('click', function() {
+            // Vérifier le type de graphique actuel et changer en conséquence
+            if (chartType === 'bar') {
+                chartType = 'pie'; // Changer le type de graphique en pie si c'était bar
+            } else {
+                chartType = 'bar'; // Sinon, changer en bar
+            }
+
+            // Détruire le graphique actuel
+            myChart.destroy();
+
+            // Recréer le graphique avec le nouveau type de graphique
+            myChart = new Chart(ctx, {
+                type: chartType,
+                data: {
+                    labels: ['Total', 'En attente', 'Résolues', 'Réponses'],
+                    datasets: [{
+                        label: 'Statistiques des Réclamations',
+                        data: [{{ count }}, {{ counttt }}, {{ countttt }}, {{ countt }}],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)',
+                            'rgba(75, 192, 192, 0.5)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    // Options du graphique
+                }
+            });
+        });
+    </script>
+</div>
+<style>
+    .red-button {
+        background-color: red;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .rap{
+        width:10 !important; 
+        height:10  !important   ;
+    }
+</style>
+{% endblock %}

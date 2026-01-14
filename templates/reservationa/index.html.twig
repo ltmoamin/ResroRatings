@@ -1,0 +1,76 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Gestion des Réservations{% endblock %}
+
+{% block body %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-primary-p">
+                    <i class="fa-solid fa-calendar-check mr-2"></i>Gestion des Réservations
+                </h1>
+            </div>
+            <div class="col-sm-6 text-right">
+                {# Add secondary actions if needed #}
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-premium-admin">
+            <div class="card-header border-0">
+                <h3 class="card-title">Liste des Réservations</h3>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table-premium">
+                        <thead>
+                            <tr>
+                                <th># ID</th>
+                                <th>Date</th>
+                                <th>Heure</th>
+                                <th class="text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for reservation in reservations %}
+                            <tr>
+                                <td class="text-muted">#{{ reservation.idRes }}</td>
+                                <td>
+                                    <i class="fa-regular fa-calendar-days mr-2 text-primary"></i>
+                                    {{ reservation.datereser ? reservation.datereser|date('Y-m-d') : '-' }}
+                                </td>
+                                <td>
+                                    <i class="fa-regular fa-clock mr-2 text-info"></i>
+                                    {{ reservation.timereser ? reservation.timereser|date('H:i') : '-' }}
+                                </td>
+                                <td class="text-right">
+                                    <div class="btn-group">
+                                        <a href="{{ path('app_reservationa_show', {'idRes': reservation.idRes}) }}" class="btn btn-light btn-sm mr-1" title="Voir">
+                                            <i class="fa-solid fa-eye text-info"></i>
+                                        </a>
+                                        <a href="{{ path('app_reservationa_edit', {'idRes': reservation.idRes}) }}" class="btn btn-light btn-sm mr-1" title="Modifier">
+                                            <i class="fa-solid fa-pen text-warning"></i>
+                                        </a>
+                                        {# Assuming there is a delete form or button #}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="text-center py-5">
+                                    <p class="text-muted mb-0">Aucune réservation trouvée</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

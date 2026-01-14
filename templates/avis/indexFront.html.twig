@@ -1,0 +1,100 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Avis - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Avis</span>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-comments text-figma-green me-3"></i>
+                    Avis des clients
+                </h1>
+                <p class="page-subtitle">Partagez votre expérience et consultez les avis des autres</p>
+            </div>
+            <div class="d-flex gap-3">
+                <a href="{{ path('app_top_three_views') }}" class="btn-outline-premium">
+                    <i class="fa-solid fa-trophy me-2"></i>
+                    Top 3 Avis
+                </a>
+                <a href="{{ path('app_avis_new55') }}" class="btn-premium">
+                    <i class="fa-solid fa-plus me-2"></i>
+                    Ajouter un avis
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        {% include 'avis/flash_messages.html.twig' %}
+        
+        {% if avis is not empty %}
+            <div class="row g-4">
+                {% for avi in avis %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="review-card h-100">
+                        <div class="review-header">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&q=80" 
+                                 alt="{{ avi.user.username }}" 
+                                 class="review-avatar">
+                            <div>
+                                <div class="review-author">{{ avi.user.username }}</div>
+                                <div class="review-date">
+                                    <i class="fa-regular fa-eye me-1"></i>{{ avi.nbVue }} vues
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-stars mb-3">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        
+                        <h5 class="fw-bold mb-3">{{ avi.titreavis }}</h5>
+                        <p class="review-content mb-4">{{ avi.pubavis|slice(0, 150) }}{% if avi.pubavis|length > 150 %}...{% endif %}</p>
+                        
+                        <div class="d-flex gap-2 mt-auto">
+                            <a href="{{ path('app_avis_show55', {'id': avi.id}) }}" class="btn-outline-premium btn-sm-premium">
+                                <i class="fa-solid fa-eye me-1"></i> Voir
+                            </a>
+                            {% if app.user and app.user.iduser == avi.user.getIduser() %}
+                                <a href="{{ path('app_avis_editFront', {'id': avi.id}) }}" class="btn-warning-premium btn-sm-premium">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+                                {{ include('avis/_delete_formFront.html.twig') }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="panel-premium">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3 class="empty-state-title">Aucun avis pour le moment</h3>
+                    <p class="empty-state-text">
+                        Soyez le premier à partager votre expérience avec notre communauté.
+                    </p>
+                    <a href="{{ path('app_avis_new55') }}" class="btn-premium">
+                        <i class="fa-solid fa-plus me-2"></i>
+                        Ajouter le premier avis
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

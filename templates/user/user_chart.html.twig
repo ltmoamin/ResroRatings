@@ -1,0 +1,70 @@
+{# user_chart.html.twig #}
+
+{% extends 'back.html.twig' %}
+
+{% block title %}User Chart{% endblock %}
+
+
+    
+
+
+{% block body %}
+{# Include Chart.js from CDN #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <style>
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px; /* Adjust the top margin as needed */
+        }
+    </style>
+    <div class="fils" style="padding-left: 300px;">
+        <h2>User Chart</h2>
+         <div class="chart-container">
+        <canvas id="userChart" width="500" height="150"></canvas>
+
+        <script>
+            // Fetch user count data from your controller (replace URL with your actual route)
+            fetch('{{ path('app_user_chart_data') }}')
+                .then(response => response.json())
+                .then(data => {
+                    // Create a bar chart
+                    var ctx = document.getElementById('userChart').getContext('2d');
+                    var userChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Actif', 'Bloqué'],
+                            datasets: [{
+                                label: 'User Count',
+                                data: [data.activeUserCount, data.blockedUserCount],
+                                backgroundColor: [
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(255, 99, 132, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                });
+        </script>
+</div>
+        <a href="{{ path('app_user_index') }}" class="btn btn-primary">Back to Users</a>
+    </div>
+
+
+
+    {# Include Chart.js from CDN #}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}

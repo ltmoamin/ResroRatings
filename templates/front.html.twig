@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="RestoRatings - Discover and rate the best restaurants in your area. Find exceptional dining experiences with honest reviews.">
+    <title>{% block title %}RestoRatings - Discover & Rate Best Restaurants{% endblock %}</title>
+
+    <!-- Fonts - Optimized loading with display=swap -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('Frontend/assets/css/bootstrap.min.css') }}">
+    
+    <!-- Design System -->
+    <link rel="stylesheet" href="{{ asset('assets/css/design_system.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/panier.min.css') }}">
+
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader" role="status" aria-label="Loading">
+        <div class="preloader-spinner"></div>
+        <span class="sr-only">Loading...</span>
+    </div>
+
+    <!-- ***** Header Area ***** -->
+    <nav class="navbar navbar-expand-lg navbar-figma sticky-top" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <!-- Logo Left -->
+            <a class="navbar-brand brand-logo" href="{{ path('home_Front') }}" aria-label="RestoRatings Home">
+                <img src="{{ asset('assets/img/restoratings_logo_premium_1768296588087.png') }}" alt="RestoRatings" loading="eager">
+            </a>
+            
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars fs-4" aria-hidden="true"></i>
+            </button>
+
+            <!-- Centered Nav -->
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-figma active" href="{{ path('home_Front') }}#home" aria-current="page">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-figma" href="{{ path('home_Front') }}#menu">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-figma" href="{{ path('home_Front') }}#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-figma" href="{{ path('home_Front') }}#offers">Offers</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Icons and Contact Button Right -->
+            <div class="nav-right-icons d-flex align-items-center gap-3">
+                <a href="#" class="d-none d-md-flex" aria-label="Search restaurants">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                </a>
+                <a href="{{ path('app_view_panier') }}" class="position-relative" aria-label="Shopping cart{% if app.session.get('achat_counter', 0) > 0 %}, {{ app.session.get('achat_counter', 0) }} items{% endif %}">
+                    <i class="fa-solid fa-basket-shopping" aria-hidden="true"></i>
+                    {% if app.session.get('achat_counter', 0) > 0 %}
+                        <span class="cart-badge" aria-hidden="true">
+                            {{ app.session.get('achat_counter', 0) }}
+                        </span>
+                    {% endif %}
+                </a>
+                
+                {% if app.user %}
+                    <div class="dropdown">
+                        <a class="d-flex align-items-center gap-2 text-decoration-none" href="#" data-bs-toggle="dropdown" aria-expanded="false" aria-label="User menu for {{ app.user.username|default('User') }}">
+                            <i class="fa-solid fa-circle-user fs-4" aria-hidden="true"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end mt-2">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-user me-2" aria-hidden="true"></i>My Profile
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-receipt me-2" aria-hidden="true"></i>My Orders
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa-solid fa-gear me-2" aria-hidden="true"></i>Settings
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="{{ path('app_logout') }}">
+                                    <i class="fa-solid fa-right-from-bracket me-2" aria-hidden="true"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <a href="tel:+21690101741" class="btn-contact-figma d-none d-sm-flex" aria-label="Call us at +216 90 101 741">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    <span class="d-none d-lg-inline">Call Us</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        {% block body %}{% endblock %}
+    </main>
+
+    <!-- ***** Footer Area ***** -->
+    <footer class="footer-figma" role="contentinfo">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="footer-logo">
+                        <img src="{{ asset('assets/img/restoratings_logo_premium_1768296588087.png') }}" alt="RestoRatings">
+                    </div>
+                    <p class="footer-contact pe-lg-5">Savor the artistic details of every plate. RestoRatings connects you with the finest culinary experiences.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="#" class="social-circle social-facebook" aria-label="Follow us on Facebook">
+                            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-circle social-twitter" aria-label="Follow us on Twitter">
+                            <i class="fa-brands fa-twitter" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-circle social-instagram" aria-label="Follow us on Instagram">
+                            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5 class="footer-title">Main Menu</h5>
+                    <nav aria-label="Footer main menu">
+                        <a href="{{ path('home_Front') }}#home" class="footer-link">Home</a>
+                        <a href="{{ path('home_Front') }}#offers" class="footer-link">Offers</a>
+                        <a href="{{ path('home_Front') }}#menu" class="footer-link">Menus</a>
+                        <a href="#" class="footer-link">Reservation</a>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-4 col-6">
+                    <h5 class="footer-title">Information</h5>
+                    <nav aria-label="Footer information">
+                        <a href="#" class="footer-link">About Us</a>
+                        <a href="{{ path('home_Front') }}#testimonials" class="footer-link">Testimonial</a>
+                        <a href="#" class="footer-link">Events</a>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h5 class="footer-title">Contact Us</h5>
+                    <address class="footer-contact">
+                        <p class="mb-2">
+                            <i class="fa-solid fa-envelope me-2" aria-hidden="true"></i>
+                            <a href="mailto:RestoRatings1@Gmail.com" class="text-decoration-none" style="color: inherit;">RestoRatings1@Gmail.com</a>
+                        </p>
+                        <p class="mb-2">
+                            <i class="fa-solid fa-phone me-2" aria-hidden="true"></i>
+                            <a href="tel:+21690101741" class="text-decoration-none" style="color: inherit;">+216 90 101 741</a>
+                        </p>
+                        <p class="mb-0">
+                            <i class="fa-solid fa-location-dot me-2" aria-hidden="true"></i>
+                            Cité El Ghazala, Ariana
+                        </p>
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">Copyright {{ "now"|date("Y") }} RestoRatings | Crafted with <i class="fa-solid fa-heart text-accent-red" aria-label="love"></i> passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="{{ asset('Frontend/assets/js/bootstrap.min.js') }}"></script>
+    <script>
+        // Preloader - Vanilla JS (no jQuery dependency)
+        document.addEventListener('DOMContentLoaded', function() {
+            const preloader = document.getElementById('preloader');
+            
+            window.addEventListener('load', function() {
+                preloader.classList.add('hidden');
+                setTimeout(function() {
+                    preloader.style.display = 'none';
+                }, 350);
+            });
+            
+            // Fallback: Hide preloader after 3 seconds
+            setTimeout(function() {
+                if (preloader && !preloader.classList.contains('hidden')) {
+                    preloader.classList.add('hidden');
+                    setTimeout(function() {
+                        preloader.style.display = 'none';
+                    }, 350);
+                }
+            }, 3000);
+        });
+        
+        // Navbar Scroll Effect
+        (function() {
+            const navbar = document.querySelector('.navbar-figma');
+            let lastScroll = 0;
+            
+            function handleScroll() {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 30) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                lastScroll = currentScroll;
+            }
+            
+            // Throttle scroll event for performance
+            let ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        handleScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+        })();
+        
+        // Active nav link based on scroll position
+        (function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link-figma');
+            
+            function highlightNav() {
+                let scrollY = window.pageYOffset;
+                
+                sections.forEach(function(section) {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+                    
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        navLinks.forEach(function(link) {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href').includes('#' + sectionId)) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }
+            
+            window.addEventListener('scroll', highlightNav);
+        })();
+    </script>
+    {% block javascripts %}{% endblock %}
+</body>
+</html>

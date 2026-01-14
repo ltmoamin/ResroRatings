@@ -1,0 +1,152 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Événement{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-calendar-check mr-3"></i>Revue de l'Événement
+                    </h1>
+                    <p class="text-muted mt-2">Détails logistiques, description et liste des participants engagés.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_evennement_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_evennement_edit', {'idevent': evennement.idevent}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Éditer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card card-premium-admin shadow-lg border-0 overflow-hidden">
+                        <div class="position-relative">
+                            <img src="{{ asset('eventimages/' ~ evennement.img) }}" alt="{{ evennement.titre }}" class="img-fluid" style="width: 100%; height: 280px; object-fit: cover;">
+                            <div class="glass-overlay p-4 d-flex flex-column justify-content-end" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8));">
+                                <h2 class="text-white font-weight-bold mb-0">{{ evennement.titre }}</h2>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="icon-circle bg-primary-light text-primary-p mr-3"><i class="fa-regular fa-calendar-days"></i></div>
+                                <div>
+                                    <div class="small text-muted">Date Planifiée</div>
+                                    <div class="font-weight-bold text-dark">{{ evennement.date ? evennement.date|date('l, d F Y') : 'À fixer' }}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="icon-circle bg-danger-light text-danger mr-3"><i class="fa-solid fa-location-dot"></i></div>
+                                <div>
+                                    <div class="small text-muted">Lieu / Salle</div>
+                                    <div class="font-weight-bold text-dark">{{ evennement.lieu }}</div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="icon-circle bg-info-light text-info mr-3"><i class="fa-solid fa-map-pin"></i></div>
+                                <div>
+                                    <div class="small text-muted">Adresse Précise</div>
+                                    <div class="font-weight-bold text-dark">{{ evennement.adresse }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="card card-premium-admin h-100 shadow-lg border-0">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">
+                                <i class="fa-solid fa-align-left mr-2"></i>Description de l'Événement
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="description-box p-4 rounded mb-4" style="background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05); min-height: 200px; font-size: 1.1rem; color: #444; line-height: 1.6;">
+                                {{ evennement.description }}
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <div class="badge badge-light border-0 px-3 py-2" style="border-radius: 6px;">ID Référence Unique: #{{ evennement.idevent }}</div>
+                                {{ include('evennement/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participants Table Section -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card card-premium-admin shadow-lg border-0">
+                        <div class="card-header border-0 bg-transparent d-flex justify-content-between align-items-center px-4 py-3">
+                            <h3 class="card-title font-weight-bold text-dark">
+                                <i class="fa-solid fa-users mr-2 text-primary-p"></i>Engagements Participants <span class="badge bg-primary-p ml-2" style="font-size: 0.9rem;">{{ countParticipants }} inscrits</span>
+                            </h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table-premium mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Identité Utilisateur</th>
+                                            <th>Coordonnées</th>
+                                            <th>Confutation de l'événement</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for participant in Listparticipants %}
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar-sx mr-3 bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;"><i class="fa-solid fa-user text-muted"></i></div>
+                                                        <span class="font-weight-bold text-dark">{{ participant.username }}</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-light px-2 py-1"><i class="fa-solid fa-phone mr-2 opacity-50"></i>{{ participant.numero }}</span>
+                                                </td>
+                                                <td class="text-muted italic">Inscrit pour "{{ evennement.titre }}"</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="3" class="text-center py-5">
+                                                    <div class="text-muted">
+                                                        <i class="fa-solid fa-users-slash fa-2x mb-2 opacity-25"></i>
+                                                        <p>Aucun participant n'a encore rejoint cet événement.</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+.bg-primary-light { background: rgba(0, 242, 96, 0.1); }
+.bg-danger-light { background: rgba(255, 71, 87, 0.1); }
+.bg-info-light { background: rgba(52, 152, 219, 0.1); }
+</style>
+{% endblock %}

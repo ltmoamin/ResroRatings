@@ -1,0 +1,70 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'premium-form'}}) }}
+<div class="row">
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Titre de l'Événement</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-heading"></i></span>
+            </div>
+            {{ form_widget(form.titre, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: Gala Annuel Gastronomie'}}) }}
+        </div>
+        {% if form_errors(form.titre) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.titre) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Date & Heure Planifiée</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-calendar-day"></i></span>
+            </div>
+            {{ form_widget(form.date, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        {% if form_errors(form.date) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.date) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Description de l'événement</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-align-left"></i></span>
+            </div>
+            {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Détails, objectifs, public cible...', 'rows': '4'}}) }}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Lieu / Ville</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-city"></i></span>
+            </div>
+            {{ form_widget(form.lieu, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: Tunis, La Marsa'}}) }}
+        </div>
+
+        <label class="small font-weight-bold ml-1 mb-2">Adresse Précise</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-location-dot"></i></span>
+            </div>
+            {{ form_widget(form.adresse, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Rue, Code Postal, Bâtiment...'}}) }}
+        </div>
+
+        <label class="small font-weight-bold ml-1 mb-2">Image de Couverture</label>
+        <div class="input-group input-group-premium mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-image"></i></span>
+            </div>
+            {{ form_widget(form.img, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        <small class="text-muted ml-1 mb-4 d-block"><i class="fa-solid fa-info-circle mr-1"></i> Image haute résolution recommandée.</small>
+    </div>
+</div>
+
+<hr class="my-4 opacity-5">
+
+<div class="d-flex justify-content-end align-items-center mt-4">
+    <button type="submit" class="btn btn-premium-p px-5">
+        <i class="fa-solid fa-calendar-check mr-2"></i>{{ button_label|default('Enregistrer l\'Événement') }}
+    </button>
+</div>
+{{ form_end(form) }}

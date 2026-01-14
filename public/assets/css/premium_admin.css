@@ -1,0 +1,324 @@
+/**
+ * Premium Admin Overrides
+ * Version 3.0 - "Extreme Premium" Overhaul
+ * Extension of design_system.css for BackOffice
+ */
+
+:root {
+    --sidebar-width: 250px;
+}
+
+/* --- Layout Enhancements --- */
+.content-wrapper {
+    background-color: var(--gray-50) !important;
+    padding-bottom: var(--space-10);
+    animation: fadeInContent 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.main-header {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.main-sidebar {
+    background-color: var(--gray-900) !important;
+    box-shadow: var(--shadow-lg) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.brand-link {
+    background-color: var(--gray-900) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: var(--space-4) !important;
+    display: flex !important;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.brand-link .brand-text {
+    color: var(--white) !important;
+    font-weight: var(--font-weight-bold) !important;
+    font-size: 1.1rem !important;
+}
+
+/* --- Sidebar Styling --- */
+.nav-sidebar .nav-item>.nav-link {
+    border-radius: var(--radius-md);
+    margin: var(--space-1) var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    transition: all var(--transition-base);
+    color: var(--gray-400) !important;
+}
+
+.nav-sidebar .nav-item>.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--white) !important;
+}
+
+.nav-sidebar .nav-item.menu-open>.nav-link,
+.nav-sidebar .nav-item>.nav-link.active {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    box-shadow: var(--shadow-primary);
+    position: relative;
+}
+
+.nav-sidebar .nav-item>.nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background: var(--white);
+    border-radius: 0 4px 4px 0;
+}
+
+.nav-sidebar .nav-link i {
+    margin-right: var(--space-3);
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+    color: var(--gray-400);
+}
+
+.nav-sidebar .nav-link:hover i,
+.nav-sidebar .nav-link.active i {
+    color: var(--white) !important;
+}
+
+.nav-header {
+    background: transparent !important;
+    color: var(--gray-500) !important;
+    font-weight: var(--font-weight-bold) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem !important;
+    padding: var(--space-4) var(--space-4) var(--space-2) !important;
+}
+
+/* --- Card Customization --- */
+.card-premium-admin {
+    background: var(--white);
+    border: 1px solid rgba(0, 242, 96, 0.1);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-spring);
+    overflow: hidden;
+    margin-bottom: var(--space-8);
+    position: relative;
+}
+
+.card-premium-admin::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.card-premium-admin:hover {
+    box-shadow: var(--shadow-2xl), var(--shadow-glow);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding: var(--space-5) var(--space-6) !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-weight: var(--font-weight-bold) !important;
+    color: var(--text-primary) !important;
+    font-size: var(--font-size-lg) !important;
+    margin: 0 !important;
+}
+
+/* --- Table Customization --- */
+.table-premium {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 var(--space-2);
+    margin-top: calc(-1 * var(--space-2));
+}
+
+.table-premium thead th {
+    background: var(--gray-50);
+    color: var(--text-secondary);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: var(--space-4) var(--space-5);
+    border: none;
+}
+
+.table-premium tbody tr {
+    transition: all var(--transition-base);
+    background: var(--white);
+}
+
+.table-premium tbody td {
+    padding: var(--space-5);
+    vertical-align: middle;
+    border-top: 1px solid var(--gray-50);
+    border-bottom: 1px solid var(--gray-50);
+    color: var(--text-primary);
+}
+
+.table-premium tbody tr:hover {
+    transform: scale(1.01) translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    z-index: 1;
+    position: relative;
+}
+
+.table-premium tbody tr td:first-child {
+    border-left: 1px solid var(--gray-50);
+    border-top-left-radius: var(--radius-md);
+    border-bottom-left-radius: var(--radius-md);
+}
+
+.table-premium tbody tr td:last-child {
+    border-right: 1px solid var(--gray-50);
+    border-top-right-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+}
+
+/* --- Button Premium (BackOffice specialized) --- */
+.btn-premium-p {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: var(--white) !important;
+    border-radius: var(--radius-full);
+    padding: var(--space-3) var(--space-8);
+    font-weight: var(--font-weight-bold);
+    border: none;
+    transition: all var(--transition-spring);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-premium-p:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-primary), var(--shadow-glow);
+    filter: brightness(1.1);
+}
+
+/* --- Form & Input Enhancement --- */
+.form-control-premium {
+    background: var(--white);
+    border: 2px solid var(--gray-100);
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-4);
+    transition: all var(--transition-base);
+}
+
+.form-control-premium:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light), var(--shadow-glow);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.input-group-premium {
+    position: relative;
+    margin-bottom: var(--space-6);
+    display: flex;
+}
+
+.input-group-premium .input-group-text {
+    background: transparent;
+    border: 2px solid var(--gray-100);
+    border-right: none;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    color: var(--gray-400);
+    padding: 0 var(--space-4);
+    display: flex;
+    align-items: center;
+}
+
+.input-group-premium .form-control {
+    border: 2px solid var(--gray-100);
+    border-left: none;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.input-group-premium:focus-within .input-group-text,
+.input-group-premium:focus-within .form-control {
+    border-color: var(--primary);
+}
+
+/* --- Utilities & Finishes --- */
+.text-primary-p {
+    color: var(--primary) !important;
+}
+
+.bg-primary-p {
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.fils {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.content-wrapper>.fils {
+    padding: var(--space-8) !important;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Pulse Animation for important badges */
+.badge-premium-pulse {
+    animation: premiumPulse 2s infinite;
+}
+
+@keyframes premiumPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 242, 96, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 242, 96, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 242, 96, 0);
+    }
+}

@@ -1,0 +1,32 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+<div class="fils" style="padding-left: 300px;">
+    <h1>Reservation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdRes</th>
+                <td>{{ reservation.idRes }}</td>
+            </tr>
+            <tr>
+                <th>Datereser</th>
+                <td>{{ reservation.datereser ? reservation.datereser|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Timereser</th>
+                <td>{{ reservation.timereser ? reservation.timereser|date('H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reservationa_index') }}">back to list</a>
+
+    <a href="{{ path('app_reservationa_edit', {'idRes': reservation.idRes}) }}">edit</a>
+
+    {{ include('reservationa/deletea.html.twig') }}
+    </div>
+{% endblock %}

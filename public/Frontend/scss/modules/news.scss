@@ -1,0 +1,448 @@
+@import "../base/variable.scss"; // variable.less
+
+/*
+---------------------------------------
+  News Section
+---------------------------------------
+*/
+
+.news{
+  transition:all 0.3s ease 0s;
+  margin-bottom: 30px;
+  .content{
+    h4{
+      margin-top: 0px;
+    }
+    padding: 25px;
+  }
+  &:hover{
+    box-shadow: 0 0 35px rgba(8, 26, 43, 0.20);
+    transition:all 0.3s ease 0s;
+    .round{
+      border: 1px solid transparent;
+    }
+  }
+  .month-date{
+    padding: 10px;
+    background: $navy-blue;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 14px 12px;
+
+
+    p{
+      color: white;
+      margin-bottom: 0px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 17px;
+      text-transform: uppercase;
+      text-transform: center;
+    }
+  }
+  .image{
+    position: relative;
+  }
+}
+.content{
+  .meta{
+    margin-bottom: 10px;
+    position: relative;
+    &:before{
+      position: absolute;
+      left: 150px;
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background: $gray-light;
+      content: '';
+    }
+    .quote{
+      color: $gray-light;
+      position: relative;
+      padding-left: 20px;
+      padding-right: 45px;
+      &:before{
+        position: absolute;
+        left: 0;
+        content: '\f073';
+        font-family: FontAwesome;
+      }
+    }
+    .quote-two{
+      position: relative;
+      color: #b7b7b7;
+      &:before{
+        content: '\f0e6';
+        font-family: FontAwesome;
+      }
+    }
+  }
+  .consultis-button{
+    margin-top: 8px;
+  }
+}
+.owl-theme .owl-nav [class*=owl-]{
+  border-radius: 0px;
+}
+
+.custom-navs{
+  .owl-nav{
+    display: inline-block;
+    position: absolute;
+    top: -118px;
+    right: 0;
+  }
+  .owl-prev{
+    width: 30px;
+    height: 30px;
+    background: $navy-blue !important;
+    color: $white;
+    border-top-left-radius: 100px !important;
+    border-bottom-left-radius: 100px !important;
+    opacity: 1 !important;
+    cursor: pointer;
+    transition:all 0.3s ease 0s;
+    &:hover{
+      background: $green !important;
+      transition:all 0.3s ease 0s;
+    }
+  }
+  .owl-next{
+    width: 30px;
+    height: 30px;
+    background: $navy-blue !important;
+    color: $white;
+    border-top-right-radius: 100px !important;
+    border-bottom-right-radius: 100px !important;
+    opacity: 1 !important;
+    cursor: pointer;
+    transition:all 0.3s ease 0s;
+    &:hover{
+      background: $green !important;
+      transition:all 0.3s ease 0s;
+    }
+  }
+}
+
+/*
+---------------------------------------
+  Blog Page
+---------------------------------------
+*/
+
+.searchform{
+  position: relative;
+  margin-bottom: 70px;
+  background: $deep;
+}
+.submit-button {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  background: transparent;
+  border: none;
+}
+.widget-box{
+  margin-bottom: 74px;
+}
+.comment-box,
+.widget-box{
+  h4{
+    color: $navy-blue;
+    position: relative;
+    margin-bottom: 25px;
+    &:before{
+      width: 40px;
+      height: 2px;
+      background: $green;
+      content: '';
+      position: absolute;
+      bottom: -10px;
+    }
+  }
+  .image{
+    margin-top: 20px;
+  }
+  .content{
+    margin-left: 20px;
+    p{
+      color: $black;
+      font-weight: 600;
+    }
+    span{
+      color: $gray;
+    }
+  }
+}
+.category-list{
+  li{
+    padding-top: 15px;
+    border-bottom: 1px solid $border;
+    padding-bottom: 15px;
+    transition:all 0.3s ease 0s;
+    position: relative;
+    &:before{
+      content: '\f105';
+      font-family: FontAwesome;
+      color: $gray;
+      margin-right: 10px;
+    }
+
+    &:hover{
+      color: $green;
+      transition:all 0.3s ease 0s;
+      &:before{
+        color: $green;
+        transition:all 0.3s ease 0s;
+      }
+    }
+  }
+}
+.archive{
+  li{
+    padding-top: 15px;
+    transition:all 0.3s ease 0s;
+    &:hover{
+      color: $green;
+      transition:all 0.3s ease 0s;
+    }
+  }
+}
+.tag{
+  li{
+    display: inline-block;
+    padding: 8px 20px;
+    background: $deep;
+    margin-right: 10px;
+    margin-bottom: 15px;
+    border-radius: 2px;
+    transition:all 0.3s ease 0s;
+    &:hover{
+      background: $green;
+      transition:all 0.3s ease 0s;
+      color: $white;
+    }
+  }
+}
+.meta-tag{
+  ul{
+    li{
+      display: inline-block;
+      position: relative;
+      padding-right: 67px;
+      &:before{
+        width: 1px;
+        content: '';
+        top: 5px;
+        right: 35px;
+        height: 15px;
+        background: #636363;
+        position: absolute;
+      }
+      &:last-child{
+        &:before{
+          background: transparent;
+        }
+      }
+    }
+  }
+}
+.widget-box-content{
+  position: relative;
+  .content{
+    position: absolute;
+    left: 80px;
+    top: 0;
+  }
+}
+.blog-features{
+  margin-bottom: 40px;
+  h4{
+    margin-top: 0px;
+  }
+}
+.sidebar-content{
+  display: block;
+  padding-left: 58px;
+}
+.blog{
+  margin-bottom: 30px;
+  transition:all 0.3s ease 0s;
+  .content{
+    padding: 15px 0px;
+  }
+  a{
+    transition:all 0.3s ease 0s;
+    &:hover{
+      transition:all 0.3s ease 0s;
+      color: $green;
+    }
+  }
+  .image{
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-meta-tag{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    rigt: 0;
+    bottom: -40px;
+    z-index: 999;
+    background: rgba(0, 0, 0, .50);
+    opacity: 0;
+  }
+  .comment-count{
+    padding: 10px 20px;
+    float: right;;
+    background: $navy-blue;
+    color: $white;
+  }
+  .date-year{
+    color: $white;
+    padding: 10px 20px;
+    display: inline-block;
+  }
+  &:hover{
+    .blog-meta-tag{
+      bottom: 0;
+      opacity: 1;
+      transition:all 0.3s ease 0s;
+
+    }
+  }
+}
+
+.blog-features {
+  .widget{
+    padding: 0px;
+    ul{
+      li{
+        padding-top: 15px;
+      }
+    }
+  }
+  .quote {
+    background: $deep;
+    padding: 25px 1px 25px 37px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+}
+.social-link{
+  border-bottom: 1px solid $border;
+  padding-bottom: 20px;
+  .tag-list{
+    padding-top: 10px;
+    float: left;
+    span{
+      font-weight: 700;
+      color: $black
+    }
+  }
+  ul{
+    li{
+      display: inline-block;
+      a{
+        width: 35px;
+        height: 35px;
+        border-radius: 100px;
+        border: 1px solid $border;
+        display: inline-block;
+        transition:all 0.3s ease 0s;
+        color: $navy-blue;
+        line-height: 35px;
+        margin-left: 8px;
+        text-align: center;
+        &:hover{
+          background: $green;
+          transition:all 0.3s ease 0s;
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+
+.comment-box{
+  .designation{
+    color: $gray;
+  }
+  .image{
+    display: table-cell;
+    vertical-align: top;
+    padding-top: 10px;
+    width: 80px;
+  }
+  .comment-text{
+    display: table-cell;
+    padding-left: 20px;
+  }
+}
+.like-tag{
+  a{
+    color: $gray;
+  }
+}
+.comment-text{
+  .like-tag{
+    padding-right: 20px;
+    border-right: 1px solid $gray;
+  }
+  .date-year {
+    float: right;
+    margin-top: -29px;
+  }
+}
+.forward-tag{
+  padding-left: 20px;
+  color: $green;
+}
+.singel-comment {
+  padding: 15px 0px 25px 80px;
+  margin: 20px 0px;
+  border-top: 1px solid $border;
+  border-bottom: 1px solid $border;
+}
+
+
+
+
+
+
+.replay-message{
+  .consultis-success-button{
+    border-radius: 0px;
+  }
+  .text-message{
+      display: flex;
+    input{
+      background: $deep;
+      border: 1px solid #ebebeb;
+      margin-bottom: 20px;
+    }
+  }
+  textarea{
+    background: $deep;
+    border: 1px solid #ebebeb;
+    margin-bottom: 15px;
+    height: 120px;
+  }
+}
+
+
+.blog{
+  .bottom-line{
+    border-bottom: 1px solid $border;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+  }
+}
+
+.news-text-box {
+  padding: 20px 12px;
+}

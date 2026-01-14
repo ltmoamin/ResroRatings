@@ -1,0 +1,58 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="mb-4">
+            {{ form_label(form.date, 'Date de l\'incident', {'label_attr': {'class': 'form-label-premium'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                {{ form_widget(form.date, {'attr': {'class': 'form-control', 'placeholder': 'Date'}}) }}
+            </div>
+            <div class="text-danger small mt-1">{{ form_errors(form.date) }}</div>
+        </div>
+
+        <div class="mb-4">
+            {{ form_label(form.typerec, 'Type de réclamation', {'label_attr': {'class': 'form-label-premium'}}) }}
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-tag"></i></span>
+                {{ form_widget(form.typerec, {'attr': {'class': 'form-control form-select-premium', 'placeholder': 'Type'}}) }}
+            </div>
+            <div class="text-danger small mt-1">{{ form_errors(form.typerec) }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="mb-4">
+            {{ form_label(form.etatrec, 'État initial', {'label_attr': {'class': 'form-label-premium'}}) }}
+            <div class="input-group-premium text-muted bg-light">
+                <span class="input-group-text"><i class="fa-solid fa-info-circle"></i></span>
+                {{ form_widget(form.etatrec, {'attr': {'class': 'form-control', 'readonly': 'readonly', 'style': 'pointer-events: none;'}}) }}
+            </div>
+            <div class="text-danger small mt-1">{{ form_errors(form.etatrec) }}</div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="mb-4">
+            {{ form_label(form.description, 'Description détaillée', {'label_attr': {'class': 'form-label-premium'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'form-control-premium', 'placeholder': 'Expliquez ici votre problème...', 'rows': '5'}}) }}
+            <div class="text-danger small mt-1">{{ form_errors(form.description) }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert-premium alert-{% if type is same as('error') %}danger{% else %}{{ type }}{% endif %}-premium mb-3">
+                <i class="fa-solid fa-info-circle"></i>
+                <div>{{ message }}</div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <button type="submit" class="btn-premium w-100 py-3">
+        <i class="fa-solid fa-paper-plane me-2"></i>
+        Envoyer la réclamation
+    </button>
+</div>
+{{ form_end(form) }}

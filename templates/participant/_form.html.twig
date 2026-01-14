@@ -1,0 +1,58 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'premium-form'}}) }}
+<div class="row">
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Événement de destination</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-star"></i></span>
+            </div>
+            {{ form_widget(form.event, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        {% if form_errors(form.event) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.event) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Participant (Lecture seule)</label>
+        <div class="input-group input-group-premium mb-4 bg-light">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-user-lock"></i></span>
+            </div>
+            {{ form_widget(form.user, {'attr': {'class': 'form-control', 'readonly': 'readonly'}}) }}
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Date d'inscription</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-calendar-alt"></i></span>
+            </div>
+            {{ form_widget(form.datepar, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        {% if form_errors(form.datepar) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.datepar) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Numéro de contact</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+            </div>
+            {{ form_widget(form.numero, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: 22 123 456'}}) }}
+        </div>
+        {% if form_errors(form.numero) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.numero) }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-4 text-right">
+    <button type="submit" class="btn btn-premium-p shadow-sm px-5 py-2">
+        <i class="fa-solid fa-check-circle mr-2"></i>{{ button_label|default('Enregistrer le Participant') }}
+    </button>
+</div>
+{{ form_end(form) }}

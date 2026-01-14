@@ -1,0 +1,97 @@
+@import "../base/variable.scss"; // variable.less
+
+/*
+---------------------------------------
+  Footer Area
+---------------------------------------
+*/
+
+.footer{
+  background: $black;
+  padding: 85px 0px;
+}
+.footer-info{
+  .image{
+    display: flex;
+    margin-bottom: 20px;
+  }
+  .address{
+    li{
+      i{
+        margin-right: 7px;
+      }
+    }
+  }
+}
+.footer-info{
+  .logo{
+    margin-right: 20px;
+  }
+  h2{
+    color: $white;
+    text-transform: capitalize;
+  }
+  h4{
+    color: $deep;
+    margin-bottom: 33px;
+  }
+  ul{
+    li{
+      color: $deep;
+    }
+  }
+  .content{
+    margin-left: 20px;
+    p{
+      font-weight: 700;
+      color: $white;
+      line-height: 18px;
+    }
+    span{
+      text-transform: capitalize;
+      color: $gray;
+    }
+  }
+  .address{
+    margin-top: 25px;
+    .address-title{
+      margin-bottom: 25px;
+    }
+  }
+}
+.link-list{
+  width: 50%;
+  float: left;
+  li{
+    position: relative;
+    padding-left: 17px;
+    margin-bottom: 10px;
+    &:before{
+      position: absolute;
+      left: 0px;
+      content: '\f101';
+      font-family: FontAwesome;
+      top: 0;
+    }
+    a{
+      color: $deep;
+    }
+    a:hover,
+    &:hover{
+        color: $green;
+        transition:all 0.3s ease 0s;
+    }
+  }
+}
+.instagram {
+  display: flex;
+  margin-right: -15px;
+  li{
+    margin-right: 15px;
+    margin-bottom: 15px;
+  }
+}
+.copyright{
+  background: $copyright;
+  padding: 12px 0px 3px;
+}

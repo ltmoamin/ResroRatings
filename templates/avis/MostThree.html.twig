@@ -1,0 +1,78 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Top 3 Avis - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <a href="{{ path('app_avis_indexFront') }}">Avis</a> / <span>Top 3</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-star-half-stroke text-figma-green me-3"></i>
+            Avis les plus Consultés
+        </h1>
+        <p class="page-subtitle">Découvrez les témoignages qui passionnent notre communauté</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            {% for avi in topThreeAvis %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="review-card h-100 position-relative animate-fadeIn">
+                        <!-- Popularity Badge -->
+                        <div class="position-absolute top-0 end-0 m-3 z-index-1">
+                            <span class="badge-premium badge-info shadow-sm">
+                                <i class="fa-solid fa-fire me-1"></i> Top {{ loop.index }}
+                            </span>
+                        </div>
+
+                        <div class="review-header mb-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&q=80" 
+                                 alt="{{ avi.user.username }}" 
+                                 class="review-avatar">
+                            <div>
+                                <h5 class="review-author mb-1">{{ avi.user.username }}</h5>
+                                <div class="review-date">
+                                    <i class="fa-solid fa-eye me-1"></i> {{ avi.nbVue }} consultations
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="review-stars mb-3">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <i class="fa-solid fa-star text-warning"></i>
+                        </div>
+
+                        <h4 class="fw-bold mb-3 h5">{{ avi.titreavis }}</h4>
+                        
+                        <blockquote class="mb-4">
+                            <p class="text-muted italic small mb-0">
+                                "{{ avi.pubavis|slice(0, 180) }}{% if avi.pubavis|length > 180 %}...{% endif %}"
+                            </p>
+                        </blockquote>
+
+                        <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
+                            <a href="{{ path('app_avis_show55', {'id': avi.id}) }}" class="btn-premium btn-sm-premium">
+                                <i class="fa-solid fa-book-open me-1"></i> Lire l'avis complet
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-5 text-center">
+            <a href="{{ path('app_avis_indexFront') }}" class="btn-outline-premium">
+                <i class="fa-solid fa-comments me-2"></i> Voir tous les avis
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

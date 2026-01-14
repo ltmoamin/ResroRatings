@@ -1,0 +1,71 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'premium-form'}}) }}
+<div class="row">
+    <div class="col-md-7">
+        <label class="small font-weight-bold ml-1 mb-2">Nom du Plat</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-bowl-food"></i></span>
+            </div>
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: Couscous Royal'}}) }}
+        </div>
+        {% if form_errors(form.nom) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">{{ form_errors(form.nom) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Description Gastronomique</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-align-left"></i></span>
+            </div>
+            {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ingrédients, préparation...', 'rows': '4'}}) }}
+        </div>
+        {% if form_errors(form.description) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">{{ form_errors(form.description) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-5">
+        <label class="small font-weight-bold ml-1 mb-2">Tarification (DT)</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-money-bill-wave"></i></span>
+            </div>
+            {{ form_widget(form.prix, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Prix en DT'}}) }}
+        </div>
+        {% if form_errors(form.prix) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">{{ form_errors(form.prix) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Catégorie</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-utensils"></i></span>
+            </div>
+            {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-premium', 'placeholder': 'Ex: Entrée, Suites...'}}) }}
+        </div>
+        {% if form_errors(form.categorie) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mb-4">{{ form_errors(form.categorie) }}</div>
+        {% endif %}
+
+        <label class="small font-weight-bold ml-1 mb-2">Image du Plat</label>
+        <div class="input-group input-group-premium mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-image"></i></span>
+            </div>
+            {{ form_widget(form.image, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        <small class="text-muted ml-1"><i class="fa-solid fa-info-circle mr-1"></i> Formats acceptés: JPG, PNG.</small>
+        {% if form_errors(form.image) %}
+            <div class="alert alert-danger-soft animate__animated animate__fadeInUp mt-2 mb-0">{{ form_errors(form.image) }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<hr class="my-4 opacity-5">
+
+<div class="d-flex justify-content-end align-items-center mt-4">
+    <button type="submit" class="btn btn-premium-p px-5">
+        <i class="fa-solid fa-check-circle mr-2"></i>{{ button_label|default('Enregistrer le Plat') }}
+    </button>
+</div>
+{{ form_end(form) }}

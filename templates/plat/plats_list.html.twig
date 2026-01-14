@@ -1,0 +1,276 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Notre Menu - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Notre Menu</span>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-utensils text-figma-green me-3"></i>
+                    Notre Menu
+                </h1>
+                <p class="page-subtitle">Découvrez nos délicieuses créations culinaires</p>
+            </div>
+            
+            <!-- Quick Search -->
+            <div class="search-box-premium">
+                <div class="input-group-premium" style="min-width: 300px;">
+                    <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" id="search" class="form-control" placeholder="Chercher un plat...">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <!-- Advanced Filters -->
+        <div class="panel-premium mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold mb-0">Filtres</h4>
+                <div class="d-flex gap-2">
+                    <button class="btn-outline-premium btn-sm-premium filter-toggle" data-filter="nom">Par Nom</button>
+                    <button class="btn-outline-premium btn-sm-premium filter-toggle" data-filter="prix">Par Prix</button>
+                    <button class="btn-outline-premium btn-sm-premium filter-toggle" data-filter="catg">Par Catégorie</button>
+                </div>
+            </div>
+
+            <!-- Filter Forms -->
+            <div id="filters-container">
+                <form method="get" action="{{ path('app_plat_index_nom') }}" class="search-form-premium" id="search-nom" style="display: none;">
+                    <div class="d-flex gap-3 align-items-end">
+                        <div class="flex-grow-1">
+                            <label class="form-label-premium">Nom du plat</label>
+                            <input type="text" name="searchTerm" placeholder="Ex: Pizza Margherita" class="form-control-premium">
+                        </div>
+                        <button type="submit" class="btn-premium">Rechercher</button>
+                    </div>
+                </form>
+
+                <form method="get" action="{{ path('app_plat_index_prix') }}" class="search-form-premium" id="search-prix" style="display: none;">
+                    <div class="d-flex gap-3 align-items-end">
+                        <div class="flex-grow-1">
+                            <label class="form-label-premium">Prix Min (DT)</label>
+                            <input type="number" name="minPrice" step="0.5" min="0" placeholder="0" class="form-control-premium">
+                        </div>
+                        <div class="flex-grow-1">
+                            <label class="form-label-premium">Prix Max (DT)</label>
+                            <input type="number" name="maxPrice" step="0.5" min="0" placeholder="100" class="form-control-premium">
+                        </div>
+                        <button type="submit" class="btn-premium">Appliquer</button>
+                    </div>
+                </form>
+
+                <form method="get" action="{{ path('app_plat_index_catg') }}" class="search-form-premium" id="search-catg" style="display: none;">
+                    <div class="d-flex gap-3 align-items-end">
+                        <div class="flex-grow-1">
+                            <label class="form-label-premium">Catégorie</label>
+                            <select name="category" class="form-control-premium form-select-premium">
+                                <option value="" disabled selected>Choisir une catégorie</option>
+                                <option value="Dessert">Dessert</option>
+                                <option value="Pizza">Pizza</option>
+                                <option value="Boissons">Boissons</option>
+                                <option value="Berger">Burger</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-premium">Filtrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if app.session.flashbag.has('success') %}
+            <div class="alert-premium alert-success-premium mb-4">
+                <i class="fa-solid fa-check-circle"></i>
+                <div>
+                    {% for message in app.session.flashbag.get('success') %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Plats Grid -->
+        <div class="row g-4" id="entitiesNav">
+            {% for plat in plats %}        
+            <div class="col-lg-4 col-md-6 plat-item">
+                <div class="product-card-premium">
+                    <div class="card-img-wrapper">
+                        <img src="{{ asset('platimage/' ~ plat.image) }}" alt="{{ plat.nom }}">
+                        <form method="get" action="{{ path('ajouter_au_favoris', {'platId': plat.idplat}) }}" class="position-absolute top-0 end-0 p-3">
+                            <button class="btn-favorit-premium" title="Ajouter aux favoris">
+                                <i class="fa-regular fa-heart"></i>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h4 class="card-title mb-0">{{ plat.nom }}</h4>
+                            <span class="card-price">{{ plat.prix }} DT</span>
+                        </div>
+                        <p class="card-text text-truncate">{{ plat.description }}</p>
+                        
+                        <form method="post" action="{{ path('app_achat_new') }}" class="mt-4">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-4">
+                                    <input type="number" name="quantite" value="1" min="1" class="form-control-premium py-2 text-center" required>
+                                </div>
+                                <div class="col-8">
+                                    <select name="type" class="form-control-premium form-select-premium py-2">
+                                        <option value="surplace">Sur place</option>
+                                        <option value="livraison">Livraison</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <input type="hidden" name="idplat" value="{{ plat.idplat }}"/>
+                                    <button type="submit" class="btn-premium w-100">
+                                        <i class="fa-solid fa-cart-plus me-2"></i> Ajouter au panier
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if plats is empty %}
+            <div class="panel-premium mt-4">
+                <div class="empty-state">
+                    <div class="empty-state-icon text-muted">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="empty-state-title">Aucun plat disponible</h3>
+                    <p class="empty-state-text">Désolé, nous n'avons pas trouvé de plats correspondant à votre recherche.</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+.btn-favorit-premium {
+    background: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+}
+.btn-favorit-premium:hover {
+    color: var(--accent);
+    transform: scale(1.1);
+}
+.btn-favorit-premium i {
+    font-size: 1.2rem;
+}
+</style>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        // Filter visibility toggle
+        $('.filter-toggle').click(function() {
+            const filterId = $(this).data('filter');
+            $('.search-form-premium').hide();
+            $('#search-' + filterId).fadeIn();
+            
+            $('.filter-toggle').removeClass('btn-premium').addClass('btn-outline-premium');
+            $(this).removeClass('btn-outline-premium').addClass('btn-premium');
+        });
+
+        // AJAX Search
+        var searchRequest = null;
+        $("#search").keyup(function() {
+            var value = $(this).val();
+            var entitySelector = $("#entitiesNav");
+            
+            if (value.length >= 1) {
+                if (searchRequest != null) searchRequest.abort();
+                
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('ajax_search_product') }}",
+                    data: { 'q' : value },
+                    dataType: "text",
+                    success: function(msg){
+                        if (value === $("#search").val()) {
+                            var result = JSON.parse(msg);
+                            entitySelector.html('');
+                            
+                            $.each(result.plats, function(id, plat) {
+                                if (id !== 'error') {
+                                    var imageUrl = "{{ asset('platimage/') }}" + plat[3];
+                                    var addPath = "{{ path('app_achat_new') }}";
+                                    var favPath = "{{ path('ajouter_au_favoris', {'platId': '__ID__'}) }}".replace('__ID__', plat[5]);
+                                    
+                                    entitySelector.append(`
+                                        <div class="col-lg-4 col-md-6 plat-item animate-fadeIn">
+                                            <div class="product-card-premium">
+                                                <div class="card-img-wrapper">
+                                                    <img src="${imageUrl}" alt="${plat[0]}">
+                                                    <form method="get" action="${favPath}" class="position-absolute top-0 end-0 p-3">
+                                                        <button class="btn-favorit-premium" title="Ajouter aux favoris">
+                                                            <i class="fa-regular fa-heart"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                                        <h4 class="card-title mb-0">${plat[0]}</h4>
+                                                        <span class="card-price">${plat[1]} DT</span>
+                                                    </div>
+                                                    <p class="card-text text-truncate">${plat[4] || ''}</p>
+                                                    
+                                                    <form method="post" action="${addPath}" class="mt-4">
+                                                        <div class="row g-2 align-items-center">
+                                                            <div class="col-4">
+                                                                <input type="number" name="quantite" value="1" min="1" class="form-control-premium py-2 text-center" required>
+                                                            </div>
+                                                            <div class="col-8">
+                                                                <select name="type" class="form-control-premium form-select-premium py-2">
+                                                                    <option value="surplace">Sur place</option>
+                                                                    <option value="livraison">Livraison</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-12 mt-3">
+                                                                <input type="hidden" name="idplat" value="${plat[5]}"/>
+                                                                <button type="submit" class="btn-premium w-100">
+                                                                    <i class="fa-solid fa-cart-plus me-2"></i> Ajouter au panier
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `);
+                                } else {
+                                    entitySelector.html('<div class="col-12 text-center py-5"><h4 class="text-danger">' + plat + '</h4></div>');
+                                }
+                            });
+                        }
+                    }
+                });
+            } else if (value.length === 0) {
+                // If empty search, maybe reload page or just clear?
+                // For now, let's just let it stay as is or reload list
+                location.reload();
+            }
+        });
+    });
+</script>
+{% endblock %}

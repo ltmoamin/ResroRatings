@@ -1,0 +1,7 @@
+# Docker
+/var/
+/vendor/
+.env.local
+.env.*.local
+*.log
+*.cache

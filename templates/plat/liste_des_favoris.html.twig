@@ -1,0 +1,100 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Mes Favoris - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <a href="{{ path('app_plat_plats_list') }}">Menu</a> / <span>Favoris</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-heart text-figma-red me-3"></i>
+            Mes Plats Favoris
+        </h1>
+        <p class="page-subtitle">Retrouvez ici tous les plats que vous avez aimés</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        {% if favoris is not empty %}
+            {% for message in app.flashes('success') %}
+                <div class="alert-premium alert-success-premium mb-4" role="alert">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <div>{{ message }}</div>
+                </div>
+            {% endfor %} 
+
+            <div class="row g-4">
+                {% for plat in favoris %}        
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-card-premium">
+                            <div class="card-img-wrapper">
+                                <img src="{{ asset('platimage/' ~ plat.image) }}" alt="{{ plat.nom }}">
+                                <form method="post" action="{{ path('supprimer_favoris', {'platId': plat.idplat}) }}" class="position-absolute top-0 end-0 p-3">
+                                    <button type="submit" class="btn-favorit-premium active" title="Retirer des favoris">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <h4 class="card-title mb-0">{{ plat.nom }}</h4>
+                                    <span class="card-price">{{ plat.prix }} DT</span>
+                                </div>
+                                <p class="card-text text-truncate">{{ plat.description }}</p>
+                                
+                                <form method="post" action="{{ path('app_achat_new') }}" class="mt-4">
+                                    <div class="row g-2 align-items-center">
+                                        <div class="col-4">
+                                            <div class="quantity-control">
+                                                <input type="number" name="quantite" value="1" min="1" class="form-control-premium py-2 text-center" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <select name="type" class="form-control-premium form-select-premium py-2">
+                                                <option value="surplace">Sur place</option>
+                                                <option value="livraison">Livraison</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 mt-3">
+                                            <input type="hidden" name="idplat" value="{{ plat.idplat }}"/>
+                                            <button type="submit" class="btn-premium w-100">
+                                                <i class="fa-solid fa-cart-plus me-2"></i> Ajouter au panier
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="panel-premium text-center py-5">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fa-solid fa-heart-crack"></i>
+                    </div>
+                    <h3 class="empty-state-title">Aucun favori pour le moment</h3>
+                    <p class="empty-state-text">Explorez notre menu et ajoutez vos plats préférés à votre liste de favoris !</p>
+                    <a href="{{ path('app_plat_plats_list') }}" class="btn-premium mt-3">
+                        <i class="fa-solid fa-utensils me-2"></i> Explorer le menu
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+.btn-favorit-premium.active {
+    background: white;
+    color: var(--figma-red);
+    box-shadow: var(--shadow-md);
+}
+</style>
+{% endblock %}

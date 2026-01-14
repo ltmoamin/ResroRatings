@@ -1,0 +1,43 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Modifier le Badge - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <a href="{{ path('app_badge_indexFront') }}">Badges</a> / <span>Modifier</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-edit text-figma-green me-3"></i>
+            Modifier le Badge
+        </h1>
+        <p class="page-subtitle">Modifiez les informations de ce badge ou changez le commentaire associé</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-premium">
+                    <div class="mb-4">
+                        <h3 class="fw-bold h4">Edition du badge</h3>
+                        <p class="text-muted small">Vous pouvez mettre à jour les détails de votre distinction.</p>
+                    </div>
+
+                    {{ include('badge/_form.html.twig', {'button_label': 'Update'}) }}
+
+                    <div class="mt-4 pt-4 border-top d-flex justify-content-between align-items-center">
+                        <a href="{{ path('app_badge_indexFront') }}" class="text-muted text-decoration-none small">
+                            <i class="fa-solid fa-arrow-left me-1"></i> Retour à la liste
+                        </a>
+                        {{ include('badge/_delete_formFront.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

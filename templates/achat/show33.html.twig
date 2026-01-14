@@ -1,0 +1,40 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Achat{% endblock %}
+
+{% block body %}
+<div class="fils" style="padding-left: 300px;">
+    <h1>Achat</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idachat</th>
+                <td>{{ achat.idachat }}</td>
+            </tr>
+            <tr>
+                <th>Montanttotal</th>
+                <td>{{ achat.montanttotal }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ achat.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ achat.date ? achat.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ achat.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_achat_index') }}">back to list</a>
+
+    <a href="{{ path('app_achat_edit', {'idachat': achat.idachat}) }}">edit</a>
+
+    {{ include('achat/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

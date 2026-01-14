@@ -1,0 +1,80 @@
+{% extends 'auth_base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<div class="login-container">
+    <div class="text-center mb-4">
+        <a href="{{ path('home_Front') }}">
+             <img src="{{ asset('assets/img/restoratings_logo_premium_1768296588087.png') }}" alt="RestoRatings Logo" class="auth-logo">
+        </a>
+    </div>
+    
+    <div class="text-center mb-5">
+        <h2 class="fw-800">Welcome Back</h2>
+        <p class="text-muted">Enter your credentials to access your account</p>
+    </div>
+
+    <form class="needs-validation" novalidate="" method="post">
+        {% if error %}
+            <div class="alert alert-danger mb-4 border-0 rounded-4 p-3 small">
+                <i class="fa-solid fa-circle-exclamation me-2"></i> {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+
+        <div class="mb-4">
+            <label class="form-label fw-600 mb-2">Email Address</label>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="name@example.com" required autofocus>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <div class="d-flex justify-content-between mb-2">
+                <label class="form-label fw-600">Password</label>
+                <a href="{{ path('forgot') }}" class="small text-primary-green text-decoration-none fw-600">Forgot Password?</a>
+            </div>
+            <div class="input-group-premium">
+                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" name="password" id="inputPassword" class="form-control" placeholder="••••••••" required>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="mb-5 d-flex align-items-center justify-content-between">
+            <div class="form-check custom-checkbox">
+                <input class="form-check-input" type="checkbox" name="remember" id="rememberMe">
+                <label class="form-check-label small text-muted" for="rememberMe">Keep me logged in</label>
+            </div>
+        </div>
+
+        <button class="btn-premium w-100 mb-4 py-3" type="submit">Sign In</button>
+
+        <div class="text-center">
+            <p class="small text-muted mb-4">Don't have an account? <a href="{{ path('registration') }}" class="text-primary-green fw-bold text-decoration-none">Create Account</a></p>
+            
+            <div class="divider d-flex align-items-center mb-4">
+                <span class="text-muted small px-3">or continue with</span>
+            </div>
+            
+            <a href="{{ path('app_facebook_login') }}" class="btn btn-outline-social w-100 rounded-pill py-2">
+                <i class="fa-brands fa-facebook me-2 text-primary"></i> Facebook
+            </a>
+        </div>
+    </form>
+</div>
+
+<style>
+.input-group-premium { display: flex; align-items: center; background: #F3F4F6; border-radius: 16px; padding: 2px 15px; border: 1px solid transparent; transition: all 0.3s; }
+.input-group-premium:focus-within { background: white; border-color: var(--primary-green); box-shadow: 0 0 0 4px rgba(57, 219, 74, 0.1); }
+.input-group-premium .input-group-text { background: transparent; border: none; padding-right: 10px; color: #9CA3AF; }
+.input-group-premium .form-control { background: transparent; border: none; padding: 12px 0; color: var(--text-dark); font-weight: 500; }
+.input-group-premium .form-control:focus { box-shadow: none; }
+.btn-outline-social { border: 1px solid #E5E7EB; color: #4B5563; font-weight: 600; }
+.btn-outline-social:hover { background: #F9FAFB; border-color: #D1D5DB; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #E5E7EB; }
+.fw-800 { font-weight: 800; }
+</style>
+{% endblock %}

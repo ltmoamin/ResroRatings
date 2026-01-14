@@ -1,0 +1,97 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Mon Profil - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Mon Profil</span>
+        </nav>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1 class="page-title">
+                    <i class="fa-solid fa-user-circle text-figma-green me-3"></i>
+                    Informations Profil
+                </h1>
+                <p class="page-subtitle">Gérez vos informations personnelles et vos paramètres</p>
+            </div>
+            <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}" class="btn-premium">
+                <i class="fa-solid fa-user-pen me-2"></i>
+                Modifier Profil
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="panel-premium text-center">
+                    <div class="mb-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&q=80" 
+                             alt="{{ user.username }}" 
+                             class="rounded-circle border border-4 border-figma-green shadow-sm mb-3"
+                             style="width: 120px; height: 120px; object-fit: cover;">
+                        <h3 class="fw-bold mb-1">{{ user.firstname }} {{ user.lastname }}</h3>
+                        <span class="badge-premium badge-info">{{ user.role }}</span>
+                    </div>
+                    <div class="text-muted small">
+                        <p class="mb-2"><i class="fa-solid fa-envelope me-2"></i>{{ user.email }}</p>
+                        <p class="mb-0"><i class="fa-solid fa-phone me-2"></i>{{ user.tel }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-8">
+                <div class="panel-premium">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Détails du compte</h3>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th class="text-muted fw-600" style="width: 200px;">Nom d'utilisateur</th>
+                                    <td class="fw-bold text-dark">{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-600">Email</th>
+                                    <td class="fw-bold text-dark">{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-600">Prénom</th>
+                                    <td class="fw-bold text-dark">{{ user.firstname }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-600">Nom</th>
+                                    <td class="fw-bold text-dark">{{ user.lastname }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-600">Téléphone</th>
+                                    <td class="fw-bold text-dark">{{ user.tel }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-600">Adresse</th>
+                                    <td class="fw-bold text-dark">{{ user.address ?: 'Non renseignée' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4 pt-4 border-top d-flex gap-3">
+                        {{ include('user/_delete_form.html.twig') }}
+                        <a href="{{ path('home_Front') }}" class="btn-outline-premium">
+                            <i class="fa-solid fa-arrow-left me-2"></i>
+                            Retour à l'accueil
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

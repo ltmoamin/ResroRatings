@@ -1,0 +1,48 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'premium-form'}}) }}
+<div class="row">
+    <div class="col-md-12">
+        <label class="small font-weight-bold ml-1 mb-2">Sélectionner l'établissement</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-store"></i></span>
+            </div>
+            {{ form_widget(form.restaurant, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        {% if form_errors(form.restaurant) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.restaurant) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Date de réservation</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-calendar-day"></i></span>
+            </div>
+            {{ form_widget(form.datereser, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        {% if form_errors(form.datereser) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.datereser) }}</div>
+        {% endif %}
+    </div>
+
+    <div class="col-md-6">
+        <label class="small font-weight-bold ml-1 mb-2">Heure de passage</label>
+        <div class="input-group input-group-premium mb-4">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fa-solid fa-clock"></i></span>
+            </div>
+            {{ form_widget(form.timereser, {'attr': {'class': 'form-control form-control-premium'}}) }}
+        </div>
+        {% if form_errors(form.timereser) %}
+            <div class="alert alert-danger-soft mb-4">{{ form_errors(form.timereser) }}</div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-4 text-right">
+    <button type="submit" class="btn btn-premium-p shadow-sm px-5 py-2">
+        <i class="fa-solid fa-circle-check mr-2"></i>{{ button_label|default('Confirmer la Réservation') }}
+    </button>
+</div>
+{{ form_end(form) }}

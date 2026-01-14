@@ -1,0 +1,38 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Nouveau Restaurant{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-plus-circle mr-3"></i>Ajouter Restaurant
+                    </h1>
+                    <p class="text-muted mt-2">Créez une nouvelle fiche restaurant dans votre catalogue.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_restaurant_index') }}" class="btn btn-outline-secondary shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="card card-premium-admin shadow-lg" style="max-width: 900px; margin: 0 auto;">
+                <div class="card-header">
+                    <h3 class="card-title">Informations Générales</h3>
+                </div>
+                <div class="card-body p-4 p-md-5">
+                    {{ include('restaurant/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

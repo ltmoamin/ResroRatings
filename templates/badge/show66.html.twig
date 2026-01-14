@@ -1,0 +1,78 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Détails du Badge - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <a href="{{ path('app_badge_indexFront') }}">Badges</a> / <span>Détails</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-award text-figma-green me-3"></i>
+            Badge: {{ badge.typebadge }}
+        </h1>
+        <p class="page-subtitle">Détails de la reconnaissance attribuée au restaurant {{ badge.restaurant.nom }}</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="panel-premium">
+                    <div class="d-flex align-items-center gap-4 mb-5 pb-4 border-bottom">
+                        <div class="rounded-circle bg-figma-green-light d-flex align-items-center justify-content-center" 
+                             style="width: 80px; height: 80px;">
+                            <i class="fa-solid fa-medal text-figma-green fs-1"></i>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-1">{{ badge.restaurant.nom }}</h3>
+                            <div class="d-flex gap-2">
+                                <span class="badge-premium badge-info">{{ badge.typebadge }}</span>
+                                <span class="text-muted small d-flex align-items-center">
+                                    <i class="fa-solid fa-calendar-day me-1"></i> {{ badge.datebadge|date('d/m/Y') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <h5 class="fw-bold mb-3 text-muted">Commentaire du participant</h5>
+                        <p class="lead text-dark lh-base p-4 bg-light rounded-4 border-start border-4 border-figma-green">
+                            "{{ badge.commantaire }}"
+                        </p>
+                    </div>
+
+                    <div class="d-flex gap-4 mb-5">
+                        <div class="flex-grow-1 p-3 bg-gray-50 rounded-4 text-center">
+                            <div class="h4 fw-bold mb-0 text-figma-green">{{ badge.likes }}</div>
+                            <div class="text-muted small">Approbations</div>
+                        </div>
+                        <div class="flex-grow-1 p-3 bg-gray-50 rounded-4 text-center">
+                            <div class="h4 fw-bold mb-0 text-danger">{{ badge.dislikes }}</div>
+                            <div class="text-muted small">Désapprobations</div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                        <a href="{{ path('app_badge_indexFront') }}" class="btn-outline-premium">
+                            <i class="fa-solid fa-arrow-left me-2"></i> Retour aux badges
+                        </a>
+                        
+                        {% if app.user and app.user.iduser == badge.user.getIduser() %}
+                            <div class="d-flex gap-3">
+                                <a href="{{ path('app_badge_editFront', {'id': badge.id}) }}" class="btn-warning-premium">
+                                    <i class="fa-solid fa-edit me-2"></i> Modifier
+                                </a>
+                                {{ include('badge/_delete_formFront.html.twig') }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

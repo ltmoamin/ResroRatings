@@ -1,0 +1,88 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Utilisateur{% endblock %}
+
+{% block body %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-primary-p">
+                    <i class="fa-solid fa-user-tag mr-2"></i>Détails de l'utilisateur
+                </h1>
+            </div>
+            <div class="col-sm-6 text-right">
+                <a href="{{ path('app_user_index') }}" class="btn btn-outline-secondary">
+                    <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                </a>
+                <a href="{{ path('app_user_edit', {'iduser': user.iduser}) }}" class="btn btn-warning-p ml-2">
+                    <i class="fa-solid fa-pen mr-2"></i>Modifier
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- User Profile Card -->
+                <div class="card card-premium-admin card-outline card-primary">
+                    <div class="card-body box-profile text-center">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-circle-user fa-5x text-primary-p"></i>
+                        </div>
+                        <h3 class="profile-username text-center">{{ user.firstname }} {{ user.lastname }}</h3>
+                        <p class="text-muted text-center">@{{ user.username }}</p>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item border-0">
+                                <b>ID</b> <a class="float-right text-dark">#{{ user.iduser }}</a>
+                            </li>
+                            <li class="list-group-item border-0">
+                                <b>Téléphone</b> <a class="float-right text-dark">{{ user.tel }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card card-premium-admin">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">Informations détaillées</h3>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-premium mb-0">
+                            <tbody>
+                                <tr>
+                                    <th style="width: 30%">Email</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Prénom</th>
+                                    <td>{{ user.firstname }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ user.lastname }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Adresse</th>
+                                    <td>{{ user.address }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Mot de passe</th>
+                                    <td><code class="text-xs">********</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-white border-top-0 d-flex justify-content-end">
+                        {{ include('user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

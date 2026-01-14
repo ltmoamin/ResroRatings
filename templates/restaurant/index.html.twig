@@ -1,0 +1,103 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Restaurant Management{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-utensils mr-3"></i>Restaurant Management
+                    </h1>
+                    <p class="text-muted mt-2">Manage your restaurant listings, locations, and details.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_restaurant_new') }}" class="btn btn-premium-p">
+                        <i class="fa-solid fa-plus mr-2"></i>Ajouter Restaurant
+                    </a>
+                    <a href="{{ path('app_restaurants_pdf') }}" class="btn btn-outline-danger ml-2 shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-file-pdf mr-2"></i>Exporter PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="card card-premium-admin">
+                <div class="card-header border-0">
+                    <h3 class="card-title">Catalogue des Restaurants</h3>
+                    <div class="card-tools">
+                        <a href="{{path('app_charity_demand_View')}}" class="btn btn-tool text-info">
+                            <i class="fa-solid fa-magnifying-glass mr-2"></i>Recherche Avancée
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nom du Restaurant</th>
+                                    <th>Emplacement</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for restaurant in restaurants %}
+                                    <tr>
+                                        <td class="text-muted font-weight-bold">#{{ restaurant.idRestau }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar-sm rounded-circle bg-primary-light d-flex align-items-center justify-content-center mr-3 shadow-sm" style="width: 42px; height: 42px; border: 2px solid var(--white);">
+                                                    <i class="fa-solid fa-store text-primary-p"></i>
+                                                </div>
+                                                <div>
+                                                    <span class="font-weight-bold text-dark">{{ restaurant.nom }}</span>
+                                                    <div class="small text-muted">Abonné Gold</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center text-dark">
+                                                <i class="fa-solid fa-location-dot text-primary-p mr-2 opacity-50"></i>
+                                                {{ restaurant.location }}
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_restaurant_show', {'id_restau': restaurant.idRestau}) }}" class="btn btn-white btn-sm px-3" title="Voir les détails">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_restaurant_edit', {'id_restau': restaurant.idRestau}) }}" class="btn btn-white btn-sm px-3" title="Modifier">
+                                                    <i class="fa-solid fa-pen-to-square text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('restaurant/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-utensils fa-3x mb-3 opacity-20"></i>
+                                                <p>Aucun restaurant trouvé dans la base.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

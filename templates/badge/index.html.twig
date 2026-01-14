@@ -1,0 +1,197 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Badge Management{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-id-badge mr-3"></i>Badge Management
+                    </h1>
+                    <p class="text-muted mt-2">Gestion des privilèges, niveaux d'accès et accréditations clients.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_badge_new') }}" class="btn btn-premium-p shadow-sm">
+                        <i class="fa-solid fa-plus-circle mr-2"></i>Nouveau Badge
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <!-- Advanced Filter Card -->
+            <div class="card card-premium-admin shadow-sm mb-4">
+                <div class="card-header border-0 bg-transparent">
+                    <h3 class="card-title font-weight-bold text-dark"><i class="fa-solid fa-magnifying-glass mr-2"></i>Filtres Dynamiques</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label class="small font-weight-bold ml-1 mb-2">Recherche textuelle (Commentaire)</label>
+                            <div class="input-group input-group-premium">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa-solid fa-comment"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-control-premium" placeholder="Ex: Client fidèle..." id="searchCommentaire">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="small font-weight-bold ml-1 mb-2">Filtrer par date</label>
+                            <div class="input-group input-group-premium">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                                </div>
+                                <input type="date" class="form-control form-control-premium" id="searchDatebadge">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="small font-weight-bold ml-1 mb-2">Type de badge</label>
+                            <div class="input-group input-group-premium">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa-solid fa-award"></i></span>
+                                </div>
+                                <input type="text" class="form-control form-control-premium" placeholder="Ex: VIP..." id="searchTypebadge">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Record Table -->
+            <div class="card card-premium-admin shadow-lg">
+                <div class="card-header border-0 bg-transparent d-flex justify-content-between align-items-center">
+                    <h3 class="card-title font-weight-bold text-dark">Répertoire des Accréditations</h3>
+                    <div class="d-flex align-items-center">
+                        <form action="{{ path('pdf') }}" method="GET" class="d-flex align-items-center mr-3">
+                            <select name="badgeType" class="form-control form-control-sm mr-2" style="border-radius: 8px; width: 120px;">
+                                <option value="All">Tous les types</option>
+                                <option value="Silver">Silver</option>
+                                <option value="VIP">VIP</option>
+                                <option value="Diamant">Diamant</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-outline-danger" style="border-radius: 8px;">
+                                <i class="fa-solid fa-file-pdf mr-1"></i> Export PDF
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table-premium">
+                            <thead>
+                                <tr>
+                                    <th>Commentaire & Note</th>
+                                    <th>Date de délivrance</th>
+                                    <th>Niveau de privilège</th>
+                                    <th class="text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="badgeTableBody">
+                                {% for badge in badges %}
+                                    <tr>
+                                        <td>
+                                            <div class="font-weight-bold text-dark">{{ badge.commantaire }}</div>
+                                            <div class="small text-muted italic">Note administrative</div>
+                                        </td>
+                                        <td>
+                                            <div class="text-muted"><i class="fa-regular fa-calendar-check mr-2"></i> {{ badge.datebadge ? badge.datebadge|date('d M Y') : '-' }}</div>
+                                        </td>
+                                        <td>
+                                            {% if badge.typebadge == 'Diamant' %}
+                                                <span class="badge bg-purple-soft text-purple px-3 py-2" style="border-radius: 20px;">
+                                                    <i class="fa-solid fa-gem mr-1"></i> Diamant
+                                                </span>
+                                            {% elseif badge.typebadge == 'VIP' %}
+                                                <span class="badge bg-warning-soft text-warning px-3 py-2" style="border-radius: 20px;">
+                                                    <i class="fa-solid fa-crown mr-1"></i> VIP
+                                                </span>
+                                            {% elseif badge.typebadge == 'Silver' %}
+                                                <span class="badge bg-secondary-soft text-secondary px-3 py-2" style="border-radius: 20px;">
+                                                    <i class="fa-solid fa-medal mr-1"></i> Silver
+                                                </span>
+                                            {% else %}
+                                                <span class="badge badge-light px-3 py-2" style="border-radius: 20px;">{{ badge.typebadge }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="btn-group shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                                                <a href="{{ path('app_badge_generate_qr', {'id': badge.id}) }}" class="btn btn-white btn-sm px-3" title="Générer QR">
+                                                    <i class="fa-solid fa-qrcode text-primary"></i>
+                                                </a>
+                                                <a href="{{ path('app_badge_show', {'id': badge.id}) }}" class="btn btn-white btn-sm px-3" title="Détails">
+                                                    <i class="fa-solid fa-eye text-info"></i>
+                                                </a>
+                                                <a href="{{ path('app_badge_edit', {'id': badge.id}) }}" class="btn btn-white btn-sm px-3" title="Modifier">
+                                                    <i class="fa-solid fa-pen-to-square text-warning"></i>
+                                                </a>
+                                                <div class="btn btn-white btn-sm px-2">
+                                                    {{ include('badge/_delete_form.html.twig') }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5">
+                                            <div class="text-muted">
+                                                <i class="fa-solid fa-id-card-clip fa-3x mb-3 opacity-20"></i>
+                                                <p>Aucun badge émis pour le moment.</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 py-4">
+                    <div class="d-flex justify-content-center pagination-premium">
+                        {{ knp_pagination_render(badges) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.bg-purple-soft { background: rgba(111, 66, 193, 0.1); }
+.bg-warning-soft { background: rgba(255, 193, 7, 0.1); }
+.bg-secondary-soft { background: rgba(108, 117, 125, 0.1); }
+.text-purple { color: #6f42c1; }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".form-control").on("keyup change", function () {
+            var commentaire = $("#searchCommentaire").val().toLowerCase();
+            var typebadge = $("#searchTypebadge").val().toLowerCase();
+            var searchDate = $("#searchDatebadge").val();
+
+            $("#badgeTableBody tr").each(function () {
+                var rowCommentaire = $(this).find('td:eq(0)').text().toLowerCase();
+                var rowDate = $(this).find('td:eq(1)').text();
+                var rowTypebadge = $(this).find('td:eq(2)').text().toLowerCase();
+
+                var commentaireMatch = rowCommentaire.indexOf(commentaire) > -1;
+                var typebadgeMatch = rowTypebadge.indexOf(typebadge) > -1;
+                
+                // For date, we just do a simple inclusion check if a date is selected
+                var dateMatch = true;
+                if(searchDate) {
+                    // Quick conversion to match format if needed, but simple index of might work for partial date strings
+                    dateMatch = rowDate.indexOf(searchDate) > -1;
+                }
+
+                $(this).toggle(commentaireMatch && typebadgeMatch && dateMatch);
+            });
+        });
+    });
+</script>
+{% endblock %}

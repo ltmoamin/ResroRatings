@@ -1,0 +1,104 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Avis{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-comment-dots mr-3"></i>Détails de l'Avis
+                    </h1>
+                    <p class="text-muted mt-2">Consultez le contenu complet et les métadonnées de ce retour client.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_avis_index') }}" class="btn btn-outline-secondary shadow-sm" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour à la liste
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-dark font-weight-bold">Informations Source</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-item mb-4">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1">ID Message</label>
+                                <span class="badge badge-light px-3 py-2 font-weight-bold" style="font-size: 1rem; border-radius: 8px;">#{{ avi.id }}</span>
+                            </div>
+                            <div class="info-item mb-4">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1">Date d'émission</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="icon-circle-sm bg-primary-light text-primary-p mr-3"><i class="fa-regular fa-calendar-check"></i></div>
+                                    <span class="text-dark font-weight-bold">{{ avi.dateavis ? avi.dateavis|date('d F Y') : 'Inconnue' }}</span>
+                                </div>
+                            </div>
+                            <div class="info-item mb-4">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1">Restaurant concerné</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="icon-circle-sm bg-info-light text-info mr-3"><i class="fa-solid fa-utensils"></i></div>
+                                    <span class="text-dark font-weight-bold">{{ avi.restaurant.nom }}</span>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <label class="small text-muted d-block text-uppercase letter-spacing-1">Auteur</label>
+                                <div class="d-flex align-items-center">
+                                    <div class="icon-circle-sm bg-secondary-light text-secondary mr-3"><i class="fa-solid fa-user-tag"></i></div>
+                                    <span class="text-dark font-weight-bold">{{ avi.user.username }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card card-premium-admin shadow-lg border-0 h-100">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">
+                                <i class="fa-solid fa-quote-left mr-2"></i>Contenu du Feedback
+                            </h3>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h4 class="font-weight-bold text-dark mb-4" style="font-size: 1.4rem; border-left: 5px solid var(--primary); padding-left: 15px;">{{ avi.titreavis }}</h4>
+                            <div class="feedback-content p-4 rounded mb-5 flex-grow-1" style="background: var(--gray-50); border: 1px solid rgba(0,0,0,0.05); font-size: 1.15rem; line-height: 1.7; color: #444; position: relative;">
+                                <i class="fa-solid fa-quote-right position-absolute opacity-10" style="bottom: 20px; right: 20px; font-size: 4rem;"></i>
+                                {{ avi.pubavis }}
+                            </div>
+                            <div class="d-flex justify-content-end align-items-center border-top pt-4">
+                                {{ include('avis/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.icon-circle-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+.bg-primary-light { background: rgba(0, 242, 96, 0.1); }
+.bg-info-light { background: rgba(52, 152, 219, 0.1); }
+.bg-secondary-light { background: rgba(108, 117, 125, 0.1); }
+.letter-spacing-1 { letter-spacing: 1px; }
+.feedback-content {
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+</style>
+{% endblock %}

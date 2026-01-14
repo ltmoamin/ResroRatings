@@ -1,0 +1,106 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Détails Plat{% endblock %}
+
+{% block body %}
+<div class="fils">
+    <div class="content-header px-0">
+        <div class="container-fluid">
+            <div class="row mb-4 align-items-center">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-primary-p">
+                        <i class="fa-solid fa-bowl-food mr-3"></i>Détails du Plat
+                    </h1>
+                    <p class="text-muted mt-2">Consultez les caractéristiques et les détails de cette création.</p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{ path('app_plat_index') }}" class="btn btn-outline-secondary shadow-sm mr-2" style="border-radius: 10px;">
+                        <i class="fa-solid fa-arrow-left mr-2"></i>Retour
+                    </a>
+                    <a href="{{ path('app_plat_edit', {'idplat': plat.idplat}) }}" class="btn btn-warning shadow-sm" style="border-radius: 10px; font-weight: bold; color: #fff;">
+                        <i class="fa-solid fa-pen mr-2"></i>Modifier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card card-premium-admin shadow-lg border-0">
+                        <div class="card-body text-center py-5">
+                            <div class="position-relative d-inline-block mb-4">
+                                <img src="{{ asset('platimage/' ~ plat.image) }}" alt="{{ plat.nom }}" class="img-fluid rounded-circle shadow-lg" style="width: 200px; height: 200px; object-fit: cover; border: 5px solid var(--white);">
+                                <div class="badge badge-premium-pulse" style="position: absolute; bottom: 10px; right: 10px;">{{ plat.prix }} DT</div>
+                            </div>
+                            <h3 class="font-weight-bold text-dark mb-1">{{ plat.nom }}</h3>
+                            <span class="badge badge-light border-0 shadow-sm px-3 py-2 text-primary-p mb-3" style="border-radius: 8px;">
+                                <i class="fa-solid fa-tag mr-2"></i>{{ plat.categorie }}
+                            </span>
+                            <div class="px-4">
+                                <p class="text-muted small italic">"{{ plat.description }}"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="card card-premium-admin h-100 shadow-lg border-0">
+                        <div class="card-header border-0 bg-transparent">
+                            <h3 class="card-title text-primary-p font-weight-bold">
+                                <i class="fa-solid fa-list-check mr-2"></i>Fiche Technique
+                            </h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-premium-detail mb-0">
+                                    <tbody>
+                                        <tr>
+                                            <th class="pl-4 py-4" style="width: 35%; border-top: 0; background: rgba(0,0,0,0.02);">Référence</th>
+                                            <td class="py-4 font-weight-bold text-dark" style="border-top: 0;">#{{ plat.idplat }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="pl-4 py-4" style="background: rgba(0,0,0,0.02);">Nom du Plat</th>
+                                            <td class="py-4 text-dark">{{ plat.nom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="pl-4 py-4" style="background: rgba(0,0,0,0.02);">Catégorie Culinaire</th>
+                                            <td class="py-4 text-dark">{{ plat.categorie }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="pl-4 py-4" style="background: rgba(0,0,0,0.02);">Prix de Vente</th>
+                                            <td class="py-4 font-weight-bold text-primary-p" style="font-size: 1.2rem;">{{ plat.prix }} DT</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="pl-4 py-4" style="background: rgba(0,0,0,0.02); border-bottom: 0;">Description</th>
+                                            <td class="py-4 text-muted" style="border-bottom: 0; font-size: 0.95rem;">{{ plat.description }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light border-top-0 d-flex justify-content-end align-items-center px-4 py-3">
+                            {{ include('plat/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.table-premium-detail th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    vertical-align: top;
+}
+.table-premium-detail td {
+    font-size: 1.05rem;
+    vertical-align: top;
+}
+</style>
+{% endblock %}

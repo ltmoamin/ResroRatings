@@ -1,0 +1,22 @@
+{% extends 'back.html.twig' %}
+
+
+
+
+
+
+
+
+{% block title %}New Reclamation{% endblock %}
+
+{% block body %}
+<div class="fils" style="padding-left: 300px;" >
+</br></br>
+</br>
+    <h1>Create new Reclamation</h1>
+
+    {{ include('reclamation/_form.html.twig') }}
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+    </div>
+{% endblock %}

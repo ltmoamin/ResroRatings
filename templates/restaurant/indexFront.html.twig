@@ -1,0 +1,73 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Nos Restaurants - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <span>Restaurants</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-store text-figma-green me-3"></i>
+            Nos Restaurants
+        </h1>
+        <p class="page-subtitle">Découvrez tous nos établissements partenaires</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        {% if restaurants is not empty %}
+            <div class="row g-4">
+                {% for restaurant in restaurants %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="restaurant-card">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop&q=80" 
+                             alt="{{ restaurant.nom }}" 
+                             class="restaurant-card-img">
+                        <div class="restaurant-card-body">
+                            <h3 class="restaurant-card-title">{{ restaurant.nom }}</h3>
+                            <span class="restaurant-card-cuisine">Cuisine tunisienne</span>
+                            <div class="restaurant-card-meta">
+                                <span>
+                                    <i class="fa-solid fa-location-dot text-figma-green me-1"></i>
+                                    {{ restaurant.location }}
+                                </span>
+                                <span>
+                                    <i class="fa-solid fa-star text-warning me-1"></i>
+                                    4.5
+                                </span>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="btn-premium btn-sm-premium w-100">
+                                    <i class="fa-solid fa-utensils me-2"></i>
+                                    Voir le menu
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="panel-premium">
+                <div class="empty-state">
+                    <div class="empty-state-icon">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <h3 class="empty-state-title">Aucun restaurant</h3>
+                    <p class="empty-state-text">
+                        Aucun restaurant n'est disponible pour le moment.
+                    </p>
+                    <a href="{{ path('home_Front') }}" class="btn-premium">
+                        <i class="fa-solid fa-arrow-left me-2"></i>
+                        Retour à l'accueil
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

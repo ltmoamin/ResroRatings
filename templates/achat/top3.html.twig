@@ -1,0 +1,70 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Top 3 Plats - RestoRatings{% endblock %}
+
+{% block body %}
+<!-- Page Hero -->
+<section class="page-hero">
+    <div class="container">
+        <nav class="page-breadcrumb" aria-label="breadcrumb">
+            <a href="{{ path('home_Front') }}">Accueil</a> / <a href="{{ path('app_plat_plats_list') }}">Menu</a> / <span>Top 3</span>
+        </nav>
+        <h1 class="page-title">
+            <i class="fa-solid fa-trophy text-figma-green me-3"></i>
+            Les Favoris de la Semaine
+        </h1>
+        <p class="page-subtitle">Découvrez les 3 plats les plus plébiscités par nos clients</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 justify-content-center">
+            {% for plat in top3Plats %}        
+            <div class="col-lg-4 col-md-6">
+                <div class="product-card-premium h-100 position-relative">
+                    <!-- Rank Badge -->
+                    <div class="position-absolute top-0 start-0 m-3 z-index-1">
+                        <span class="badge rounded-circle bg-figma-green text-white d-flex align-items-center justify-content-center" 
+                              style="width: 40px; height: 40px; font-weight: 800; font-size: 1.2rem; box-shadow: var(--shadow-md);">
+                            {{ loop.index }}
+                        </span>
+                    </div>
+
+                    <div class="card-img-wrapper">
+                        <img src="{{ asset('platimage/' ~ plat.imagePath) }}" alt="{{ plat.platNom }}">
+                    </div>
+                    
+                    <div class="card-body text-center p-4">
+                        <h3 class="fw-bold mb-2">{{ plat.platNom }}</h3>
+                        <div class="d-flex justify-content-center align-items-center gap-3 mb-3">
+                            <span class="badge-premium badge-success py-2 px-3">
+                                <i class="fa-solid fa-fire-flame-curved me-2"></i>
+                                {{ plat.totalQuantite }} Commandes
+                            </span>
+                        </div>
+                        <div class="h4 fw-bold text-figma-green mb-0">{{ plat.prix }} DT</div>
+                        
+                        <div class="mt-4">
+                            <a href="{{ path('app_plat_plats_list') }}" class="btn-premium w-100">
+                                <i class="fa-solid fa-cart-plus me-2"></i> Commander maintenant
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div class="col-lg-8">
+                    <div class="panel-premium">
+                        <div class="empty-state">
+                            <i class="fa-solid fa-chart-line fa-3x text-muted mb-3"></i>
+                            <h3 class="empty-state-title">Données insuffisantes</h3>
+                            <p class="empty-state-text">Revenez bientôt pour voir les plats les plus populaires !</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,231 @@
+{% extends 'front.html.twig' %}
+
+{% block body %}
+<main>
+    <!-- Hero Section -->
+    <section class="hero-figma py-5 overflow-hidden" id="home">
+        <div class="container">
+            <div class="row align-items-center min-vh-75 g-5">
+                <div class="col-lg-6 order-2 order-lg-1">
+                    <div class="hero-text-content animate-slideUp">
+                        <h1 class="display-3 fw-800 mb-4 line-height-1">
+                            Dive into Delights <br> Of Delectable <span class="text-figma-green">Food</span>
+                        </h1>
+                        <p class="lead mb-5 pe-lg-5">
+                            Where Each Plate Weaves a Story of Culinary Mastery and Passionate Craftsmanship
+                        </p>
+                        <div class="d-flex align-items-center gap-4 flex-wrap">
+                            <button class="btn btn-order-figma" type="button">Order Now</button>
+                            <a href="#" class="video-play-link d-flex align-items-center gap-3 text-decoration-none fw-bold" aria-label="Watch our video">
+                                <div class="play-btn-circle">
+                                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                                </div>
+                                <span class="text-figma-green">Watch Video</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2">
+                    <div class="hero-image-container position-relative">
+                        <div class="circle-bg-green" aria-hidden="true"></div>
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&h=600&fit=crop&q=80" alt="Delicious healthy food bowl" class="img-fluid position-relative floating-plate rounded-circle" style="z-index: 2; max-width: 450px;" loading="eager">
+                        
+                        <!-- Floating Badge 1 -->
+                        <div class="floating-badge badge-top card border-0 p-3 rounded-4 position-absolute d-flex align-items-center gap-3" aria-hidden="true">
+                            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=50&h=50&fit=crop&q=80" alt="" class="rounded-circle" width="40" height="40">
+                            <div>
+                                <span class="text-figma-red fw-bold d-block">Hot Spicy Noodles</span>
+                                <div class="small-stars">
+                                    <i class="fa-solid fa-star text-warning small"></i>
+                                    <i class="fa-solid fa-star text-warning small"></i>
+                                    <i class="fa-solid fa-star text-warning small"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- Floating Badge 2 -->
+                        <div class="floating-badge badge-bottom card border-0 p-3 rounded-4 position-absolute d-flex align-items-center gap-3" aria-hidden="true">
+                            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=50&h=50&fit=crop&q=80" alt="" class="rounded-circle" width="40" height="40">
+                            <div>
+                                <h6 class="mb-0 fw-bold">Vegetarian Salad</h6>
+                                <span class="text-muted small">$23.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Categories -->
+    <section class="popular-categories py-5" id="menu">
+        <div class="container text-center">
+            <h6 class="text-figma-red fw-bold text-uppercase spacing-2 mb-3">Customer Favorites</h6>
+            <h2 class="display-5 fw-800 mb-5">Popular Categories</h2>
+            
+            <div class="row justify-content-center g-4">
+                {% set cats = [
+                    {'name': 'Main Dish', 'count': '(86 dishes)', 'icon': 'fa-solid fa-utensils', 'color': '#2ECC71'},
+                    {'name': 'Breakfast', 'count': '(12 dishes)', 'icon': 'fa-solid fa-mug-hot', 'color': '#E74C3C'},
+                    {'name': 'Dessert', 'count': '(48 dishes)', 'icon': 'fa-solid fa-ice-cream', 'color': '#9B59B6'},
+                    {'name': 'Browse All', 'count': '(255 dishes)', 'icon': 'fa-solid fa-bowl-food', 'color': '#F39C12'}
+                ] %}
+                {% for cat in cats %}
+                <div class="col-6 col-md-3">
+                    <a href="#" class="text-decoration-none">
+                        <div class="category-card card border-0 p-4 rounded-5 h-100">
+                            <div class="icon-circle mx-auto mb-4" style="background: {{ cat.color }}20;">
+                                <i class="{{ cat.icon }} fs-2" style="color: {{ cat.color }};"></i>
+                            </div>
+                            <h5 class="fw-bold mb-1 text-dark">{{ cat.name }}</h5>
+                            <span class="text-muted small">{{ cat.count }}</span>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Dishes -->
+    <section class="special-dishes py-5" id="offers">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-end mb-5 flex-wrap gap-3">
+                <div>
+                    <h6 class="text-figma-red fw-bold text-uppercase spacing-2 mb-2">Special Dishes</h6>
+                    <h2 class="display-5 fw-800">Standout Dishes From Our Menu</h2>
+                </div>
+                <div class="carousel-nav d-flex gap-3">
+                    <button class="btn btn-prev" type="button" aria-label="Previous dish">
+                        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-next" type="button" aria-label="Next dish">
+                        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-4 dishes-grid">
+                {% set dishes = [
+                    {'name': 'Greek Salad', 'desc': 'Fresh vegetables with feta cheese and olive oil dressing', 'price': '24.00', 'rate': '4.9', 'img': 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=400&h=400&fit=crop&q=80'},
+                    {'name': 'Grilled Salmon', 'desc': 'Premium salmon fillet with herbs and lemon butter', 'price': '32.00', 'rate': '4.8', 'img': 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=400&fit=crop&q=80'},
+                    {'name': 'Pasta Primavera', 'desc': 'Fresh pasta with seasonal vegetables and parmesan', 'price': '26.00', 'rate': '4.7', 'img': 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&h=400&fit=crop&q=80'}
+                ] %}
+                {% for dish in dishes %}
+                <div class="col-lg-4 col-md-6">
+                    <article class="dish-card card border-0 p-3 rounded-5 position-relative h-100">
+                        <button class="heart-badge" type="button" aria-label="Add {{ dish.name }} to favorites">
+                            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                        </button>
+                        <div class="dish-img-wrapper mb-4">
+                            <img src="{{ dish.img }}" alt="{{ dish.name }}" class="img-fluid rounded-4" style="width: 100%; height: 200px; object-fit: cover;" loading="lazy">
+                        </div>
+                        <div class="px-2">
+                            <h4 class="fw-bold mb-2">{{ dish.name }}</h4>
+                            <p class="text-muted small mb-4">{{ dish.desc }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold fs-5"><span class="text-figma-red small">$</span>{{ dish.price }}</span>
+                                <div class="rating-badge">
+                                    <i class="fa-solid fa-star text-warning" aria-hidden="true"></i> {{ dish.rate }}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials py-5" id="testimonials">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6">
+                    <div class="testimonial-image-wrapper position-relative text-center">
+                        <div class="chef-blob-bg" aria-hidden="true"></div>
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=500&h=600&fit=crop&q=80" alt="Professional chef preparing food" class="img-fluid position-relative rounded-custom-chef shadow-lg" style="z-index: 2; max-height: 500px;" loading="lazy">
+                        
+                        <!-- Customer Feedback Floating Card -->
+                        <div class="customer-feedback-card card border-0 shadow-lg p-3 rounded-4 position-absolute text-start" aria-hidden="true">
+                             <div class="d-flex align-items-center gap-3 mb-2">
+                                <div class="avatar-stack">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&q=80" width="30" class="rounded-circle border border-2 border-white" alt="">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&q=80" width="30" class="rounded-circle border border-2 border-white ms-n2" alt="">
+                                </div>
+                                <div class="fw-bold small">Customer Feedback</div>
+                             </div>
+                             <div class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-star text-warning small" aria-hidden="true"></i>
+                                <span class="fw-bold">4.9</span>
+                                <span class="text-muted small">(18.6k Reviews)</span>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h6 class="text-figma-red fw-bold text-uppercase spacing-2 mb-3">Testimonials</h6>
+                    <h2 class="display-5 fw-800 mb-4">What Our Customers <br> Say About Us</h2>
+                    <blockquote class="mb-4">
+                        <p class="lead italic">
+                            "I had the pleasure of dining at RestoRatings last night, and I'm still raving about the experience! The attention to detail in presentation and service was impeccable."
+                        </p>
+                    </blockquote>
+                    <div class="d-flex align-items-center gap-3">
+                         <div class="avatar-group d-flex">
+                             <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=90&h=90&fit=crop&q=80" width="45" height="45" class="rounded-circle border border-3 border-white shadow-sm" alt="Sarah Johnson">
+                         </div>
+                         <div>
+                            <h6 class="mb-0 fw-bold">Sarah Johnson</h6>
+                            <div class="text-warning small" aria-label="5 out of 5 stars">
+                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                                <i class="fa-solid fa-star" aria-hidden="true"></i>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Services Section -->
+    <section class="services py-5" id="services">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <h6 class="text-figma-red fw-bold text-uppercase spacing-2 mb-3">Our Story & Services</h6>
+                    <h2 class="display-5 fw-800 mb-4">Our Culinary Journey <br> And Services</h2>
+                    <p class="text-muted mb-5">
+                        Rooted in passion, we curate unforgettable dining experiences and offer exceptional services, blending culinary artistry with warm hospitality.
+                    </p>
+                    <button class="btn btn-order-figma" type="button">Explore More</button>
+                </div>
+                <div class="col-lg-7">
+                    <div class="row g-4">
+                        {% set services = [
+                            {'title': 'Catering', 'desc': 'Delight your guests with our flavors and presentation', 'icon': 'fa-solid fa-utensils', 'color': '#2ECC71'},
+                            {'title': 'Fast Delivery', 'desc': 'We deliver your order promptly to your door', 'icon': 'fa-solid fa-truck-fast', 'color': '#3498DB'},
+                            {'title': 'Online Ordering', 'desc': 'Explore menu & order with ease using our App', 'icon': 'fa-solid fa-mobile-screen', 'color': '#9B59B6'},
+                            {'title': 'Gift Cards', 'desc': 'Give the gift of exceptional dining with us', 'icon': 'fa-solid fa-gift', 'color': '#E74C3C'}
+                        ] %}
+                        {% for svc in services %}
+                        <div class="col-sm-6">
+                            <div class="service-card card border-0 p-4 rounded-5 text-center h-100">
+                                <div class="service-icon mb-4 mx-auto d-flex align-items-center justify-content-center rounded-circle" style="width: 80px; height: 80px; background: {{ svc.color }}15;">
+                                    <i class="{{ svc.icon }} fs-2" style="color: {{ svc.color }};" aria-hidden="true"></i>
+                                </div>
+                                <h5 class="fw-bold mb-3" style="color: {{ svc.color }};">{{ svc.title }}</h5>
+                                <p class="small text-muted mb-0">{{ svc.desc }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

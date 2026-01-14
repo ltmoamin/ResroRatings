@@ -1,0 +1,30 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Participant{% endblock %}
+
+{% block body %}
+    <h1>Participant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Idparticipant</th>
+                <td>{{ participant.idparticipant }}</td>
+            </tr>
+            <tr>
+                <th>Datepar</th>
+                <td>{{ participant.datepar ? participant.datepar|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ participant.numero }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_participant_index') }}">back to list</a>
+
+    <a href="{{ path('app_participant_edit', {'idparticipant': participant.idparticipant}) }}">edit</a>
+
+    {{ include('participant/_delete_form.html.twig') }}
+{% endblock %}
