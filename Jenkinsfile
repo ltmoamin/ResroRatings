@@ -24,15 +24,26 @@ pipeline {
                 }
             }
         }
+        stage('Build Image') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'docker-compose build --no-cache'
+                    } else {
+                        bat 'docker-compose build --no-cache'
+                    }
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 script {
                     if (isUnix()) {
                         sh 'docker-compose down'
-                        sh 'docker-compose up -d --build'
+                        sh 'docker-compose up -d'
                     } else {
                         bat 'docker-compose down'
-                        bat 'docker-compose up -d --build'
+                        bat 'docker-compose up -d'
                     }
                 }
             }
