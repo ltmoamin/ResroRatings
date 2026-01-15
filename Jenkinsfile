@@ -35,6 +35,21 @@ pipeline {
                 }
             }
         }
+        stage('Push Image') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        if (isUnix()) {
+                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                            sh 'docker-compose push'
+                        } else {
+                            bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+                            bat 'docker-compose push'
+                        }
+                    }
+                }
+            }
+        }
         stage('Deploy') {
             steps {
                 script {

@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: ltmoamin/resto-app:latest
     container_name: resto_app
     restart: unless-stopped
     ports:
