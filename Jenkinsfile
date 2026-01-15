@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'php:8.2-cli' } // or another PHP image with Composer
+        docker { image 'composer:2' } // already has PHP + Composer
     }
     stages {
         stage('Build') {
