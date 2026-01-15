@@ -24,5 +24,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploy') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'docker-compose down'
+                        sh 'docker-compose up -d --build'
+                    } else {
+                        bat 'docker-compose down'
+                        bat 'docker-compose up -d --build'
+                    }
+                }
+            }
+        }
     }
 }
