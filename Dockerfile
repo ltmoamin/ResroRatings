@@ -1,6 +1,11 @@
+# --------------------------
+# Dockerfile pour Symfony
+# --------------------------
+
+# Image de base PHP 8.2 avec Apache
 FROM php:8.2-apache
 
-# Installer dépendances système et extensions PHP nécessaires
+# Installer dépendances système et extensions PHP
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -12,10 +17,13 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     zip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql intl zip gd
+    && docker-php-ext-install pdo pdo_mysql intl zip gd \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Activer Apache rewrite
+# Activer le module rewrite d'Apache
 RUN a2enmod rewrite
+
+# Pointer le DocumentRoot sur le dossier public de Symfony
 RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
 
 # Définir le répertoire de travail
@@ -28,12 +36,11 @@ ENV APP_DEBUG=0
 # Installer Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copier composer.json et composer.lock et installer les dépendances
-COPY composer.json composer.lock ./
-RUN composer install --no-dev --optimize-autoloader
-
-# Copier le code source
+# Copier tout le projet Symfony dans l'image
 COPY . .
+
+# Installer les dépendances PHP avec Composer
+RUN composer install --no-dev --optimize-autoloader
 
 # Exposer le port Apache
 EXPOSE 80
