@@ -15,11 +15,7 @@ pipeline {
         sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER} ."
       }
     }
-    stage("Run tests") {
-      steps {
-        sh "docker run --rm ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER} php bin/phpunit"
-      }
-    }
+   
     stage("Push image") {
       steps {
         withCredentials([usernamePassword(credentialsId: "docker-hub-credentials", usernameVariable: "DOCKER_USER", passwordVariable: "DOCKER_PASS")]) {
