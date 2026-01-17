@@ -1,73 +1,33 @@
-version: '3.8'
-
+version: "3.8"
 services:
-  # Symfony Application
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: ltmoamin/resto-app:latest
+    build: .
     container_name: resto_app
-    restart: unless-stopped
     ports:
       - "8080:80"
-    volumes:
-      - .:/var/www/html
-      - ./var:/var/www/html/var
-      - ./vendor:/var/www/html/vendor
     environment:
-      APP_ENV: dev
-      APP_SECRET: f6fd8e1d106fceea44ff955319b6a850
-      DATABASE_URL: mysql://resto_user:resto_password@db:3306/resto?serverVersion=8.0
+      APP_ENV: prod
+      APP_DEBUG: "0"
+      DATABASE_URL: "mysql://resto_user:resto_pass@db:3306/resto"
     depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - resto_network
-
-  # MySQL Database
+      - db
+    volumes:
+      - symfony_var:/var/www/html/var
+      - symfony_public_uploads:/var/www/html/public/uploads
   db:
     image: mysql:8.0
     container_name: resto_db
-    restart: unless-stopped
+    restart: always
+    environment:
+      MYSQL_DATABASE: resto
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: resto_user
+      MYSQL_PASSWORD: resto_pass
     ports:
       - "3307:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root_password
-      MYSQL_DATABASE: resto
-      MYSQL_USER: resto_user
-      MYSQL_PASSWORD: resto_password
     volumes:
       - db_data:/var/lib/mysql
-      - ./demo_data.sql:/docker-entrypoint-initdb.d/demo_data.sql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot_password"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - resto_network
-
-  # phpMyAdmin (optional - for database management)
-  phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: resto_phpmyadmin
-    restart: unless-stopped
-    ports:
-      - "8081:80"
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: resto_user
-      PMA_PASSWORD: resto_password
-    depends_on:
-      - db
-    networks:
-      - resto_network
-
-networks:
-  resto_network:
-    driver: bridge
-
 volumes:
+  symfony_var:
+  symfony_public_uploads:
   db_data:
