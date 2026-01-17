@@ -1,68 +1,32 @@
 pipeline {
-    agent {
-        docker { image 'composer:2' } // already has PHP + Composer
+  agent any
+  environment {
+    REGISTRY = "docker.io"
+    IMAGE_NAME = "moamina/resto_app"
+  }
+  stages {
+    stage("Checkout") {
+      steps {
+        checkout scm
+      }
     }
-    stages {
-        stage('Build') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'composer install'
-                    } else {
-                        bat 'composer install'
-                    }
-                }
-            }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'php bin/phpunit'
-                    } else {
-                        bat 'php bin/phpunit'
-                    }
-                }
-            }
-        }
-        stage('Build Image') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'docker-compose build --no-cache'
-                    } else {
-                        bat 'docker-compose build --no-cache'
-                    }
-                }
-            }
-        }
-        stage('Push Image') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        if (isUnix()) {
-                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
-                            sh 'docker-compose push'
-                        } else {
-                            bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
-                            bat 'docker-compose push'
-                        }
-                    }
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                script {
-                    if (isUnix()) {
-                        sh 'docker-compose down'
-                        sh 'docker-compose up -d'
-                    } else {
-                        bat 'docker-compose down'
-                        bat 'docker-compose up -d'
-                    }
-                }
-            }
-        }
+    stage("Build image") {
+      steps {
+        sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER} ."
+      }
     }
+    stage("Run tests") {
+      steps {
+        sh "docker run --rm ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER} php bin/phpunit"
+      }
+    }
+    stage("Push image") {
+      steps {
+        withCredentials([usernamePassword(credentialsId: "docker-hub-credentials", usernameVariable: "DOCKER_USER", passwordVariable: "DOCKER_PASS")]) {
+          sh "echo $DOCKER_PASS | docker login ${REGISTRY} -u $DOCKER_USER --password-stdin"
+          sh "docker push ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER}"
+        }
+      }
+    }
+  }
 }
