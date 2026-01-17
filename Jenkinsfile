@@ -15,11 +15,14 @@ pipeline {
         sh "docker build -t ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER} ."
       }
     }
-   
-    stage("Push image") {
+    stage('Push image') {
       steps {
-        withCredentials([usernamePassword(credentialsId: "docker-hub-credentials", usernameVariable: "DOCKER_USER", passwordVariable: "DOCKER_PASS")]) {
-          sh "echo $DOCKER_PASS | docker login ${REGISTRY} -u $DOCKER_USER --password-stdin"
+        withCredentials([usernamePassword(
+            credentialsId: 'docker-hub-credentials', 
+            usernameVariable: 'DOCKER_USER', 
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+          sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
           sh "docker push ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER}"
         }
       }
